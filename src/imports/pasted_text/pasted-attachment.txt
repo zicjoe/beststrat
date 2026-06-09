@@ -1,0 +1,244 @@
+Create a production ready React TypeScript frontend for a crypto strategy generation product called BestStrat.
+
+BestStrat is a CoinMarketCap Strategy Skill product for the BNB Hack AI Trading Agent Edition, Track 2. It does not execute trades, does not connect wallets, and does not place live orders. It turns CoinMarketCap market data into a backtestable trading strategy spec.
+
+Core product idea:
+BestStrat helps users generate Quantopian style crypto strategies. The app detects market regime, analyzes market signals, generates entry rules, exit rules, risk rules, invalidation rules, and shows backtest results. The final output should be usable as a CMC Skill strategy spec.
+
+Design style:
+Dark professional crypto dashboard
+Premium, serious, clean, data driven
+Use deep black, charcoal, slate gray, white text, soft BNB yellow accents, green for positive results, red for risk warnings
+No cartoon style
+No meme style
+No wallet connect
+No login page
+No fake trading execution buttons
+No “Buy” or “Sell” action buttons
+The app must clearly say it generates strategy specs, not financial advice
+
+Main layout:
+Use a desktop first dashboard layout with responsive mobile support.
+
+Top header:
+BestStrat logo text
+Subtitle: CMC Strategy Skill Builder
+Status pill: Track 2 Strategy Skill
+Small navigation items: Generate, Backtest, Strategy Spec, Export
+
+Main page sections:
+
+Hero Summary Section
+    Title: Generate backtestable crypto strategies from CMC market data
+    Short description: BestStrat detects market regimes, builds strategy rules, and outputs a testable strategy spec for CMC Skills.
+Strategy Input Panel
+    This should be on the left side on desktop and stacked on mobile.
+    Fields:
+    Token symbol input
+    Timeframe selector
+    Lookback days selector
+    Risk level selector with Conservative, Moderate, Aggressive
+    Strategy focus selector with Auto Detect, Momentum, Sentiment Divergence, Regime Detection, Risk Off
+    Generate Strategy button
+Market Regime Section
+    Cards showing:
+    Detected regime
+    Regime confidence
+    Market condition summary
+    Trend state
+    Volatility state
+    Sentiment state
+    Liquidity state
+Generated Strategy Spec Section
+    Cards showing:
+    Strategy name
+    Strategy summary
+    Entry rules
+    Exit rules
+    Risk rules
+    Invalidation rules
+    Position sizing logic
+    No trade conditions
+Signal Breakdown Section
+    Show a clean scorecard with:
+    RSI signal
+    MACD signal
+    Volume signal
+    Fear and Greed signal
+    Sentiment signal
+    Volatility signal
+    Regime signal
+    Each signal should have score, status, and short reason
+Backtest Results Section
+    Cards showing:
+    Total return
+    Win rate
+    Max drawdown
+    Number of trades
+    Average trade return
+    Best trade
+    Worst trade
+    Risk adjusted score
+Charts Section
+    Equity curve chart
+    Drawdown chart
+    Signal strength chart
+Export Section
+    Tabs:
+    JSON Strategy Spec
+    Markdown Report
+    CMC Skill Output
+    Each tab should show formatted output in a code style panel with a Copy button
+Recent Strategy Runs Table
+    Columns:
+    Token
+    Timeframe
+    Regime
+    Strategy
+    Total return
+    Max drawdown
+    Created time
+    Action button: View
+
+Required component names:
+App
+AppHeader
+HeroSummary
+StrategyInputPanel
+TokenInput
+TimeframeSelect
+LookbackSelect
+RiskLevelSelect
+StrategyFocusSelect
+GenerateStrategyButton
+MarketRegimeSection
+MarketRegimeCard
+GeneratedStrategySpec
+StrategySummaryCard
+EntryRulesCard
+ExitRulesCard
+RiskRulesCard
+InvalidationRulesCard
+SignalBreakdownSection
+SignalScoreCard
+BacktestResultsSection
+BacktestMetricCard
+EquityCurveChart
+DrawdownChart
+SignalStrengthChart
+ExportSection
+JsonStrategySpec
+MarkdownReport
+CmcSkillOutput
+RecentStrategyRunsTable
+LoadingState
+EmptyState
+ErrorState
+
+State requirements:
+Before generation, show EmptyState with a clear message
+After clicking Generate Strategy, show LoadingState
+If backend request fails, show ErrorState
+After success, populate all cards, charts, tables, and export panels from API response data
+Backend API to wire later:
+POST /api/strategy/generate
+
+Frontend request body:
+{
+“symbol”: “CAKE”,
+“timeframe”: “1h”,
+“lookbackDays”: 30,
+“riskLevel”: “moderate”,
+“strategyFocus”: “auto”
+}
+
+Frontend response shape:
+{
+“symbol”: “CAKE”,
+“timeframe”: “1h”,
+“lookbackDays”: 30,
+“riskLevel”: “moderate”,
+“strategyFocus”: “auto”,
+“detectedRegime”: “Momentum”,
+“regimeConfidence”: 78,
+“marketSummary”: “Trend is positive, volume is expanding, and risk conditions are acceptable.”,
+“strategyName”: “Guarded Momentum Strategy”,
+“strategySummary”: “Enter only when trend, volume, and sentiment confirm momentum while volatility remains controlled.”,
+“entryRules”: [
+“Price must stay above EMA 20”,
+“RSI must remain between 50 and 70”,
+“Volume must be above 7 day average”
+],
+“exitRules”: [
+“Exit when price loses EMA 20”,
+“Exit when RSI drops below 48”,
+“Exit when momentum weakens”
+],
+“riskRules”: [
+“Avoid trade when volatility expands aggressively”,
+“Avoid trade when sentiment turns strongly negative”,
+“Limit risk per setup”
+],
+“invalidationRules”: [
+“Strategy invalid if market regime changes to Risk Off”,
+“Strategy invalid if max drawdown exceeds threshold”
+],
+“positionSizing”: “Moderate risk allocation based on volatility and drawdown limits”,
+“noTradeConditions”: [
+“Weak liquidity”,
+“Conflicting signals”,
+“High volatility without trend confirmation”
+],
+“signals”: [
+{
+“name”: “RSI”,
+“score”: 72,
+“status”: “Bullish”,
+“reason”: “Momentum is positive but not overheated”
+}
+],
+“backtest”: {
+“totalReturn”: “12.4%”,
+“winRate”: “58%”,
+“maxDrawdown”: “6.2%”,
+“numberOfTrades”: 18,
+“averageTradeReturn”: “0.7%”,
+“bestTrade”: “4.8%”,
+“worstTrade”: “-2.1%”,
+“riskAdjustedScore”: 76
+},
+“equityCurve”: [
+{ “time”: “Day 1”, “value”: 1000 },
+{ “time”: “Day 2”, “value”: 1024 }
+],
+“drawdownCurve”: [
+{ “time”: “Day 1”, “value”: 0 },
+{ “time”: “Day 2”, “value”: -1.2 }
+],
+“signalStrength”: [
+{ “name”: “RSI”, “value”: 72 },
+{ “name”: “MACD”, “value”: 68 }
+],
+“jsonOutput”: {},
+“markdownReport”: “”,
+“cmcSkillOutput”: {}
+}
+
+Code structure requirement:
+Create clean React TypeScript code
+Use Tailwind CSS
+Use reusable components
+Put API call logic in src/lib/api.ts
+Put TypeScript response types in src/types/strategy.ts
+Keep mock data separate in src/data/mockStrategy.ts
+Do not hardcode final values inside components
+Make it easy for a developer to replace mock data with the real backend API
+
+Important:
+The UI must feel like a CMC Skill strategy generation product, not a trading bot.
+The strongest visible flow should be:
+Market data input
+Regime detection
+Strategy generation
+Backtest result
+Exportable CMC Skill strategy spec

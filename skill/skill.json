@@ -1,0 +1,32 @@
+{
+  "name": "BestStrat",
+  "version": "1.0.0",
+  "type": "strategy_generation_skill",
+  "description": "A CMC Strategy Skill that detects crypto market regimes and outputs backtestable strategy specs with entry, exit, risk, invalidation, and backtest results.",
+  "inputs": {
+    "symbol": "string",
+    "timeframe": "5m | 15m | 1h | 4h | 1d",
+    "lookbackDays": "7 | 14 | 30 | 60 | 90",
+    "riskLevel": "conservative | moderate | aggressive",
+    "strategyFocus": "auto | momentum | sentiment_divergence | regime_detection | risk_off"
+  },
+  "outputs": {
+    "detectedRegime": "string",
+    "regimeConfidence": "number",
+    "strategyName": "string",
+    "entryRules": "string[]",
+    "exitRules": "string[]",
+    "riskRules": "string[]",
+    "invalidationRules": "string[]",
+    "backtest": "object",
+    "jsonOutput": "object",
+    "markdownReport": "string",
+    "cmcSkillOutput": "object"
+  },
+  "constraints": [
+    "No wallet connection",
+    "No live trade execution",
+    "No buy or sell order placement",
+    "Strategy specification and research output only"
+  ]
+}

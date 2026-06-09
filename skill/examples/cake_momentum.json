@@ -1,0 +1,18 @@
+{
+  "input": {
+    "symbol": "CAKE",
+    "timeframe": "1h",
+    "lookbackDays": 30,
+    "riskLevel": "moderate",
+    "strategyFocus": "momentum"
+  },
+  "expectedOutputShape": {
+    "detectedRegime": "Momentum",
+    "strategyName": "Guarded Momentum Strategy",
+    "entryRules": [],
+    "exitRules": [],
+    "riskRules": [],
+    "backtest": {},
+    "cmcSkillOutput": {}
+  }
+}
