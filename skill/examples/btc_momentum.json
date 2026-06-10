@@ -1,0 +1,14 @@
+{
+  "input": {
+    "symbol": "BTC",
+    "timeframe": "4h",
+    "lookbackDays": 30,
+    "riskLevel": "moderate",
+    "strategyFocus": "momentum"
+  },
+  "expectedOutput": {
+    "detectedRegime": "Momentum",
+    "strategyName": "Guarded Momentum Strategy",
+    "requiredRules": ["entryRules", "exitRules", "riskRules", "invalidationRules", "backtest", "decisionRationale"]
+  }
+}

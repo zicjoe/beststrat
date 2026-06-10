@@ -4,15 +4,12 @@
     "timeframe": "1h",
     "lookbackDays": 30,
     "riskLevel": "moderate",
-    "strategyFocus": "momentum"
+    "strategyFocus": "auto"
   },
-  "expectedOutputShape": {
-    "detectedRegime": "Momentum",
-    "strategyName": "Guarded Momentum Strategy",
-    "entryRules": [],
-    "exitRules": [],
-    "riskRules": [],
-    "backtest": {},
-    "cmcSkillOutput": {}
+  "expectedOutput": {
+    "project": "BestStrat",
+    "track": "BNB Hack Track 2 Strategy Skill",
+    "outputType": "backtestable strategy specification",
+    "mustInclude": ["detectedRegime", "decisionRationale", "entryRules", "exitRules", "riskRules", "backtest"]
   }
 }

@@ -1,5 +1,15 @@
 import type { StrategyRequest, StrategyResponse, RecentRun } from "../types/strategy";
 
+export interface HealthResponse {
+  ok: boolean;
+  service: string;
+  mode: string;
+  cmcApiConfigured?: boolean;
+  dataPolicy?: string;
+  loadedEnvFiles?: string[];
+  timestamp: string;
+}
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 async function parseApiError(response: Response) {
@@ -47,7 +57,7 @@ export async function fetchStrategyRun(id: string): Promise<StrategyResponse> {
   return response.json();
 }
 
-export async function healthCheck(): Promise<{ ok: boolean; service: string; mode: string; timestamp: string }> {
+export async function healthCheck(): Promise<HealthResponse> {
   const response = await fetch(`${API_BASE_URL}/api/health`);
   if (!response.ok) {
     throw new Error(await parseApiError(response));

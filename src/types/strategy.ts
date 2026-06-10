@@ -59,6 +59,10 @@ export interface StrategyResponse {
   cmcSkillOutput: Record<string, unknown>;
   meta?: {
     dataSource?: string;
+    dataProvider?: string;
+    cmcApiConfigured?: boolean;
+    cmcQuoteUsed?: boolean;
+    fallbackReason?: string | null;
     candlesAnalyzed?: number;
     generatedAt?: string;
     note?: string;

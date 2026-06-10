@@ -16,7 +16,9 @@ const DEFAULT_PRICES = {
 
 async function fetchCmcQuote(symbol) {
   const apiKey = process.env.CMC_API_KEY;
-  if (!apiKey) return null;
+  if (!apiKey) {
+    return { quote: null, fallbackReason: "CMC_API_KEY is not configured." };
+  }
 
   try {
     const url = new URL("https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest");
@@ -27,25 +29,40 @@ async function fetchCmcQuote(symbol) {
         Accept: "application/json",
       },
     });
-    if (!response.ok) return null;
+
+    if (!response.ok) {
+      return { quote: null, fallbackReason: `CoinMarketCap quote request failed with status ${response.status}.` };
+    }
+
     const payload = await response.json();
     const item = payload?.data?.[symbol]?.[0];
     const quote = item?.quote?.USD;
-    if (!quote?.price) return null;
+
+    if (!quote?.price) {
+      return { quote: null, fallbackReason: `CoinMarketCap returned no USD quote for ${symbol}.` };
+    }
+
     return {
-      price: Number(quote.price),
-      volume24h: Number(quote.volume_24h ?? 0),
-      percentChange24h: Number(quote.percent_change_24h ?? 0),
-      percentChange7d: Number(quote.percent_change_7d ?? quote.percent_change_24h ?? 0),
-      marketCap: Number(quote.market_cap ?? 0),
-      dataSource: "CoinMarketCap latest quote + deterministic historical simulation",
+      quote: {
+        price: Number(quote.price),
+        volume24h: Number(quote.volume_24h ?? 0),
+        percentChange24h: Number(quote.percent_change_24h ?? 0),
+        percentChange7d: Number(quote.percent_change_7d ?? quote.percent_change_24h ?? 0),
+        marketCap: Number(quote.market_cap ?? 0),
+        dataSource: "CoinMarketCap latest quote + deterministic backtest candles",
+        dataProvider: "cmc_latest_quote",
+      },
+      fallbackReason: null,
     };
-  } catch {
-    return null;
+  } catch (error) {
+    return {
+      quote: null,
+      fallbackReason: error instanceof Error ? `CoinMarketCap quote request failed: ${error.message}` : "CoinMarketCap quote request failed.",
+    };
   }
 }
 
-function buildSyntheticQuote(symbol, random) {
+function buildSyntheticQuote(symbol, random, fallbackReason) {
   const basePrice = DEFAULT_PRICES[symbol] ?? Math.max(0.03, 0.5 + random() * 85);
   const change24h = (random() - 0.48) * 12;
   const change7d = change24h * (1 + random() * 2) + (random() - 0.5) * 10;
@@ -56,6 +73,8 @@ function buildSyntheticQuote(symbol, random) {
     percentChange7d: change7d,
     marketCap: Math.round(basePrice * (10_000_000 + random() * 500_000_000)),
     dataSource: "Deterministic sample market data",
+    dataProvider: "sample_fallback",
+    fallbackReason,
   };
 }
 
@@ -63,8 +82,8 @@ export async function getMarketDataset(request) {
   const symbol = request.symbol.trim().toUpperCase();
   const seed = `${symbol}:${request.timeframe}:${request.lookbackDays}:${request.riskLevel}:${request.strategyFocus}`;
   const random = seededRandom(seed);
-  const cmcQuote = await fetchCmcQuote(symbol);
-  const quote = cmcQuote ?? buildSyntheticQuote(symbol, random);
+  const cmcResult = await fetchCmcQuote(symbol);
+  const quote = cmcResult.quote ?? buildSyntheticQuote(symbol, random, cmcResult.fallbackReason);
 
   const minutes = timeframeToMinutes(request.timeframe);
   const theoreticalCandles = Math.ceil((request.lookbackDays * 24 * 60) / minutes);
@@ -112,5 +131,8 @@ export async function getMarketDataset(request) {
     socialHeatScore: round(socialHeatScore, 1),
     liquidityScore: round(liquidityScore, 1),
     dataSource: quote.dataSource,
+    dataProvider: quote.dataProvider,
+    fallbackReason: quote.fallbackReason ?? null,
+    cmcApiConfigured: Boolean(process.env.CMC_API_KEY),
   };
 }

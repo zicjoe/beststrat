@@ -8,7 +8,7 @@ import { ChartsSection } from "../components/Charts";
 import { ExportSection } from "../components/ExportSection";
 import { RecentStrategyRunsTable } from "../components/RecentStrategyRunsTable";
 import { LoadingState, EmptyState, ErrorState } from "../components/StateComponents";
-import { fetchRecentRuns, fetchStrategyRun, generateStrategy } from "../../lib/api";
+import { fetchRecentRuns, fetchStrategyRun, generateStrategy, healthCheck } from "../../lib/api";
 import { mockRecentRuns } from "../../data/mockStrategy";
 import type { StrategyResponse, StrategyRequest, RecentRun, AppState } from "../../types/strategy";
 
@@ -17,8 +17,13 @@ export function BuilderPage() {
   const [strategyData, setStrategyData] = useState<StrategyResponse | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [recentRuns, setRecentRuns] = useState<RecentRun[]>(mockRecentRuns);
+  const [apiMode, setApiMode] = useState<"checking" | "cmc" | "sample" | "offline">("checking");
 
   useEffect(() => {
+    healthCheck()
+      .then((health) => setApiMode(health.cmcApiConfigured ? "cmc" : "sample"))
+      .catch(() => setApiMode("offline"));
+
     fetchRecentRuns()
       .then((runs) => {
         if (runs.length) setRecentRuns(runs);
@@ -92,9 +97,28 @@ export function BuilderPage() {
                 Configure parameters · Generate regime-aware strategy · Export CMC Skill spec
               </p>
             </div>
-            <span className="ml-auto hidden sm:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#0ECB81]/10 text-[#0ECB81] border border-[#0ECB81]/30">
-              Strategy Spec Mode — no trades executed
-            </span>
+            <div className="ml-auto hidden sm:flex items-center gap-2">
+              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#0ECB81]/10 text-[#0ECB81] border border-[#0ECB81]/30">
+                Strategy Spec Mode — no trades executed
+              </span>
+              <span
+                className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${
+                  apiMode === "cmc"
+                    ? "bg-[#0ECB81]/10 text-[#0ECB81] border-[#0ECB81]/30"
+                    : apiMode === "offline"
+                      ? "bg-[#F6465D]/10 text-[#F6465D] border-[#F6465D]/30"
+                      : "bg-[#F0B90B]/10 text-[#F0B90B] border-[#F0B90B]/30"
+                }`}
+              >
+                {apiMode === "checking"
+                  ? "Checking data source"
+                  : apiMode === "cmc"
+                    ? "CMC data ready"
+                    : apiMode === "offline"
+                      ? "API offline"
+                      : "Demo fallback data"}
+              </span>
+            </div>
           </div>
         </div>
       </div>

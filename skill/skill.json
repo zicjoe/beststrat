@@ -1,8 +1,9 @@
 {
   "name": "BestStrat",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "strategy_generation_skill",
-  "description": "A CMC Strategy Skill that detects crypto market regimes and outputs backtestable strategy specs with entry, exit, risk, invalidation, and backtest results.",
+  "description": "A CMC Strategy Skill that detects crypto market regimes and outputs backtestable strategy specs with entry, exit, risk, invalidation, rationale, and backtest results.",
+  "track": "BNB Hack Track 2 Strategy Skills",
   "inputs": {
     "symbol": "string",
     "timeframe": "5m | 15m | 1h | 4h | 1d",
@@ -13,15 +14,23 @@
   "outputs": {
     "detectedRegime": "string",
     "regimeConfidence": "number",
+    "decisionRationale": "string[]",
     "strategyName": "string",
+    "strategySummary": "string",
     "entryRules": "string[]",
     "exitRules": "string[]",
     "riskRules": "string[]",
     "invalidationRules": "string[]",
+    "noTradeConditions": "string[]",
     "backtest": "object",
     "jsonOutput": "object",
     "markdownReport": "string",
     "cmcSkillOutput": "object"
+  },
+  "dataPolicy": {
+    "preferredSource": "CoinMarketCap latest quote when CMC_API_KEY is configured",
+    "fallback": "Deterministic sample market data for local demo and development",
+    "backtestCandles": "Deterministic modeled candles generated from selected timeframe, lookback, and market inputs"
   },
   "constraints": [
     "No wallet connection",

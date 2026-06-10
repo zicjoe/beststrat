@@ -78,6 +78,10 @@ export async function generateStrategy(validatedRequest) {
     cmcSkillOutput,
     meta: {
       dataSource: dataset.dataSource,
+      dataProvider: dataset.dataProvider,
+      cmcApiConfigured: dataset.cmcApiConfigured,
+      cmcQuoteUsed: dataset.dataProvider === "cmc_latest_quote",
+      fallbackReason: dataset.fallbackReason,
       candlesAnalyzed: dataset.candles.length,
       generatedAt: new Date().toISOString(),
       note: "Research strategy specification only. Not financial advice. No trade execution.",

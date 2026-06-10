@@ -14,9 +14,12 @@ BestStrat does not connect wallets, does not execute trades, and does not place 
 - Indicator engine: EMA, RSI, MACD, ATR, volume average
 - Strategy generator: momentum, range/mixed, sentiment divergence, and risk-off modes
 - Lightweight backtest engine with equity curve, drawdown curve, and trade metrics
+- Data source visibility inside the UI
+- Project-root `.env` and `backend/.env` support
 - Recent strategy run persistence in `backend/data/runs.json`
 - Export output: JSON Strategy Spec, Markdown Report, CMC Skill Output
-- Optional CoinMarketCap API key support for latest quote data
+- CMC Skill artifacts in `skill/`
+- Fallback mode when no CMC API key is configured
 
 ## Tech stack
 
@@ -25,13 +28,16 @@ BestStrat does not connect wallets, does not execute trades, and does not place 
 - Storage: local JSON file for hackathon MVP history
 - Skill artifacts: `skill/skill.json`, `skill/instructions.md`, `skill/examples`
 
-## Local setup
+## Local setup with pnpm
+
+This project works with npm, but pnpm is recommended if npm fails on your Windows setup.
 
 ### Terminal 1, project root
 
-```bash
-npm install
-npm run api
+```powershell
+cd C:\dev\beststrat
+pnpm install
+pnpm run api
 ```
 
 The backend runs on:
@@ -42,8 +48,9 @@ http://localhost:8787
 
 ### Terminal 2, project root
 
-```bash
-npm run dev
+```powershell
+cd C:\dev\beststrat
+pnpm run dev
 ```
 
 The frontend runs on the Vite URL shown in your terminal, usually:
@@ -54,36 +61,64 @@ http://localhost:5173
 
 Vite proxies `/api` calls to the backend automatically.
 
+## Optional npm setup
+
+Run in the project root:
+
+```powershell
+npm install --no-audit --no-fund
+npm run api
+```
+
+Open a second terminal:
+
+```powershell
+cd C:\dev\beststrat
+npm run dev
+```
+
 ## Optional CMC API key
 
 BestStrat works without a CMC key by using deterministic sample market data for demo and development.
 
 To enable latest live CoinMarketCap quote data:
 
-1. Copy `backend/.env.example` to `.env` if you use a local env loader, or set the variable directly in your terminal.
+1. Copy `.env.example` to `.env` in the project root.
 2. Set `CMC_API_KEY`.
 3. Restart the backend.
 
 Windows PowerShell example:
 
 ```powershell
-$env:CMC_API_KEY="your_key_here"
-npm run api
+cd C:\dev\beststrat
+Copy-Item .env.example .env
+notepad .env
+pnpm run api
 ```
 
-macOS/Linux example:
+Inside `.env`, set:
 
-```bash
-CMC_API_KEY="your_key_here" npm run api
+```text
+CMC_API_KEY=your_key_here
+PORT=8787
+NODE_ENV=development
 ```
+
+You can confirm the mode with:
+
+```powershell
+Invoke-RestMethod -Uri "http://localhost:8787/api/health"
+```
+
+The UI also shows whether the strategy used CMC quote data or demo fallback data.
 
 ## Production build
 
-### Project root
+Run in the project root:
 
-```bash
-npm run build
-npm start
+```powershell
+pnpm run build
+pnpm start
 ```
 
 Production server runs the backend and serves the built frontend from `dist`.
@@ -118,6 +153,18 @@ GET /api/strategy/runs
 GET /api/strategy/runs/:id
 ```
 
+## Demo script
+
+1. Open landing page.
+2. Click **Launch Strategy Builder**.
+3. Generate a CAKE strategy with 1h timeframe, 30d lookback, moderate risk, and auto detect focus.
+4. Show the detected regime and data source badge.
+5. Walk through strategy summary, entry rules, exit rules, risk rules, invalidation rules, and no-trade conditions.
+6. Show backtest metrics and charts.
+7. Open Export Strategy.
+8. Copy JSON Strategy Spec, Markdown Report, and CMC Skill Output.
+9. Explain that BestStrat is a Track 2 Skill product, not a trading execution bot.
+
 ## Submission positioning
 
 BestStrat is positioned as a Quantopian-style crypto strategy generation Skill:
@@ -126,14 +173,11 @@ BestStrat is positioned as a Quantopian-style crypto strategy generation Skill:
 CMC-style market inputs → regime detection → strategy rules → backtest → exportable strategy spec
 ```
 
-The strongest demo flow is:
+The strongest one-line pitch:
 
-1. Open the landing page
-2. Launch Strategy Builder
-3. Enter a token such as CAKE or BNB
-4. Generate strategy
-5. Show market regime, rules, signals, backtest, and export tabs
-6. Copy the CMC Skill Output
+```text
+BestStrat turns CMC market data into backtestable crypto strategy specs by detecting the market regime before generating entry, exit, risk, and invalidation rules.
+```
 
 ## Disclaimer
 

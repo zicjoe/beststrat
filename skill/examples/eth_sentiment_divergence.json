@@ -1,0 +1,14 @@
+{
+  "input": {
+    "symbol": "ETH",
+    "timeframe": "1h",
+    "lookbackDays": 14,
+    "riskLevel": "conservative",
+    "strategyFocus": "sentiment_divergence"
+  },
+  "expectedOutput": {
+    "detectedRegime": "Sentiment Divergence",
+    "strategyName": "Sentiment Divergence Strategy",
+    "requiredRules": ["entryRules", "exitRules", "riskRules", "noTradeConditions", "backtest", "decisionRationale"]
+  }
+}

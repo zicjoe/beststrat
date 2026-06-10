@@ -4,12 +4,14 @@ import { extname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { generateStrategy, validateRequest } from "./lib/generator.mjs";
 import { findRun, listRecentRuns, saveRun } from "./lib/storage.mjs";
+import { loadEnvFiles } from "./lib/env.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const projectRoot = resolve(__dirname, "..");
 const distDir = resolve(projectRoot, "dist");
 const isProduction = process.env.NODE_ENV === "production";
+const loadedEnvFiles = loadEnvFiles(projectRoot);
 
 const contentTypes = {
   ".html": "text/html; charset=utf-8",
@@ -94,6 +96,11 @@ async function route(req, res) {
       ok: true,
       service: "BestStrat API",
       mode: process.env.CMC_API_KEY ? "cmc-enabled" : "sample-data",
+      cmcApiConfigured: Boolean(process.env.CMC_API_KEY),
+      dataPolicy: process.env.CMC_API_KEY
+        ? "Uses CoinMarketCap latest quote data when available, then builds deterministic candles for backtesting."
+        : "Uses deterministic sample market data until CMC_API_KEY is configured.",
+      loadedEnvFiles: loadedEnvFiles.map((item) => item.filePath),
       timestamp: new Date().toISOString(),
     });
     return;
@@ -138,7 +145,12 @@ createServer((req, res) => {
   });
 }).listen(PORT, () => {
   console.log(`BestStrat API running on http://localhost:${PORT}`);
+  if (loadedEnvFiles.length) {
+    console.log(`Loaded environment config from ${loadedEnvFiles.length} file(s).`);
+  }
   if (!process.env.CMC_API_KEY) {
     console.log("CMC_API_KEY not set. Using deterministic sample market data for strategy generation.");
+  } else {
+    console.log("CMC_API_KEY detected. BestStrat will use CoinMarketCap latest quote data when available.");
   }
 });

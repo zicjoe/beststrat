@@ -1,5 +1,6 @@
 import { TrendingUp, Activity, MessageSquare, Droplets } from "lucide-react";
 import type { StrategyResponse } from "../../types/strategy";
+import { DataSourceBadge } from "./DataSourceBadge";
 
 interface MarketRegimeCardProps {
   label: string;
@@ -53,7 +54,8 @@ export function MarketRegimeSection({ data }: Props) {
         <span className="w-1 h-4 rounded-full bg-[#F0B90B]" />
         <h2 className="text-white" style={{ fontSize: "1rem", fontWeight: 600 }}>Market Regime Detection</h2>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
+      <DataSourceBadge data={data} />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-3 mt-3">
         <div className="col-span-2 lg:col-span-2 bg-[#161A20] border border-[#F0B90B]/30 rounded-xl p-4">
           <div className="text-[#848E9C] text-xs font-medium uppercase tracking-wider mb-1">Detected Regime</div>
           <div className="text-[#F0B90B] text-xl font-bold mb-1">{data.detectedRegime}</div>

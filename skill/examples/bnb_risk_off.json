@@ -1,18 +1,14 @@
 {
   "input": {
     "symbol": "BNB",
-    "timeframe": "4h",
-    "lookbackDays": 30,
+    "timeframe": "15m",
+    "lookbackDays": 7,
     "riskLevel": "conservative",
     "strategyFocus": "risk_off"
   },
-  "expectedOutputShape": {
+  "expectedOutput": {
     "detectedRegime": "Risk Off",
-    "strategyName": "Capital Protection Regime Strategy",
-    "entryRules": [],
-    "exitRules": [],
-    "riskRules": [],
-    "backtest": {},
-    "cmcSkillOutput": {}
+    "strategyName": "Capital Protection Strategy",
+    "requiredRules": ["riskRules", "invalidationRules", "noTradeConditions", "backtest", "decisionRationale"]
   }
 }
