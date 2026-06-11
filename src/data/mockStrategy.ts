@@ -41,6 +41,11 @@ export const mockStrategyResponse: StrategyResponse = {
     "Conflicting signals",
     "High volatility without trend confirmation",
   ],
+  decisionRationale: [
+    "CAKE was classified as Momentum, so BestStrat selected Guarded Momentum Strategy.",
+    "The strongest supporting signals were RSI, MACD, and Regime confidence.",
+    "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions.",
+  ],
   signals: [
     { name: "RSI", score: 72, status: "Bullish", reason: "Momentum is positive but not overheated" },
     { name: "MACD", score: 68, status: "Bullish", reason: "MACD line crossed above signal line" },
@@ -59,6 +64,11 @@ export const mockStrategyResponse: StrategyResponse = {
     bestTrade: "4.8%",
     worstTrade: "-2.1%",
     riskAdjustedScore: 76,
+    benchmarkReturn: "8.1%",
+    alphaVsBenchmark: "4.3%",
+    feeAssumption: "0.10% per entry or exit",
+    startingCapital: "$1,000 simulated",
+    modelExposure: "55%",
   },
   equityCurve: [
     { time: "Day 1", value: 1000 },
@@ -191,6 +201,32 @@ export const mockStrategyResponse: StrategyResponse = {
       drawdownLimit: 0.062,
       invalidationTriggers: ["regime_flip", "drawdown_breach"],
     },
+  },
+  llmSkillOutput: {
+    skill: {
+      name: "BestStrat",
+      version: "1.3.0",
+      type: "llm_strategy_generation_skill",
+      invocationName: "beststrat.generate_strategy",
+      description: "Repeatable LLM Skill for converting CMC market context into a backtestable crypto strategy specification.",
+    },
+    activation: {
+      requiredInputs: ["symbol", "timeframe", "lookbackDays", "riskLevel", "strategyFocus"],
+      userIntentExamples: ["Generate a CAKE strategy on 1h candles with moderate risk"],
+    },
+    workflow: [
+      "Normalize request",
+      "Fetch CMC market context",
+      "Classify regime",
+      "Generate strategy rules",
+      "Backtest and compare",
+      "Return structured outputs",
+    ],
+    responseContract: {
+      mustInclude: ["detectedRegime", "entryRules", "exitRules", "riskRules", "backtest", "disclaimer"],
+      mustNotInclude: ["wallet connection request", "live buy instruction", "guaranteed return claim"],
+    },
+    disclaimer: "Research strategy specification only. Not financial advice. No trade execution.",
   },
 };
 

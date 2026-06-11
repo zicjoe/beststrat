@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BestStrat LLM Skill Output",
+  "type": "object",
+  "required": [
+    "strategyName",
+    "detectedRegime",
+    "regimeConfidence",
+    "decisionRationale",
+    "entryRules",
+    "exitRules",
+    "riskRules",
+    "invalidationRules",
+    "noTradeConditions",
+    "backtest",
+    "backtestMethodology",
+    "disclaimer"
+  ],
+  "properties": {
+    "strategyName": {
+      "type": "string"
+    },
+    "strategySummary": {
+      "type": "string"
+    },
+    "detectedRegime": {
+      "type": "string"
+    },
+    "regimeConfidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "decisionRationale": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "entryRules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "exitRules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "riskRules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "invalidationRules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "noTradeConditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "positionSizing": {
+      "type": "string"
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "backtest": {
+      "type": "object"
+    },
+    "backtestMethodology": {
+      "type": "object"
+    },
+    "dataSource": {
+      "type": "object"
+    },
+    "jsonOutput": {
+      "type": "object"
+    },
+    "markdownReport": {
+      "type": "string"
+    },
+    "cmcSkillOutput": {
+      "type": "object"
+    },
+    "llmSkillOutput": {
+      "type": "object"
+    },
+    "disclaimer": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

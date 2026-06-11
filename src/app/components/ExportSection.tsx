@@ -45,10 +45,16 @@ export function CmcSkillOutput({ data }: { data: StrategyResponse }) {
   return <CodePanel content={content} language="json" />;
 }
 
+export function LlmSkillOutput({ data }: { data: StrategyResponse }) {
+  const content = JSON.stringify(data.llmSkillOutput, null, 2);
+  return <CodePanel content={content} language="json" />;
+}
+
 const TABS = [
   { id: "json", label: "JSON Strategy Spec" },
   { id: "markdown", label: "Markdown Report" },
   { id: "cmc", label: "CMC Skill Output" },
+  { id: "llm", label: "LLM Skill Output" },
 ];
 
 export function ExportSection({ data }: { data: StrategyResponse }) {
@@ -80,6 +86,7 @@ export function ExportSection({ data }: { data: StrategyResponse }) {
           {activeTab === "json" && <JsonStrategySpec data={data} />}
           {activeTab === "markdown" && <MarkdownReport data={data} />}
           {activeTab === "cmc" && <CmcSkillOutput data={data} />}
+          {activeTab === "llm" && <LlmSkillOutput data={data} />}
         </div>
       </div>
     </section>

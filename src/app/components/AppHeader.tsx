@@ -18,11 +18,12 @@ export function AppHeader({ isBuilder }: AppHeaderProps) {
 
   const handleAnchor = (href: string) => {
     setMenuOpen(false);
-    if (href.startsWith("/#")) {
-      const id = href.slice(2);
-      if (window.location.pathname !== "/") {
-        navigate("/");
-        setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 100);
+    if (href.includes("#")) {
+      const [path, id] = href.split("#");
+      const targetPath = path || "/";
+      if (window.location.pathname !== targetPath) {
+        navigate(targetPath);
+        setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 150);
       } else {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       }

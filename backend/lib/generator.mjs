@@ -3,7 +3,7 @@ import { getMarketDataset } from "./marketData.mjs";
 import { analyzeMarket } from "./regimeEngine.mjs";
 import { buildStrategySpec } from "./strategyEngine.mjs";
 import { runBacktest } from "./backtester.mjs";
-import { buildCmcSkillOutput, buildJsonOutput, buildMarkdownReport, buildMarketSummary } from "./reportBuilder.mjs";
+import { buildCmcSkillOutput, buildDecisionRationale, buildJsonOutput, buildLlmSkillOutput, buildMarkdownReport, buildMarketSummary } from "./reportBuilder.mjs";
 import { isoMinute } from "./utils.mjs";
 
 const allowedTimeframes = new Set(["5m", "15m", "1h", "4h", "1d"]);
@@ -44,6 +44,8 @@ export async function generateStrategy(validatedRequest) {
   const jsonOutput = buildJsonOutput(dataset, validatedRequest, analysis, strategy, backtestResult);
   const cmcSkillOutput = buildCmcSkillOutput(dataset, validatedRequest, analysis, strategy, backtestResult);
   const markdownReport = buildMarkdownReport(dataset, validatedRequest, analysis, strategy, backtestResult);
+  const llmSkillOutput = buildLlmSkillOutput(dataset, validatedRequest, analysis, strategy, backtestResult);
+  const decisionRationale = buildDecisionRationale(dataset, analysis, strategy);
 
   return {
     id: randomUUID(),
@@ -68,6 +70,7 @@ export async function generateStrategy(validatedRequest) {
     invalidationRules: strategy.invalidationRules,
     positionSizing: strategy.positionSizing,
     noTradeConditions: strategy.noTradeConditions,
+    decisionRationale,
     signals: analysis.signals,
     backtest: backtestResult.backtest,
     equityCurve: backtestResult.equityCurve,
@@ -76,6 +79,7 @@ export async function generateStrategy(validatedRequest) {
     jsonOutput,
     markdownReport,
     cmcSkillOutput,
+    llmSkillOutput,
     meta: {
       dataSource: dataset.dataSource,
       dataProvider: dataset.dataProvider,

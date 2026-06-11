@@ -119,6 +119,11 @@ export function runBacktest(dataset, analysis, request) {
   const wins = completedTrades.filter((trade) => trade.pnlPct > 0);
   const pnlValues = completedTrades.map((trade) => trade.pnlPct);
   const totalReturn = ((finalValue - 1000) / 1000) * 100;
+  const firstBacktestClose = candles[55]?.close ?? candles[0]?.close ?? 1;
+  const finalBacktestClose = candles[candles.length - 1]?.close ?? firstBacktestClose;
+  const benchmarkReturn = firstBacktestClose ? ((finalBacktestClose - firstBacktestClose) / firstBacktestClose) * 100 : 0;
+  const alphaVsBenchmark = totalReturn - benchmarkReturn;
+  const modelExposure = `${round(allocation * 100, 0)}%`;
   const avgTrade = pnlValues.length ? pnlValues.reduce((sum, value) => sum + value, 0) / pnlValues.length : 0;
   const bestTrade = pnlValues.length ? Math.max(...pnlValues) : 0;
   const worstTrade = pnlValues.length ? Math.min(...pnlValues) : 0;
@@ -144,6 +149,11 @@ export function runBacktest(dataset, analysis, request) {
       bestTrade: toPercent(bestTrade),
       worstTrade: toPercent(worstTrade),
       riskAdjustedScore,
+      benchmarkReturn: toPercent(benchmarkReturn),
+      alphaVsBenchmark: toPercent(alphaVsBenchmark),
+      feeAssumption: "0.10% per entry or exit",
+      startingCapital: "$1,000 simulated",
+      modelExposure,
     },
     equityCurve,
     drawdownCurve,
@@ -155,6 +165,10 @@ export function runBacktest(dataset, analysis, request) {
       avgTrade,
       bestTrade,
       worstTrade,
+      benchmarkReturn,
+      alphaVsBenchmark,
+      feeRate,
+      modelExposure,
     },
   };
 }

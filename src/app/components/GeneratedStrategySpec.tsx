@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { LogIn, LogOut, Shield, XCircle, Scale, Ban } from "lucide-react";
 import type { StrategyResponse } from "../../types/strategy";
 
@@ -16,7 +17,7 @@ function RuleList({ items, color }: { items: string[]; color: string }) {
 
 interface RuleCardProps {
   title: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   items: string[];
   dotColor: string;
   borderColor: string;
@@ -108,6 +109,26 @@ export function InvalidationRulesCard({ data }: { data: StrategyResponse }) {
   );
 }
 
+
+function RationaleCard({ data }: { data: StrategyResponse }) {
+  return (
+    <div className="bg-[#161A20] border border-[#F0B90B]/20 rounded-xl p-4 col-span-full">
+      <div className="flex items-center gap-2 mb-3">
+        <Scale size={14} className="text-[#F0B90B]" />
+        <span className="text-white text-sm font-semibold">Why This Strategy Was Generated</span>
+      </div>
+      <ul className="space-y-2">
+        {(data.decisionRationale || ["BestStrat selected this strategy from the detected regime, signal scores, and risk settings."]).map((reason, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm text-[#C8CDD6] leading-relaxed">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#F0B90B] mt-2 flex-shrink-0" />
+            <span>{reason}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function NoTradeCard({ data }: { data: StrategyResponse }) {
   return (
     <div className="bg-[#161A20] border border-[#2B3139] rounded-xl p-4">
@@ -135,6 +156,7 @@ export function GeneratedStrategySpec({ data }: { data: StrategyResponse }) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <StrategySummaryCard data={data} />
+        <RationaleCard data={data} />
         <EntryRulesCard data={data} />
         <ExitRulesCard data={data} />
         <RiskRulesCard data={data} />

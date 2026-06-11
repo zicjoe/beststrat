@@ -14,6 +14,11 @@ export interface Backtest {
   bestTrade: string;
   worstTrade: string;
   riskAdjustedScore: number;
+  benchmarkReturn?: string;
+  alphaVsBenchmark?: string;
+  feeAssumption?: string;
+  startingCapital?: string;
+  modelExposure?: string;
 }
 
 export interface ChartPoint {
@@ -49,6 +54,7 @@ export interface StrategyResponse {
   invalidationRules: string[];
   positionSizing: string;
   noTradeConditions: string[];
+  decisionRationale: string[];
   signals: Signal[];
   backtest: Backtest;
   equityCurve: ChartPoint[];
@@ -57,6 +63,7 @@ export interface StrategyResponse {
   jsonOutput: Record<string, unknown>;
   markdownReport: string;
   cmcSkillOutput: Record<string, unknown>;
+  llmSkillOutput: Record<string, unknown>;
   meta?: {
     dataSource?: string;
     dataProvider?: string;

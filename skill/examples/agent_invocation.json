@@ -1,0 +1,11 @@
+{
+  "skill": "beststrat.generate_strategy",
+  "input": {
+    "symbol": "CAKE",
+    "timeframe": "1h",
+    "lookbackDays": 30,
+    "riskLevel": "moderate",
+    "strategyFocus": "auto"
+  },
+  "expectedBehavior": "Detect regime, generate strategy rules, backtest, and return JSON/Markdown/CMC/LLM Skill outputs without trade execution."
+}

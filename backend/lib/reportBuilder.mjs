@@ -10,7 +10,7 @@ export function buildMarketSummary(dataset, analysis) {
   return `${parts.join(", ")}.`;
 }
 
-function buildDecisionRationale(dataset, analysis, strategy) {
+export function buildDecisionRationale(dataset, analysis, strategy) {
   const strongestSignals = [...analysis.signals]
     .sort((a, b) => b.score - a.score)
     .slice(0, 3)
@@ -27,7 +27,7 @@ export function buildJsonOutput(dataset, request, analysis, strategy, backtestRe
   return {
     strategySpec: {
       name: strategy.strategyName,
-      version: "1.1.0",
+      version: "1.3.0",
       asset: dataset.symbol,
       timeframe: request.timeframe,
       lookbackDays: request.lookbackDays,
@@ -64,6 +64,14 @@ export function buildJsonOutput(dataset, request, analysis, strategy, backtestRe
         status: signal.status,
         reason: signal.reason,
       })),
+      backtestMethodology: {
+        startingCapital: backtestResult.backtest.startingCapital,
+        feeAssumption: backtestResult.backtest.feeAssumption,
+        modelExposure: backtestResult.backtest.modelExposure,
+        benchmarkReturn: backtestResult.backtest.benchmarkReturn,
+        alphaVsBenchmark: backtestResult.backtest.alphaVsBenchmark,
+        candlesAnalyzed: dataset.candles.length,
+      },
       constraints: [
         "No wallet connection",
         "No live order execution",
@@ -77,11 +85,11 @@ export function buildJsonOutput(dataset, request, analysis, strategy, backtestRe
 export function buildCmcSkillOutput(dataset, request, analysis, strategy, backtestResult) {
   return {
     skillType: "strategy_generation",
-    skillVersion: "1.1.0",
+    skillVersion: "1.3.0",
     project: "BestStrat",
     track: "BNB Hack Track 2 Strategy Skill",
     cmcCompatible: true,
-    purpose: "Turn CMC-style market data into a backtestable crypto strategy specification.",
+    purpose: "Turn CMC-style market data into a backtestable crypto strategy specification that an LLM agent can execute as a repeatable workflow.",
     input: {
       symbol: dataset.symbol,
       timeframe: request.timeframe,
@@ -111,6 +119,14 @@ export function buildCmcSkillOutput(dataset, request, analysis, strategy, backte
       positionSizing: strategy.positionSizing,
       backtest: backtestResult.backtest,
       signals: analysis.signals,
+      backtestMethodology: {
+        startingCapital: backtestResult.backtest.startingCapital,
+        feeAssumption: backtestResult.backtest.feeAssumption,
+        modelExposure: backtestResult.backtest.modelExposure,
+        benchmarkReturn: backtestResult.backtest.benchmarkReturn,
+        alphaVsBenchmark: backtestResult.backtest.alphaVsBenchmark,
+        candlesAnalyzed: dataset.candles.length,
+      },
     },
     signalWeights: {
       trend: 0.25,
@@ -121,6 +137,136 @@ export function buildCmcSkillOutput(dataset, request, analysis, strategy, backte
       liquidity: 0.1,
     },
     disclaimer: "Research strategy specification only. Not financial advice. No trade execution.",
+  };
+}
+
+
+export function buildLlmSkillOutput(dataset, request, analysis, strategy, backtestResult) {
+  const rationale = buildDecisionRationale(dataset, analysis, strategy);
+  return {
+    skill: {
+      name: "BestStrat",
+      version: "1.3.0",
+      type: "llm_strategy_generation_skill",
+      description: "A repeatable LLM Skill for converting CMC market context into a backtestable crypto strategy specification.",
+      invocationName: "beststrat.generate_strategy",
+      intendedAgentUse: "Use when a user asks for a crypto trading strategy research spec, not when they ask to place a live trade.",
+    },
+    activation: {
+      userIntentExamples: [
+        "Generate a strategy for CAKE on 1h candles with moderate risk.",
+        "Create a backtestable momentum strategy for BNB.",
+        "Detect the market regime for ETH and write entry, exit, and risk rules.",
+      ],
+      requiredInputs: ["symbol", "timeframe", "lookbackDays", "riskLevel", "strategyFocus"],
+      optionalInputs: ["preferredRegime", "maxDrawdownTolerance", "feeAssumption"],
+    },
+    input: {
+      symbol: dataset.symbol,
+      timeframe: request.timeframe,
+      lookbackDays: request.lookbackDays,
+      riskLevel: request.riskLevel,
+      strategyFocus: request.strategyFocus,
+    },
+    dataContext: {
+      provider: dataset.dataProvider,
+      label: dataset.dataSource,
+      cmcApiConfigured: dataset.cmcApiConfigured,
+      cmcQuoteUsed: dataset.dataProvider === "cmc_latest_quote",
+      fallbackReason: dataset.fallbackReason,
+      candlesAnalyzed: dataset.candles.length,
+    },
+    workflow: [
+      {
+        step: 1,
+        name: "Normalize user request",
+        instruction: "Extract symbol, timeframe, lookbackDays, riskLevel, and strategyFocus. Ask for missing required inputs when needed.",
+      },
+      {
+        step: 2,
+        name: "Fetch CMC market context",
+        instruction: "Use CoinMarketCap data when configured. If unavailable, clearly mark deterministic fallback data.",
+      },
+      {
+        step: 3,
+        name: "Classify market regime",
+        instruction: "Score trend, momentum, volume, sentiment, volatility, and liquidity before selecting a regime.",
+      },
+      {
+        step: 4,
+        name: "Generate strategy rules",
+        instruction: "Return entry, exit, risk, invalidation, position sizing, and no-trade conditions as explicit testable rules.",
+      },
+      {
+        step: 5,
+        name: "Backtest and compare",
+        instruction: "Run the strategy over the selected lookback window and compare it with a buy-and-hold benchmark using stated fee assumptions.",
+      },
+      {
+        step: 6,
+        name: "Return structured output",
+        instruction: "Return JSON, Markdown, CMC Skill output, and LLM Skill output without any live execution instructions.",
+      },
+    ],
+    responseContract: {
+      mustInclude: [
+        "detectedRegime",
+        "regimeConfidence",
+        "decisionRationale",
+        "entryRules",
+        "exitRules",
+        "riskRules",
+        "invalidationRules",
+        "noTradeConditions",
+        "backtest",
+        "backtestMethodology",
+        "disclaimer",
+      ],
+      mustNotInclude: [
+        "wallet connection request",
+        "private key handling",
+        "live buy instruction",
+        "live sell instruction",
+        "guaranteed return claim",
+      ],
+    },
+    generatedStrategy: {
+      strategyName: strategy.strategyName,
+      strategySummary: strategy.strategySummary,
+      detectedRegime: analysis.detectedRegime,
+      regimeConfidence: analysis.regimeConfidence,
+      decisionRationale: rationale,
+      entryRules: strategy.entryRules,
+      exitRules: strategy.exitRules,
+      riskRules: strategy.riskRules,
+      invalidationRules: strategy.invalidationRules,
+      noTradeConditions: strategy.noTradeConditions,
+      positionSizing: strategy.positionSizing,
+      signals: analysis.signals,
+      backtest: backtestResult.backtest,
+      backtestMethodology: {
+        startingCapital: backtestResult.backtest.startingCapital,
+        feeAssumption: backtestResult.backtest.feeAssumption,
+        modelExposure: backtestResult.backtest.modelExposure,
+        benchmarkReturn: backtestResult.backtest.benchmarkReturn,
+        alphaVsBenchmark: backtestResult.backtest.alphaVsBenchmark,
+        candlesAnalyzed: dataset.candles.length,
+      },
+    },
+    guardrails: [
+      "Research strategy specification only",
+      "No wallet connection",
+      "No live order execution",
+      "No private key collection",
+      "Do not present backtest results as guaranteed future performance",
+    ],
+    finalAnswerStyle: {
+      tone: "clear, research-focused, concise",
+      includeTables: true,
+      includeMachineReadableJson: true,
+      includeDisclaimer: true,
+    },
+    disclaimer: "BestStrat generates research strategy specifications only. It is not financial advice and does not execute trades.",
   };
 }
 
@@ -176,15 +322,32 @@ ${rules(strategy.noTradeConditions)}
 | Best Trade | ${backtestResult.backtest.bestTrade} |
 | Worst Trade | ${backtestResult.backtest.worstTrade} |
 | Risk Adjusted Score | ${backtestResult.backtest.riskAdjustedScore} |
+| Benchmark Return | ${backtestResult.backtest.benchmarkReturn} |
+| Alpha vs Benchmark | ${backtestResult.backtest.alphaVsBenchmark} |
+| Fee Assumption | ${backtestResult.backtest.feeAssumption} |
+| Model Exposure | ${backtestResult.backtest.modelExposure} |
+
+## Backtest Methodology
+- Starting capital: ${backtestResult.backtest.startingCapital}
+- Fees: ${backtestResult.backtest.feeAssumption}
+- Model exposure: ${backtestResult.backtest.modelExposure}
+- Benchmark: buy-and-hold over the same backtest window
+- Candles analyzed: ${dataset.candles.length}
 
 ## Signal Breakdown
 | Signal | Score | Status | Reason |
 |--------|-------|--------|--------|
 ${signals}
 
+## LLM Skill Authorship
+- Invocation name: beststrat.generate_strategy
+- Skill role: repeatable LLM workflow for turning CMC market context into a backtestable strategy spec
+- Required inputs: symbol, timeframe, lookbackDays, riskLevel, strategyFocus
+- Required outputs: regime, rationale, rules, backtest, methodology, JSON, Markdown, CMC Skill output, LLM Skill output
+
 ## CMC Skill Submission Notes
 - Track: BNB Hack Track 2 Strategy Skills
-- Product role: Quantopian-style crypto strategy generation Skill
+- Product role: Quantopian-style crypto strategy generation Skill authored as an LLM Skill
 - Output type: backtestable strategy specification
 - Execution: none
 - Wallet connection: none

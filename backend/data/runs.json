@@ -1,1 +1,833 @@
-[]
+[
+  {
+    "id": "385c541c-3495-49ed-927e-1674e287be27",
+    "createdAt": "2026-06-11 10:14",
+    "token": "CAKE",
+    "timeframe": "1h",
+    "regime": "Momentum",
+    "strategy": "Guarded Momentum Strategy",
+    "totalReturn": "0.8%",
+    "maxDrawdown": "2.8%",
+    "response": {
+      "id": "385c541c-3495-49ed-927e-1674e287be27",
+      "createdAt": "2026-06-11 10:14",
+      "symbol": "CAKE",
+      "timeframe": "1h",
+      "lookbackDays": 30,
+      "riskLevel": "moderate",
+      "strategyFocus": "auto",
+      "detectedRegime": "Momentum",
+      "regimeConfidence": 71,
+      "marketSummary": "CAKE is classified as Momentum with 71% confidence, trend is bullish, volatility is high, sentiment is neutral, liquidity is high.",
+      "trendState": "Bullish",
+      "volatilityState": "High",
+      "sentimentState": "Neutral",
+      "liquidityState": "High",
+      "strategyName": "Guarded Momentum Strategy",
+      "strategySummary": "Enter only when trend, volume, sentiment, and risk conditions confirm momentum while volatility remains controlled.",
+      "entryRules": [
+        "Price must hold above EMA 20 on the 1h timeframe",
+        "EMA 20 must stay above EMA 50 or be improving toward a bullish alignment",
+        "RSI must remain between 50 and 72 to avoid weak or overheated entries",
+        "MACD line must be above the signal line",
+        "Volume must be above the 20-candle average"
+      ],
+      "exitRules": [
+        "Exit if price closes below EMA 20",
+        "Exit if RSI drops below 48",
+        "Exit if MACD crosses below the signal line",
+        "Exit if regime confidence falls below 55"
+      ],
+      "riskRules": [
+        "Use moderate sizing with maximum 40% to 55% model exposure",
+        "Stop using this setup if strategy drawdown exceeds 8%",
+        "Reject setups with weak liquidity or aggressive volatility expansion",
+        "Avoid entries after large one-candle extensions without pullback confirmation"
+      ],
+      "invalidationRules": [
+        "Invalid if regime changes to Risk Off",
+        "Invalid if price loses EMA 50 with rising volume",
+        "Invalid if backtest drawdown breaches the 8% risk limit"
+      ],
+      "positionSizing": "Moderate risk profile: 40% to 55% model exposure, 1% to 1.5% risk per setup, adjusted down when ATR rises above normal.",
+      "noTradeConditions": [
+        "RSI above 72",
+        "Price below EMA 20",
+        "Conflicting trend and momentum signals",
+        "Weak liquidity or unstable volume confirmation",
+        "Volatility spike without clear trend confirmation"
+      ],
+      "decisionRationale": [
+        "CAKE was classified as Momentum, so BestStrat selected Guarded Momentum Strategy.",
+        "The strongest supporting signals were MACD: Bullish (100), RSI: Bullish (84), Regime: Momentum (71).",
+        "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
+      ],
+      "signals": [
+        {
+          "name": "RSI",
+          "score": 84,
+          "status": "Bullish",
+          "reason": "RSI is 67.1, showing constructive momentum."
+        },
+        {
+          "name": "MACD",
+          "score": 100,
+          "status": "Bullish",
+          "reason": "MACD is above its signal line."
+        },
+        {
+          "name": "Volume",
+          "score": 38,
+          "status": "Weak",
+          "reason": "Latest volume is 0.83x its 20-candle average."
+        },
+        {
+          "name": "Fear & Greed",
+          "score": 69,
+          "status": "Positive",
+          "reason": "Fear and Greed proxy score is 69.3 from the market dataset."
+        },
+        {
+          "name": "Sentiment",
+          "score": 53,
+          "status": "Neutral",
+          "reason": "Sentiment proxy score is 52.7, derived from quote momentum and market context."
+        },
+        {
+          "name": "Volatility",
+          "score": 31,
+          "status": "High",
+          "reason": "ATR is 6.29% of price, so volatility is high."
+        },
+        {
+          "name": "Regime",
+          "score": 71,
+          "status": "Momentum",
+          "reason": "Composite regime model classified CAKE as Momentum."
+        }
+      ],
+      "backtest": {
+        "totalReturn": "0.8%",
+        "winRate": "40%",
+        "maxDrawdown": "2.8%",
+        "numberOfTrades": 5,
+        "averageTradeReturn": "0.3%",
+        "bestTrade": "5.4%",
+        "worstTrade": "-2.2%",
+        "riskAdjustedScore": 58,
+        "benchmarkReturn": "-15.3%",
+        "alphaVsBenchmark": "16.1%",
+        "feeAssumption": "0.10% per entry or exit",
+        "startingCapital": "$1,000 simulated",
+        "modelExposure": "55%"
+      },
+      "equityCurve": [
+        {
+          "time": "Point 1",
+          "value": 1000
+        },
+        {
+          "time": "Point 2",
+          "value": 995.64
+        },
+        {
+          "time": "Point 3",
+          "value": 995.64
+        },
+        {
+          "time": "Point 4",
+          "value": 995.64
+        },
+        {
+          "time": "Point 5",
+          "value": 972.83
+        },
+        {
+          "time": "Point 6",
+          "value": 972.83
+        },
+        {
+          "time": "Point 7",
+          "value": 972.83
+        },
+        {
+          "time": "Point 8",
+          "value": 972.83
+        },
+        {
+          "time": "Point 9",
+          "value": 972.83
+        },
+        {
+          "time": "Point 10",
+          "value": 1001.78
+        },
+        {
+          "time": "Point 11",
+          "value": 1001.78
+        },
+        {
+          "time": "Point 12",
+          "value": 1001.78
+        },
+        {
+          "time": "Point 13",
+          "value": 1007.78
+        },
+        {
+          "time": "Point 14",
+          "value": 1007.78
+        },
+        {
+          "time": "Point 15",
+          "value": 1007.78
+        },
+        {
+          "time": "Point 16",
+          "value": 1007.78
+        },
+        {
+          "time": "Point 17",
+          "value": 1007.78
+        },
+        {
+          "time": "Point 18",
+          "value": 1007.78
+        },
+        {
+          "time": "Point 19",
+          "value": 1007.78
+        },
+        {
+          "time": "Point 20",
+          "value": 1007.78
+        }
+      ],
+      "drawdownCurve": [
+        {
+          "time": "Point 1",
+          "value": 0
+        },
+        {
+          "time": "Point 2",
+          "value": -0.44
+        },
+        {
+          "time": "Point 3",
+          "value": -0.44
+        },
+        {
+          "time": "Point 4",
+          "value": -0.44
+        },
+        {
+          "time": "Point 5",
+          "value": -2.72
+        },
+        {
+          "time": "Point 6",
+          "value": -2.72
+        },
+        {
+          "time": "Point 7",
+          "value": -2.72
+        },
+        {
+          "time": "Point 8",
+          "value": -2.72
+        },
+        {
+          "time": "Point 9",
+          "value": -2.72
+        },
+        {
+          "time": "Point 10",
+          "value": -0.02
+        },
+        {
+          "time": "Point 11",
+          "value": -0.02
+        },
+        {
+          "time": "Point 12",
+          "value": -0.02
+        },
+        {
+          "time": "Point 13",
+          "value": -0.71
+        },
+        {
+          "time": "Point 14",
+          "value": -0.71
+        },
+        {
+          "time": "Point 15",
+          "value": -0.71
+        },
+        {
+          "time": "Point 16",
+          "value": -0.71
+        },
+        {
+          "time": "Point 17",
+          "value": -0.71
+        },
+        {
+          "time": "Point 18",
+          "value": -0.71
+        },
+        {
+          "time": "Point 19",
+          "value": -0.71
+        },
+        {
+          "time": "Point 20",
+          "value": -0.71
+        }
+      ],
+      "signalStrength": [
+        {
+          "name": "RSI",
+          "value": 84
+        },
+        {
+          "name": "MACD",
+          "value": 100
+        },
+        {
+          "name": "Volume",
+          "value": 38
+        },
+        {
+          "name": "F&G",
+          "value": 69
+        },
+        {
+          "name": "Sentiment",
+          "value": 53
+        },
+        {
+          "name": "Volatility",
+          "value": 31
+        },
+        {
+          "name": "Regime",
+          "value": 71
+        }
+      ],
+      "jsonOutput": {
+        "strategySpec": {
+          "name": "Guarded Momentum Strategy",
+          "version": "1.3.0",
+          "asset": "CAKE",
+          "timeframe": "1h",
+          "lookbackDays": 30,
+          "riskLevel": "moderate",
+          "strategyFocus": "auto",
+          "dataSource": {
+            "label": "CoinMarketCap latest quote + deterministic backtest candles",
+            "provider": "cmc_latest_quote",
+            "cmcApiConfigured": true,
+            "cmcQuoteUsed": true,
+            "fallbackReason": null
+          },
+          "regime": {
+            "name": "Momentum",
+            "confidence": 71,
+            "trendState": "Bullish",
+            "volatilityState": "High",
+            "sentimentState": "Neutral",
+            "liquidityState": "High"
+          },
+          "decisionRationale": [
+            "CAKE was classified as Momentum, so BestStrat selected Guarded Momentum Strategy.",
+            "The strongest supporting signals were MACD: Bullish (100), RSI: Bullish (84), Regime: Momentum (71).",
+            "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
+          ],
+          "rules": {
+            "entry": [
+              "Price must hold above EMA 20 on the 1h timeframe",
+              "EMA 20 must stay above EMA 50 or be improving toward a bullish alignment",
+              "RSI must remain between 50 and 72 to avoid weak or overheated entries",
+              "MACD line must be above the signal line",
+              "Volume must be above the 20-candle average"
+            ],
+            "exit": [
+              "Exit if price closes below EMA 20",
+              "Exit if RSI drops below 48",
+              "Exit if MACD crosses below the signal line",
+              "Exit if regime confidence falls below 55"
+            ],
+            "risk": [
+              "Use moderate sizing with maximum 40% to 55% model exposure",
+              "Stop using this setup if strategy drawdown exceeds 8%",
+              "Reject setups with weak liquidity or aggressive volatility expansion",
+              "Avoid entries after large one-candle extensions without pullback confirmation"
+            ],
+            "invalidation": [
+              "Invalid if regime changes to Risk Off",
+              "Invalid if price loses EMA 50 with rising volume",
+              "Invalid if backtest drawdown breaches the 8% risk limit"
+            ],
+            "noTradeConditions": [
+              "RSI above 72",
+              "Price below EMA 20",
+              "Conflicting trend and momentum signals",
+              "Weak liquidity or unstable volume confirmation",
+              "Volatility spike without clear trend confirmation"
+            ]
+          },
+          "positionSizing": "Moderate risk profile: 40% to 55% model exposure, 1% to 1.5% risk per setup, adjusted down when ATR rises above normal.",
+          "backtest": {
+            "totalReturn": "0.8%",
+            "winRate": "40%",
+            "maxDrawdown": "2.8%",
+            "numberOfTrades": 5,
+            "averageTradeReturn": "0.3%",
+            "bestTrade": "5.4%",
+            "worstTrade": "-2.2%",
+            "riskAdjustedScore": 58,
+            "benchmarkReturn": "-15.3%",
+            "alphaVsBenchmark": "16.1%",
+            "feeAssumption": "0.10% per entry or exit",
+            "startingCapital": "$1,000 simulated",
+            "modelExposure": "55%"
+          },
+          "signals": [
+            {
+              "name": "RSI",
+              "score": 84,
+              "status": "Bullish",
+              "reason": "RSI is 67.1, showing constructive momentum."
+            },
+            {
+              "name": "MACD",
+              "score": 100,
+              "status": "Bullish",
+              "reason": "MACD is above its signal line."
+            },
+            {
+              "name": "Volume",
+              "score": 38,
+              "status": "Weak",
+              "reason": "Latest volume is 0.83x its 20-candle average."
+            },
+            {
+              "name": "Fear & Greed",
+              "score": 69,
+              "status": "Positive",
+              "reason": "Fear and Greed proxy score is 69.3 from the market dataset."
+            },
+            {
+              "name": "Sentiment",
+              "score": 53,
+              "status": "Neutral",
+              "reason": "Sentiment proxy score is 52.7, derived from quote momentum and market context."
+            },
+            {
+              "name": "Volatility",
+              "score": 31,
+              "status": "High",
+              "reason": "ATR is 6.29% of price, so volatility is high."
+            },
+            {
+              "name": "Regime",
+              "score": 71,
+              "status": "Momentum",
+              "reason": "Composite regime model classified CAKE as Momentum."
+            }
+          ],
+          "backtestMethodology": {
+            "startingCapital": "$1,000 simulated",
+            "feeAssumption": "0.10% per entry or exit",
+            "modelExposure": "55%",
+            "benchmarkReturn": "-15.3%",
+            "alphaVsBenchmark": "16.1%",
+            "candlesAnalyzed": 720
+          },
+          "constraints": [
+            "No wallet connection",
+            "No live order execution",
+            "No buy or sell transaction",
+            "Research and strategy specification output only"
+          ]
+        }
+      },
+      "markdownReport": "# BestStrat Report — CAKE/1h\n\n## Strategy\n**Name:** Guarded Momentum Strategy  \n**Detected Regime:** Momentum (71% confidence)  \n**Data Source:** CoinMarketCap latest quote + deterministic backtest candles  \n**CMC API Configured:** Yes\n\nEnter only when trend, volume, sentiment, and risk conditions confirm momentum while volatility remains controlled.\n\n## Why This Strategy Was Generated\n- CAKE was classified as Momentum, so BestStrat selected Guarded Momentum Strategy.\n- The strongest supporting signals were MACD: Bullish (100), RSI: Bullish (84), Regime: Momentum (71).\n- The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion.\n\n## Market State\n- Trend: Bullish\n- Volatility: High\n- Sentiment: Neutral\n- Liquidity: High\n- Latest price used by engine: 1.567774\n- Candles analyzed: 720\n\n## Entry Rules\n- Price must hold above EMA 20 on the 1h timeframe\n- EMA 20 must stay above EMA 50 or be improving toward a bullish alignment\n- RSI must remain between 50 and 72 to avoid weak or overheated entries\n- MACD line must be above the signal line\n- Volume must be above the 20-candle average\n\n## Exit Rules\n- Exit if price closes below EMA 20\n- Exit if RSI drops below 48\n- Exit if MACD crosses below the signal line\n- Exit if regime confidence falls below 55\n\n## Risk Rules\n- Use moderate sizing with maximum 40% to 55% model exposure\n- Stop using this setup if strategy drawdown exceeds 8%\n- Reject setups with weak liquidity or aggressive volatility expansion\n- Avoid entries after large one-candle extensions without pullback confirmation\n\n## Invalidation Rules\n- Invalid if regime changes to Risk Off\n- Invalid if price loses EMA 50 with rising volume\n- Invalid if backtest drawdown breaches the 8% risk limit\n\n## No Trade Conditions\n- RSI above 72\n- Price below EMA 20\n- Conflicting trend and momentum signals\n- Weak liquidity or unstable volume confirmation\n- Volatility spike without clear trend confirmation\n\n## Backtest Results\n| Metric | Value |\n|--------|-------|\n| Total Return | 0.8% |\n| Win Rate | 40% |\n| Max Drawdown | 2.8% |\n| Number of Trades | 5 |\n| Average Trade Return | 0.3% |\n| Best Trade | 5.4% |\n| Worst Trade | -2.2% |\n| Risk Adjusted Score | 58 |\n| Benchmark Return | -15.3% |\n| Alpha vs Benchmark | 16.1% |\n| Fee Assumption | 0.10% per entry or exit |\n| Model Exposure | 55% |\n\n## Backtest Methodology\n- Starting capital: $1,000 simulated\n- Fees: 0.10% per entry or exit\n- Model exposure: 55%\n- Benchmark: buy-and-hold over the same backtest window\n- Candles analyzed: 720\n\n## Signal Breakdown\n| Signal | Score | Status | Reason |\n|--------|-------|--------|--------|\n| RSI | 84 | Bullish | RSI is 67.1, showing constructive momentum. |\n| MACD | 100 | Bullish | MACD is above its signal line. |\n| Volume | 38 | Weak | Latest volume is 0.83x its 20-candle average. |\n| Fear & Greed | 69 | Positive | Fear and Greed proxy score is 69.3 from the market dataset. |\n| Sentiment | 53 | Neutral | Sentiment proxy score is 52.7, derived from quote momentum and market context. |\n| Volatility | 31 | High | ATR is 6.29% of price, so volatility is high. |\n| Regime | 71 | Momentum | Composite regime model classified CAKE as Momentum. |\n\n## LLM Skill Authorship\n- Invocation name: beststrat.generate_strategy\n- Skill role: repeatable LLM workflow for turning CMC market context into a backtestable strategy spec\n- Required inputs: symbol, timeframe, lookbackDays, riskLevel, strategyFocus\n- Required outputs: regime, rationale, rules, backtest, methodology, JSON, Markdown, CMC Skill output, LLM Skill output\n\n## CMC Skill Submission Notes\n- Track: BNB Hack Track 2 Strategy Skills\n- Product role: Quantopian-style crypto strategy generation Skill authored as an LLM Skill\n- Output type: backtestable strategy specification\n- Execution: none\n- Wallet connection: none\n\n---\nGenerated by BestStrat. Research strategy specification only. Not financial advice. No trade execution.",
+      "cmcSkillOutput": {
+        "skillType": "strategy_generation",
+        "skillVersion": "1.3.0",
+        "project": "BestStrat",
+        "track": "BNB Hack Track 2 Strategy Skill",
+        "cmcCompatible": true,
+        "purpose": "Turn CMC-style market data into a backtestable crypto strategy specification that an LLM agent can execute as a repeatable workflow.",
+        "input": {
+          "symbol": "CAKE",
+          "timeframe": "1h",
+          "lookbackDays": 30,
+          "riskLevel": "moderate",
+          "strategyFocus": "auto"
+        },
+        "dataSource": {
+          "label": "CoinMarketCap latest quote + deterministic backtest candles",
+          "provider": "cmc_latest_quote",
+          "cmcApiConfigured": true,
+          "cmcQuoteUsed": true,
+          "fallbackReason": null,
+          "candlesAnalyzed": 720
+        },
+        "output": {
+          "strategyName": "Guarded Momentum Strategy",
+          "strategySummary": "Enter only when trend, volume, sentiment, and risk conditions confirm momentum while volatility remains controlled.",
+          "detectedRegime": "Momentum",
+          "regimeConfidence": 71,
+          "decisionRationale": [
+            "CAKE was classified as Momentum, so BestStrat selected Guarded Momentum Strategy.",
+            "The strongest supporting signals were MACD: Bullish (100), RSI: Bullish (84), Regime: Momentum (71).",
+            "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
+          ],
+          "entryRules": [
+            "Price must hold above EMA 20 on the 1h timeframe",
+            "EMA 20 must stay above EMA 50 or be improving toward a bullish alignment",
+            "RSI must remain between 50 and 72 to avoid weak or overheated entries",
+            "MACD line must be above the signal line",
+            "Volume must be above the 20-candle average"
+          ],
+          "exitRules": [
+            "Exit if price closes below EMA 20",
+            "Exit if RSI drops below 48",
+            "Exit if MACD crosses below the signal line",
+            "Exit if regime confidence falls below 55"
+          ],
+          "riskRules": [
+            "Use moderate sizing with maximum 40% to 55% model exposure",
+            "Stop using this setup if strategy drawdown exceeds 8%",
+            "Reject setups with weak liquidity or aggressive volatility expansion",
+            "Avoid entries after large one-candle extensions without pullback confirmation"
+          ],
+          "invalidationRules": [
+            "Invalid if regime changes to Risk Off",
+            "Invalid if price loses EMA 50 with rising volume",
+            "Invalid if backtest drawdown breaches the 8% risk limit"
+          ],
+          "noTradeConditions": [
+            "RSI above 72",
+            "Price below EMA 20",
+            "Conflicting trend and momentum signals",
+            "Weak liquidity or unstable volume confirmation",
+            "Volatility spike without clear trend confirmation"
+          ],
+          "positionSizing": "Moderate risk profile: 40% to 55% model exposure, 1% to 1.5% risk per setup, adjusted down when ATR rises above normal.",
+          "backtest": {
+            "totalReturn": "0.8%",
+            "winRate": "40%",
+            "maxDrawdown": "2.8%",
+            "numberOfTrades": 5,
+            "averageTradeReturn": "0.3%",
+            "bestTrade": "5.4%",
+            "worstTrade": "-2.2%",
+            "riskAdjustedScore": 58,
+            "benchmarkReturn": "-15.3%",
+            "alphaVsBenchmark": "16.1%",
+            "feeAssumption": "0.10% per entry or exit",
+            "startingCapital": "$1,000 simulated",
+            "modelExposure": "55%"
+          },
+          "signals": [
+            {
+              "name": "RSI",
+              "score": 84,
+              "status": "Bullish",
+              "reason": "RSI is 67.1, showing constructive momentum."
+            },
+            {
+              "name": "MACD",
+              "score": 100,
+              "status": "Bullish",
+              "reason": "MACD is above its signal line."
+            },
+            {
+              "name": "Volume",
+              "score": 38,
+              "status": "Weak",
+              "reason": "Latest volume is 0.83x its 20-candle average."
+            },
+            {
+              "name": "Fear & Greed",
+              "score": 69,
+              "status": "Positive",
+              "reason": "Fear and Greed proxy score is 69.3 from the market dataset."
+            },
+            {
+              "name": "Sentiment",
+              "score": 53,
+              "status": "Neutral",
+              "reason": "Sentiment proxy score is 52.7, derived from quote momentum and market context."
+            },
+            {
+              "name": "Volatility",
+              "score": 31,
+              "status": "High",
+              "reason": "ATR is 6.29% of price, so volatility is high."
+            },
+            {
+              "name": "Regime",
+              "score": 71,
+              "status": "Momentum",
+              "reason": "Composite regime model classified CAKE as Momentum."
+            }
+          ],
+          "backtestMethodology": {
+            "startingCapital": "$1,000 simulated",
+            "feeAssumption": "0.10% per entry or exit",
+            "modelExposure": "55%",
+            "benchmarkReturn": "-15.3%",
+            "alphaVsBenchmark": "16.1%",
+            "candlesAnalyzed": 720
+          }
+        },
+        "signalWeights": {
+          "trend": 0.25,
+          "momentum": 0.2,
+          "volume": 0.15,
+          "sentiment": 0.15,
+          "volatility": 0.15,
+          "liquidity": 0.1
+        },
+        "disclaimer": "Research strategy specification only. Not financial advice. No trade execution."
+      },
+      "llmSkillOutput": {
+        "skill": {
+          "name": "BestStrat",
+          "version": "1.3.0",
+          "type": "llm_strategy_generation_skill",
+          "description": "A repeatable LLM Skill for converting CMC market context into a backtestable crypto strategy specification.",
+          "invocationName": "beststrat.generate_strategy",
+          "intendedAgentUse": "Use when a user asks for a crypto trading strategy research spec, not when they ask to place a live trade."
+        },
+        "activation": {
+          "userIntentExamples": [
+            "Generate a strategy for CAKE on 1h candles with moderate risk.",
+            "Create a backtestable momentum strategy for BNB.",
+            "Detect the market regime for ETH and write entry, exit, and risk rules."
+          ],
+          "requiredInputs": [
+            "symbol",
+            "timeframe",
+            "lookbackDays",
+            "riskLevel",
+            "strategyFocus"
+          ],
+          "optionalInputs": [
+            "preferredRegime",
+            "maxDrawdownTolerance",
+            "feeAssumption"
+          ]
+        },
+        "input": {
+          "symbol": "CAKE",
+          "timeframe": "1h",
+          "lookbackDays": 30,
+          "riskLevel": "moderate",
+          "strategyFocus": "auto"
+        },
+        "dataContext": {
+          "provider": "cmc_latest_quote",
+          "label": "CoinMarketCap latest quote + deterministic backtest candles",
+          "cmcApiConfigured": true,
+          "cmcQuoteUsed": true,
+          "fallbackReason": null,
+          "candlesAnalyzed": 720
+        },
+        "workflow": [
+          {
+            "step": 1,
+            "name": "Normalize user request",
+            "instruction": "Extract symbol, timeframe, lookbackDays, riskLevel, and strategyFocus. Ask for missing required inputs when needed."
+          },
+          {
+            "step": 2,
+            "name": "Fetch CMC market context",
+            "instruction": "Use CoinMarketCap data when configured. If unavailable, clearly mark deterministic fallback data."
+          },
+          {
+            "step": 3,
+            "name": "Classify market regime",
+            "instruction": "Score trend, momentum, volume, sentiment, volatility, and liquidity before selecting a regime."
+          },
+          {
+            "step": 4,
+            "name": "Generate strategy rules",
+            "instruction": "Return entry, exit, risk, invalidation, position sizing, and no-trade conditions as explicit testable rules."
+          },
+          {
+            "step": 5,
+            "name": "Backtest and compare",
+            "instruction": "Run the strategy over the selected lookback window and compare it with a buy-and-hold benchmark using stated fee assumptions."
+          },
+          {
+            "step": 6,
+            "name": "Return structured output",
+            "instruction": "Return JSON, Markdown, CMC Skill output, and LLM Skill output without any live execution instructions."
+          }
+        ],
+        "responseContract": {
+          "mustInclude": [
+            "detectedRegime",
+            "regimeConfidence",
+            "decisionRationale",
+            "entryRules",
+            "exitRules",
+            "riskRules",
+            "invalidationRules",
+            "noTradeConditions",
+            "backtest",
+            "backtestMethodology",
+            "disclaimer"
+          ],
+          "mustNotInclude": [
+            "wallet connection request",
+            "private key handling",
+            "live buy instruction",
+            "live sell instruction",
+            "guaranteed return claim"
+          ]
+        },
+        "generatedStrategy": {
+          "strategyName": "Guarded Momentum Strategy",
+          "strategySummary": "Enter only when trend, volume, sentiment, and risk conditions confirm momentum while volatility remains controlled.",
+          "detectedRegime": "Momentum",
+          "regimeConfidence": 71,
+          "decisionRationale": [
+            "CAKE was classified as Momentum, so BestStrat selected Guarded Momentum Strategy.",
+            "The strongest supporting signals were MACD: Bullish (100), RSI: Bullish (84), Regime: Momentum (71).",
+            "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
+          ],
+          "entryRules": [
+            "Price must hold above EMA 20 on the 1h timeframe",
+            "EMA 20 must stay above EMA 50 or be improving toward a bullish alignment",
+            "RSI must remain between 50 and 72 to avoid weak or overheated entries",
+            "MACD line must be above the signal line",
+            "Volume must be above the 20-candle average"
+          ],
+          "exitRules": [
+            "Exit if price closes below EMA 20",
+            "Exit if RSI drops below 48",
+            "Exit if MACD crosses below the signal line",
+            "Exit if regime confidence falls below 55"
+          ],
+          "riskRules": [
+            "Use moderate sizing with maximum 40% to 55% model exposure",
+            "Stop using this setup if strategy drawdown exceeds 8%",
+            "Reject setups with weak liquidity or aggressive volatility expansion",
+            "Avoid entries after large one-candle extensions without pullback confirmation"
+          ],
+          "invalidationRules": [
+            "Invalid if regime changes to Risk Off",
+            "Invalid if price loses EMA 50 with rising volume",
+            "Invalid if backtest drawdown breaches the 8% risk limit"
+          ],
+          "noTradeConditions": [
+            "RSI above 72",
+            "Price below EMA 20",
+            "Conflicting trend and momentum signals",
+            "Weak liquidity or unstable volume confirmation",
+            "Volatility spike without clear trend confirmation"
+          ],
+          "positionSizing": "Moderate risk profile: 40% to 55% model exposure, 1% to 1.5% risk per setup, adjusted down when ATR rises above normal.",
+          "signals": [
+            {
+              "name": "RSI",
+              "score": 84,
+              "status": "Bullish",
+              "reason": "RSI is 67.1, showing constructive momentum."
+            },
+            {
+              "name": "MACD",
+              "score": 100,
+              "status": "Bullish",
+              "reason": "MACD is above its signal line."
+            },
+            {
+              "name": "Volume",
+              "score": 38,
+              "status": "Weak",
+              "reason": "Latest volume is 0.83x its 20-candle average."
+            },
+            {
+              "name": "Fear & Greed",
+              "score": 69,
+              "status": "Positive",
+              "reason": "Fear and Greed proxy score is 69.3 from the market dataset."
+            },
+            {
+              "name": "Sentiment",
+              "score": 53,
+              "status": "Neutral",
+              "reason": "Sentiment proxy score is 52.7, derived from quote momentum and market context."
+            },
+            {
+              "name": "Volatility",
+              "score": 31,
+              "status": "High",
+              "reason": "ATR is 6.29% of price, so volatility is high."
+            },
+            {
+              "name": "Regime",
+              "score": 71,
+              "status": "Momentum",
+              "reason": "Composite regime model classified CAKE as Momentum."
+            }
+          ],
+          "backtest": {
+            "totalReturn": "0.8%",
+            "winRate": "40%",
+            "maxDrawdown": "2.8%",
+            "numberOfTrades": 5,
+            "averageTradeReturn": "0.3%",
+            "bestTrade": "5.4%",
+            "worstTrade": "-2.2%",
+            "riskAdjustedScore": 58,
+            "benchmarkReturn": "-15.3%",
+            "alphaVsBenchmark": "16.1%",
+            "feeAssumption": "0.10% per entry or exit",
+            "startingCapital": "$1,000 simulated",
+            "modelExposure": "55%"
+          },
+          "backtestMethodology": {
+            "startingCapital": "$1,000 simulated",
+            "feeAssumption": "0.10% per entry or exit",
+            "modelExposure": "55%",
+            "benchmarkReturn": "-15.3%",
+            "alphaVsBenchmark": "16.1%",
+            "candlesAnalyzed": 720
+          }
+        },
+        "guardrails": [
+          "Research strategy specification only",
+          "No wallet connection",
+          "No live order execution",
+          "No private key collection",
+          "Do not present backtest results as guaranteed future performance"
+        ],
+        "finalAnswerStyle": {
+          "tone": "clear, research-focused, concise",
+          "includeTables": true,
+          "includeMachineReadableJson": true,
+          "includeDisclaimer": true
+        },
+        "disclaimer": "BestStrat generates research strategy specifications only. It is not financial advice and does not execute trades."
+      },
+      "meta": {
+        "dataSource": "CoinMarketCap latest quote + deterministic backtest candles",
+        "dataProvider": "cmc_latest_quote",
+        "cmcApiConfigured": true,
+        "cmcQuoteUsed": true,
+        "fallbackReason": null,
+        "candlesAnalyzed": 720,
+        "generatedAt": "2026-06-11T10:14:58.621Z",
+        "note": "Research strategy specification only. Not financial advice. No trade execution."
+      }
+    }
+  }
+]

@@ -42,6 +42,17 @@ export function BacktestResultsSection({ backtest }: { backtest: Backtest }) {
         <BacktestMetricCard label="Avg Trade Return" value={backtest.averageTradeReturn} positive />
         <BacktestMetricCard label="Best Trade" value={backtest.bestTrade} positive />
         <BacktestMetricCard label="Worst Trade" value={backtest.worstTrade} negative />
+        {backtest.benchmarkReturn && <BacktestMetricCard label="Benchmark" value={backtest.benchmarkReturn} neutral />}
+        {backtest.alphaVsBenchmark && <BacktestMetricCard label="Alpha vs Benchmark" value={backtest.alphaVsBenchmark} positive={String(backtest.alphaVsBenchmark).startsWith("-") === false} negative={String(backtest.alphaVsBenchmark).startsWith("-")} />}
+        {backtest.modelExposure && <BacktestMetricCard label="Model Exposure" value={backtest.modelExposure} />}
+        {backtest.feeAssumption && <BacktestMetricCard label="Fee Assumption" value={backtest.feeAssumption} />}
+      </div>
+      <div className="mt-3 bg-[#161A20] border border-[#2B3139] rounded-xl p-4">
+        <div className="text-[#848E9C] text-xs font-medium uppercase tracking-wider mb-2">Backtest Methodology</div>
+        <p className="text-[#C8CDD6] text-sm leading-relaxed">
+          Starting capital: {backtest.startingCapital || "$1,000 simulated"}. Fees: {backtest.feeAssumption || "0.10% per entry or exit"}.
+          Benchmark compares the generated strategy against buy-and-hold over the same backtest window. Results are simulated and for research only.
+        </p>
       </div>
     </section>
   );

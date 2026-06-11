@@ -1,6 +1,6 @@
 # BestStrat
 
-BestStrat is a CoinMarketCap Strategy Skill Builder for BNB Hack Track 2. It generates backtestable crypto strategy specifications from market inputs, detects market regimes, runs a lightweight backtest, and exports JSON, Markdown, and CMC Skill-compatible output.
+BestStrat is an LLM-authored CoinMarketCap Strategy Skill Builder for BNB Hack Track 2. It generates backtestable crypto strategy specifications from market inputs, detects market regimes, runs a lightweight backtest, and exports JSON, Markdown, CMC Skill-compatible output, and LLM Skill output.
 
 BestStrat does not connect wallets, does not execute trades, and does not place live orders.
 
@@ -13,12 +13,12 @@ BestStrat does not connect wallets, does not execute trades, and does not place 
 - Market regime engine
 - Indicator engine: EMA, RSI, MACD, ATR, volume average
 - Strategy generator: momentum, range/mixed, sentiment divergence, and risk-off modes
-- Lightweight backtest engine with equity curve, drawdown curve, and trade metrics
+- Lightweight backtest engine with equity curve, drawdown curve, trade metrics, benchmark return, and fee assumptions
 - Data source visibility inside the UI
 - Project-root `.env` and `backend/.env` support
 - Recent strategy run persistence in `backend/data/runs.json`
-- Export output: JSON Strategy Spec, Markdown Report, CMC Skill Output
-- CMC Skill artifacts in `skill/`
+- Export output: JSON Strategy Spec, Markdown Report, CMC Skill Output, and LLM Skill Output
+- CMC Skill artifacts in `skill/`, including input and output schemas
 - Fallback mode when no CMC API key is configured
 
 ## Tech stack
@@ -26,7 +26,7 @@ BestStrat does not connect wallets, does not execute trades, and does not place 
 - Frontend: Vite, React, TypeScript, Tailwind CSS, Recharts
 - Backend: Node.js ESM HTTP server, no backend framework dependency
 - Storage: local JSON file for hackathon MVP history
-- Skill artifacts: `skill/skill.json`, `skill/instructions.md`, `skill/examples`
+- Skill artifacts: `skill/skill.json`, `skill/instructions.md`, `skill/input_schema.json`, `skill/output_schema.json`, `skill/examples`
 
 ## Local setup with pnpm
 
@@ -160,14 +160,28 @@ GET /api/strategy/runs/:id
 3. Generate a CAKE strategy with 1h timeframe, 30d lookback, moderate risk, and auto detect focus.
 4. Show the detected regime and data source badge.
 5. Walk through strategy summary, entry rules, exit rules, risk rules, invalidation rules, and no-trade conditions.
-6. Show backtest metrics and charts.
+6. Show backtest metrics, benchmark comparison, methodology, and charts.
 7. Open Export Strategy.
-8. Copy JSON Strategy Spec, Markdown Report, and CMC Skill Output.
+8. Copy JSON Strategy Spec, Markdown Report, CMC Skill Output, and LLM Skill Output.
 9. Explain that BestStrat is a Track 2 Skill product, not a trading execution bot.
+
+## Professional demo readiness
+
+BestStrat is now shaped like a product demo rather than an internal scoring checklist:
+
+- Strategy Builder presents market regime, rationale, rules, backtest metrics, and exports in a clean product-focused flow.
+- The app remains focused on the user flow: choose parameters, generate strategy, inspect methodology, export the spec.
+- Submission support files are kept in `submission/` so the public UI stays clean and professional.
+
+See `submission/DEMO_SCRIPT.md` and `submission/DORAHACKS_SUBMISSION.md` for reusable submission material.
+
+## LLM Skill packaging
+
+BestStrat includes a dedicated `skill/` package so reviewers can inspect the Skill separately from the web app. The package defines the invocation name, required inputs, output contract, workflow, examples, and guardrails for an agent that uses BestStrat as a repeatable strategy-generation Skill.
 
 ## Submission positioning
 
-BestStrat is positioned as a Quantopian-style crypto strategy generation Skill:
+BestStrat is positioned as a Quantopian-style crypto strategy generation Skill authored as an LLM Skill:
 
 ```text
 CMC-style market inputs → regime detection → strategy rules → backtest → exportable strategy spec

@@ -1,8 +1,8 @@
 {
   "name": "BestStrat",
-  "version": "1.1.0",
-  "type": "strategy_generation_skill",
-  "description": "A CMC Strategy Skill that detects crypto market regimes and outputs backtestable strategy specs with entry, exit, risk, invalidation, rationale, and backtest results.",
+  "version": "1.3.0",
+  "type": "llm_strategy_generation_skill",
+  "description": "An LLM-authored CMC Strategy Skill that turns market data into backtestable crypto strategy specs with regime detection, explicit rules, risk constraints, rationale, and backtest results.",
   "track": "BNB Hack Track 2 Strategy Skills",
   "inputs": {
     "symbol": "string",
@@ -23,9 +23,13 @@
     "invalidationRules": "string[]",
     "noTradeConditions": "string[]",
     "backtest": "object",
+    "backtestMethodology": "object",
     "jsonOutput": "object",
     "markdownReport": "string",
-    "cmcSkillOutput": "object"
+    "cmcSkillOutput": "object",
+    "llmSkillOutput": "object",
+    "inputSchema": "object",
+    "outputSchema": "object"
   },
   "dataPolicy": {
     "preferredSource": "CoinMarketCap latest quote when CMC_API_KEY is configured",
@@ -37,5 +41,27 @@
     "No live trade execution",
     "No buy or sell order placement",
     "Strategy specification and research output only"
+  ],
+  "invocationName": "beststrat.generate_strategy",
+  "agentUseCase": "Use this Skill when an AI agent or user needs a research-grade crypto strategy specification from CMC market context. Do not use it to execute live trades.",
+  "schemas": {
+    "input": "skill/input_schema.json",
+    "output": "skill/output_schema.json"
+  },
+  "llmWorkflow": [
+    "Normalize symbol, timeframe, lookbackDays, riskLevel, and strategyFocus from the user request.",
+    "Fetch or receive CoinMarketCap market context for the selected asset.",
+    "Score trend, momentum, volume, sentiment, volatility, and liquidity.",
+    "Classify the current regime before selecting a strategy mode.",
+    "Generate explicit entry, exit, risk, invalidation, no-trade, and position-sizing rules.",
+    "Backtest the rules over the selected lookback window and compare against buy-and-hold.",
+    "Return machine-readable JSON plus a human-readable report with disclaimers."
+  ],
+  "guardrails": [
+    "Research and strategy specification only",
+    "No wallet connection or private key handling",
+    "No live order execution",
+    "No guaranteed performance claims",
+    "Always disclose data source and fallback status"
   ]
 }

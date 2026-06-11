@@ -102,7 +102,7 @@ const features = [
   },
   {
     icon: BarChart2,
-    title: "Backtest Metrics",
+    title: "Backtest + Benchmark",
     desc: "Simulated performance metrics including total return, win rate, max drawdown, and risk-adjusted score — all from CMC historical data.",
     accent: "#3B82F6",
   },
@@ -153,7 +153,7 @@ const steps = [
   { n: 1, title: "Choose token and timeframe", desc: "Enter any CMC-listed token symbol and pick your analysis timeframe from 5m to 1d." },
   { n: 2, title: "Detect market regime", desc: "BestStrat analyzes CMC data to classify the current regime: Momentum, Trend, Risk Off, or Sentiment Divergence." },
   { n: 3, title: "Generate strategy rules", desc: "Entry, exit, risk, and invalidation rules are generated to match the detected regime and your chosen risk level." },
-  { n: 4, title: "Backtest performance", desc: "Strategy logic is tested against historical CMC data. View equity curve, drawdown, and key performance metrics." },
+  { n: 4, title: "Backtest performance", desc: "Strategy logic is tested against a repeatable market dataset. View equity curve, drawdown, benchmark return, and key performance metrics." },
   { n: 5, title: "Export strategy spec", desc: "Download the strategy as a JSON spec, Markdown report, or CMC Skill-compatible output ready for submission." },
 ];
 
