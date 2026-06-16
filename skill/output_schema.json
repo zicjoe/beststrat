@@ -130,7 +130,7 @@
     },
     "backtestEvidence": {
       "type": "object",
-      "description": "Evidence behind the historical simulation, including price chart points, simulated trade ledger, and snapshot metadata.",
+      "description": "Evidence behind the historical simulation, including OHLC price chart points, simulated trade ledger, and snapshot metadata.",
       "properties": {
         "priceChart": {
           "type": "array",

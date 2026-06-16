@@ -39,10 +39,37 @@ interface Props {
   data: StrategyResponse;
 }
 
+interface SummaryMetaItem {
+  label: string;
+  value: string | number;
+  colorClass?: string;
+}
+
+function SummaryMetaCard({ label, value, colorClass }: SummaryMetaItem) {
+  return (
+    <div className="bg-[#0F1318] px-4 py-3 min-w-0">
+      <div className="text-[#4B5563] text-[11px] uppercase tracking-wider mb-1 leading-tight">{label}</div>
+      <div className={`text-sm font-semibold leading-snug whitespace-normal break-words ${colorClass ?? "text-white"}`}>
+        {value}
+      </div>
+    </div>
+  );
+}
+
 export function StrategyDecisionSummary({ data }: Props) {
   const selectedFocus = data.autoSelection?.enabled
     ? data.autoSelection.selectedFocusLabel
     : formatLabel(data.selectedStrategyFocus || data.strategyFocus);
+
+  const metaItems: SummaryMetaItem[] = [
+    { label: "Token", value: data.symbol },
+    { label: "Timeframe", value: data.timeframe },
+    { label: "Lookback", value: `${data.lookbackDays}d` },
+    { label: "Risk Level", value: formatLabel(data.riskLevel), colorClass: riskColor(data.riskLevel) },
+    { label: "Input Focus", value: formatLabel(data.strategyFocus) },
+    { label: "Selected", value: selectedFocus, colorClass: "text-[#F0B90B]" },
+    { label: "Mode", value: "Historical Sim.", colorClass: "text-[#C8CDD6]" },
+  ];
 
   return (
     <section
@@ -55,13 +82,13 @@ export function StrategyDecisionSummary({ data }: Props) {
           <span className="text-[#848E9C] text-xs font-medium tracking-wider uppercase">Strategy Decision</span>
         </div>
         <div className="flex flex-wrap items-center gap-3 text-xs text-[#848E9C]">
-          <span className="inline-flex items-center gap-1.5">
-            <Database size={12} />
-            {getDataSource(data)}
+          <span className="inline-flex items-center gap-1.5 min-w-0">
+            <Database size={12} className="flex-shrink-0" />
+            <span className="whitespace-normal break-words">{getDataSource(data)}</span>
           </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Clock size={12} />
-            {getSnapshot(data)}
+          <span className="inline-flex items-center gap-1.5 min-w-0">
+            <Clock size={12} className="flex-shrink-0" />
+            <span className="whitespace-normal break-words">{getSnapshot(data)}</span>
           </span>
         </div>
       </div>
@@ -80,31 +107,20 @@ export function StrategyDecisionSummary({ data }: Props) {
           </div>
 
           <div className="flex flex-row xl:flex-col items-start xl:items-end gap-3 flex-shrink-0">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold border bg-[#F0B90B]/10 border-[#F0B90B]/30 text-[#F0B90B]">
-              <TrendingUp size={13} />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold border bg-[#F0B90B]/10 border-[#F0B90B]/30 text-[#F0B90B] whitespace-normal">
+              <TrendingUp size={13} className="flex-shrink-0" />
               {data.detectedRegime}
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border bg-[#0ECB81]/10 border-[#0ECB81]/25 text-[#0ECB81]">
-              <ShieldCheck size={12} />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border bg-[#0ECB81]/10 border-[#0ECB81]/25 text-[#0ECB81] whitespace-normal">
+              <ShieldCheck size={12} className="flex-shrink-0" />
               {data.regimeConfidence}% confidence
             </span>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-px rounded-xl overflow-hidden bg-[#2B3139]">
-          {[
-            { label: "Token", value: data.symbol },
-            { label: "Timeframe", value: data.timeframe },
-            { label: "Lookback", value: `${data.lookbackDays}d` },
-            { label: "Risk Level", value: formatLabel(data.riskLevel), colorClass: riskColor(data.riskLevel) },
-            { label: "Input Focus", value: formatLabel(data.strategyFocus) },
-            { label: "Selected", value: selectedFocus, colorClass: "text-[#F0B90B]" },
-            { label: "Mode", value: "Historical simulation" },
-          ].map(({ label, value, colorClass }) => (
-            <div key={label} className="bg-[#0F1318] px-4 py-3">
-              <div className="text-[#4B5563] text-xs uppercase tracking-wider mb-1">{label}</div>
-              <div className={`text-sm font-semibold truncate ${colorClass ?? "text-white"}`}>{value}</div>
-            </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-px rounded-xl overflow-hidden bg-[#2B3139]">
+          {metaItems.map((item) => (
+            <SummaryMetaCard key={item.label} {...item} />
           ))}
         </div>
       </div>

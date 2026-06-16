@@ -28,7 +28,7 @@ import {
   YAxis,
 } from "recharts";
 import { RecentStrategyRunsTable } from "./RecentStrategyRunsTable";
-import type { AutoSelectionCandidate, RecentRun, Signal, StrategyResponse } from "../../types/strategy";
+import type { AutoSelectionCandidate, PriceChartPoint, RecentRun, Signal, StrategyResponse } from "../../types/strategy";
 
 function ReturnCell({ value }: { value: string }) {
   return <span className={value.startsWith("-") ? "text-[#F6465D]" : "text-[#0ECB81]"}>{value}</span>;
@@ -286,9 +286,103 @@ const chartTooltipStyle = {
   padding: "5px 9px",
 };
 
+function getOhlcValue(point: PriceChartPoint, field: "open" | "high" | "low" | "close") {
+  if (typeof point[field] === "number") return point[field] as number;
+  return point.price;
+}
+
+function CandlestickEvidenceChart({ data }: { data: PriceChartPoint[] }) {
+  if (!data.length) return null;
+
+  const width = 1000;
+  const height = 260;
+  const padding = { top: 14, right: 24, bottom: 26, left: 58 };
+  const plotWidth = width - padding.left - padding.right;
+  const plotHeight = height - padding.top - padding.bottom;
+  const values = data.flatMap((point) => [
+    getOhlcValue(point, "high"),
+    getOhlcValue(point, "low"),
+    point.entryPrice ?? null,
+    point.exitPrice ?? null,
+  ]).filter((value): value is number => typeof value === "number" && Number.isFinite(value));
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = Math.max(max - min, max * 0.001, 0.000001);
+  const yFor = (value: number) => padding.top + ((max - value) / range) * plotHeight;
+  const xFor = (index: number) => padding.left + (data.length <= 1 ? plotWidth / 2 : (index / (data.length - 1)) * plotWidth);
+  const candleWidth = Math.max(3, Math.min(9, (plotWidth / Math.max(1, data.length)) * 0.62));
+  const gridLines = Array.from({ length: 5 }, (_, index) => {
+    const y = padding.top + (plotHeight / 4) * index;
+    const value = max - (range / 4) * index;
+    return { y, value };
+  });
+  const labelStep = Math.max(1, Math.floor(data.length / 5));
+
+  return (
+    <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Candlestick backtest evidence chart" className="w-full h-[260px] overflow-visible">
+      <rect x="0" y="0" width={width} height={height} rx="12" fill="#0B0E11" />
+      {gridLines.map((line) => (
+        <g key={line.y}>
+          <line x1={padding.left} x2={width - padding.right} y1={line.y} y2={line.y} stroke="#1E2329" strokeDasharray="4 4" />
+          <text x={padding.left - 10} y={line.y + 4} textAnchor="end" fill="#4B5563" fontSize="10">
+            {line.value >= 100 ? line.value.toFixed(0) : line.value.toFixed(line.value >= 1 ? 2 : 5)}
+          </text>
+        </g>
+      ))}
+      {data.map((point, index) => {
+        const open = getOhlcValue(point, "open");
+        const high = getOhlcValue(point, "high");
+        const low = getOhlcValue(point, "low");
+        const close = getOhlcValue(point, "close");
+        const x = xFor(index);
+        const highY = yFor(high);
+        const lowY = yFor(low);
+        const openY = yFor(open);
+        const closeY = yFor(close);
+        const bullish = close >= open;
+        const color = bullish ? "#0ECB81" : "#F6465D";
+        const bodyY = Math.min(openY, closeY);
+        const bodyHeight = Math.max(1.5, Math.abs(closeY - openY));
+        return (
+          <g key={`${point.time}-${index}`}>
+            <title>{`${point.time} · O ${open} H ${high} L ${low} C ${close}${point.reason ? ` · ${point.reason}` : ""}`}</title>
+            <line x1={x} x2={x} y1={highY} y2={lowY} stroke={color} strokeWidth="1.2" opacity="0.75" />
+            <rect x={x - candleWidth / 2} y={bodyY} width={candleWidth} height={bodyHeight} rx="1.5" fill={color} opacity={bullish ? 0.72 : 0.64} />
+            {point.entryPrice ? (
+              <polygon
+                points={`${x - 5},${yFor(point.entryPrice) + 10} ${x + 5},${yFor(point.entryPrice) + 10} ${x},${yFor(point.entryPrice) + 1}`}
+                fill="#0ECB81"
+                stroke="#0B0E11"
+                strokeWidth="1"
+              />
+            ) : null}
+            {point.exitPrice ? (
+              <polygon
+                points={`${x - 5},${yFor(point.exitPrice) - 10} ${x + 5},${yFor(point.exitPrice) - 10} ${x},${yFor(point.exitPrice) - 1}`}
+                fill="#F6465D"
+                stroke="#0B0E11"
+                strokeWidth="1"
+              />
+            ) : null}
+          </g>
+        );
+      })}
+      {data.map((point, index) => {
+        if (index !== 0 && index !== data.length - 1 && index % labelStep !== 0) return null;
+        const x = xFor(index);
+        return (
+          <text key={`label-${point.time}-${index}`} x={x} y={height - 8} textAnchor="middle" fill="#4B5563" fontSize="9">
+            {point.time.slice(0, 10)}
+          </text>
+        );
+      })}
+    </svg>
+  );
+}
 
 function BacktestEvidenceChart({ data }: { data: StrategyResponse }) {
   const chartData = data.priceChart ?? [];
+  const [chartView, setChartView] = useState<"candles" | "line">("candles");
   const evidence = data.backtestEvidence;
   const snapshot = data.meta?.dataSnapshotAt ? new Date(data.meta.dataSnapshotAt).toLocaleString() : "Current request";
   const dataSource = data.meta?.dataSource || data.meta?.dataProvider || "BestStrat data layer";
@@ -322,18 +416,42 @@ function BacktestEvidenceChart({ data }: { data: StrategyResponse }) {
         </div>
 
         <div className="bg-[#0B0E11] border border-[#1A1F26] rounded-xl p-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+            <div className="text-[#4B5563] text-xs">Toggle between a clean price path and OHLC candle evidence from the same snapshot.</div>
+            <div className="inline-flex rounded-lg border border-[#2B3139] bg-[#161A20] p-1 w-fit">
+              {[
+                { id: "candles", label: "Candles" },
+                { id: "line", label: "Line" },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setChartView(item.id as "candles" | "line")}
+                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                    chartView === item.id ? "bg-[#F0B90B] text-[#0B0E11]" : "text-[#848E9C] hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
           {chartData.length ? (
-            <ResponsiveContainer width="100%" height={260}>
-              <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1E2329" />
-                <XAxis dataKey="time" tick={{ fill: "#4B5563", fontSize: 9 }} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={28} />
-                <YAxis yAxisId="price" tick={{ fill: "#4B5563", fontSize: 9 }} axisLine={false} tickLine={false} width={58} domain={["dataMin", "dataMax"]} />
-                <Tooltip contentStyle={chartTooltipStyle} formatter={(value, name) => [value, name === "price" ? "Price" : name === "entryPrice" ? "Entry" : name === "exitPrice" ? "Exit" : name]} />
-                <Line yAxisId="price" type="monotone" dataKey="price" stroke="#848E9C" strokeWidth={1.5} dot={false} activeDot={{ r: 4, fill: "#F0B90B", stroke: "#0B0E11" }} />
-                <Line yAxisId="price" type="monotone" dataKey="entryPrice" stroke="transparent" strokeWidth={0} dot={{ r: 4, fill: "#0ECB81", stroke: "#0B0E11", strokeWidth: 1.5 }} activeDot={{ r: 6, fill: "#0ECB81" }} connectNulls={false} />
-                <Line yAxisId="price" type="monotone" dataKey="exitPrice" stroke="transparent" strokeWidth={0} dot={{ r: 4, fill: "#F6465D", stroke: "#0B0E11", strokeWidth: 1.5 }} activeDot={{ r: 6, fill: "#F6465D" }} connectNulls={false} />
-              </ComposedChart>
-            </ResponsiveContainer>
+            chartView === "candles" ? (
+              <CandlestickEvidenceChart data={chartData} />
+            ) : (
+              <ResponsiveContainer width="100%" height={260}>
+                <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1E2329" />
+                  <XAxis dataKey="time" tick={{ fill: "#4B5563", fontSize: 9 }} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={28} />
+                  <YAxis yAxisId="price" tick={{ fill: "#4B5563", fontSize: 9 }} axisLine={false} tickLine={false} width={58} domain={["dataMin", "dataMax"]} />
+                  <Tooltip contentStyle={chartTooltipStyle} formatter={(value, name) => [value, name === "price" ? "Price" : name === "entryPrice" ? "Entry" : name === "exitPrice" ? "Exit" : name]} />
+                  <Line yAxisId="price" type="monotone" dataKey="price" stroke="#848E9C" strokeWidth={1.5} dot={false} activeDot={{ r: 4, fill: "#F0B90B", stroke: "#0B0E11" }} />
+                  <Line yAxisId="price" type="monotone" dataKey="entryPrice" stroke="transparent" strokeWidth={0} dot={{ r: 4, fill: "#0ECB81", stroke: "#0B0E11", strokeWidth: 1.5 }} activeDot={{ r: 6, fill: "#0ECB81" }} connectNulls={false} />
+                  <Line yAxisId="price" type="monotone" dataKey="exitPrice" stroke="transparent" strokeWidth={0} dot={{ r: 4, fill: "#F6465D", stroke: "#0B0E11", strokeWidth: 1.5 }} activeDot={{ r: 6, fill: "#F6465D" }} connectNulls={false} />
+                </ComposedChart>
+              </ResponsiveContainer>
+            )
           ) : (
             <div className="h-56 flex items-center justify-center text-[#4B5563] text-sm">No price evidence chart is available for this run.</div>
           )}

@@ -73,7 +73,7 @@ Keep CMC credentials on the BestStrat backend. External clients should call the 
 
 BestStrat Skill responses include backtest evidence fields so an agent or reviewer can inspect how a result was produced:
 
-- `priceChart`: sampled price path with simulated entry and exit markers
+- `priceChart`: sampled OHLC price path with open, high, low, close, volume, and simulated entry/exit markers
 - `tradeLedger`: simulated trade-by-trade ledger with action, time, price, reason, PnL, and equity
 - `evidence`: candle window, candles tested, plotted price points, and ledger row count
 

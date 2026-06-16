@@ -34,8 +34,10 @@ export interface SignalStrengthPoint {
 export interface PriceChartPoint {
   time: string;
   price: number;
+  open?: number;
   high?: number;
   low?: number;
+  close?: number;
   volume?: number;
   entryPrice?: number | null;
   exitPrice?: number | null;

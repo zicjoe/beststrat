@@ -150,9 +150,11 @@ function buildPriceChart(candles, trades, maxPoints = 120) {
 
     const point = {
       time: evidenceTimeLabel(candle.time),
-      price: round(candle.close, 6),
+      open: round(candle.open, 6),
       high: round(candle.high, 6),
       low: round(candle.low, 6),
+      close: round(candle.close, 6),
+      price: round(candle.close, 6),
       volume: round(candle.volume, 0),
       entryPrice: null,
       exitPrice: null,
