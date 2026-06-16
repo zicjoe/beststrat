@@ -8,6 +8,7 @@ BestStrat does not connect wallets, does not execute trades, and does not place 
 
 - React TypeScript frontend from the Figma export
 - Two-page flow: landing page and `/builder`
+- Searchable token selector with curated popular tokens and custom symbol support
 - Real backend API at `POST /api/strategy/generate`
 - Strategy request validation
 - Market regime engine

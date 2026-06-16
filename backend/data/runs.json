@@ -1,8 +1,8 @@
 [
   {
-    "id": "0fc3c1d2-b239-41c2-b05f-71fa5132685f",
-    "createdAt": "2026-06-16 10:21",
-    "token": "CAKE",
+    "id": "b51816c0-1c8e-43a7-870f-36b940f29687",
+    "createdAt": "2026-06-16 12:08",
+    "token": "BILLIONS",
     "timeframe": "1h",
     "inputFocus": "auto",
     "inputFocusLabel": "Auto Detect",
@@ -10,13 +10,13 @@
     "selectedFocusLabel": "Risk Off",
     "regime": "Risk Off",
     "strategy": "Capital Protection Regime Strategy",
-    "totalReturn": "8.6%",
-    "maxDrawdown": "2.4%",
-    "dataSnapshotAt": "2026-06-16T10:20:00.000Z",
+    "totalReturn": "39.3%",
+    "maxDrawdown": "1.8%",
+    "dataSnapshotAt": "2026-06-16T12:05:00.000Z",
     "response": {
-      "id": "0fc3c1d2-b239-41c2-b05f-71fa5132685f",
-      "createdAt": "2026-06-16 10:21",
-      "symbol": "CAKE",
+      "id": "b51816c0-1c8e-43a7-870f-36b940f29687",
+      "createdAt": "2026-06-16 12:08",
+      "symbol": "BILLIONS",
       "timeframe": "1h",
       "lookbackDays": 30,
       "riskLevel": "moderate",
@@ -28,7 +28,7 @@
         "selectedFocusLabel": "Risk Off",
         "selectedStrategy": "Capital Protection Regime Strategy",
         "selectedRegime": "Risk Off",
-        "selectionScore": 77,
+        "selectionScore": 110,
         "reason": "Capital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.",
         "candidates": [
           {
@@ -37,12 +37,12 @@
             "focusLabel": "Risk Off",
             "regime": "Risk Off",
             "strategyName": "Capital Protection Regime Strategy",
-            "totalReturn": "8.6%",
-            "maxDrawdown": "2.4%",
-            "winRate": "50%",
-            "riskAdjustedScore": 72,
-            "alphaVsBenchmark": "25.5%",
-            "selectionScore": 77,
+            "totalReturn": "39.3%",
+            "maxDrawdown": "1.8%",
+            "winRate": "73%",
+            "riskAdjustedScore": 100,
+            "alphaVsBenchmark": "48.6%",
+            "selectionScore": 110,
             "selected": true
           },
           {
@@ -51,12 +51,12 @@
             "focusLabel": "Momentum",
             "regime": "Momentum",
             "strategyName": "Guarded Momentum Strategy",
-            "totalReturn": "-0.7%",
+            "totalReturn": "7.6%",
             "maxDrawdown": "2%",
-            "winRate": "25%",
-            "riskAdjustedScore": 55,
-            "alphaVsBenchmark": "16.3%",
-            "selectionScore": 65,
+            "winRate": "50%",
+            "riskAdjustedScore": 71,
+            "alphaVsBenchmark": "16.9%",
+            "selectionScore": 76,
             "selected": false
           },
           {
@@ -65,12 +65,12 @@
             "focusLabel": "Sentiment Divergence",
             "regime": "Sentiment Divergence",
             "strategyName": "Sentiment Divergence Filter Strategy",
-            "totalReturn": "-0.1%",
-            "maxDrawdown": "2.4%",
-            "winRate": "22%",
-            "riskAdjustedScore": 54,
-            "alphaVsBenchmark": "16.8%",
-            "selectionScore": 64,
+            "totalReturn": "6.2%",
+            "maxDrawdown": "4.1%",
+            "winRate": "43%",
+            "riskAdjustedScore": 64,
+            "alphaVsBenchmark": "15.5%",
+            "selectionScore": 66,
             "selected": false
           },
           {
@@ -79,22 +79,22 @@
             "focusLabel": "Regime Detection",
             "regime": "Range / Mixed",
             "strategyName": "Range Aware Mean Reversion Strategy",
-            "totalReturn": "-2.4%",
-            "maxDrawdown": "3.9%",
-            "winRate": "25%",
-            "riskAdjustedScore": 48,
-            "alphaVsBenchmark": "14.5%",
-            "selectionScore": 56,
+            "totalReturn": "-9.8%",
+            "maxDrawdown": "10.9%",
+            "winRate": "19%",
+            "riskAdjustedScore": 22,
+            "alphaVsBenchmark": "-0.5%",
+            "selectionScore": 20,
             "selected": false
           }
         ],
         "note": "Auto Detect selected the top-ranked candidate."
       },
       "detectedRegime": "Risk Off",
-      "regimeConfidence": 55,
-      "marketSummary": "CAKE is classified as Risk Off with 55% confidence, trend is bearish, volatility is controlled, sentiment is neutral, liquidity is high.",
+      "regimeConfidence": 64,
+      "marketSummary": "BILLIONS is classified as Risk Off with 64% confidence, trend is bearish, volatility is moderate, sentiment is neutral, liquidity is high.",
       "trendState": "Bearish",
-      "volatilityState": "Controlled",
+      "volatilityState": "Moderate",
       "sentimentState": "Neutral",
       "liquidityState": "High",
       "strategyName": "Capital Protection Regime Strategy",
@@ -128,66 +128,66 @@
         "Volatility spike without clear trend confirmation"
       ],
       "decisionRationale": [
-        "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 77 selection score.",
-        "CAKE was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
-        "The strongest supporting signals were Volatility: Controlled (78), MACD: Bullish (77), RSI: Weak (72).",
+        "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 110 selection score.",
+        "BILLIONS was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
+        "The strongest supporting signals were Regime: Risk Off (64), Volume: Strong (63), Fear & Greed: Neutral (54).",
         "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
       ],
       "signals": [
         {
           "name": "RSI",
-          "score": 72,
+          "score": 40,
           "status": "Weak",
-          "reason": "RSI is 47.8, showing weak momentum."
+          "reason": "RSI is 33.8, showing weak momentum."
         },
         {
           "name": "MACD",
-          "score": 77,
-          "status": "Bullish",
-          "reason": "MACD is above its signal line."
+          "score": 34,
+          "status": "Bearish",
+          "reason": "MACD is below its signal line."
         },
         {
           "name": "Volume",
-          "score": 44,
-          "status": "Neutral",
-          "reason": "Latest volume is 0.97x its 20-candle average."
+          "score": 63,
+          "status": "Strong",
+          "reason": "Latest volume is 1.4x its 20-candle average."
         },
         {
           "name": "Fear & Greed",
-          "score": 65,
-          "status": "Positive",
-          "reason": "Fear and Greed proxy score is 65.2 from the market dataset."
+          "score": 54,
+          "status": "Neutral",
+          "reason": "Fear and Greed proxy score is 54.1 from the market dataset."
         },
         {
           "name": "Sentiment",
-          "score": 57,
+          "score": 41,
           "status": "Neutral",
-          "reason": "Sentiment proxy score is 56.8, derived from quote momentum and market context."
+          "reason": "Sentiment proxy score is 41.1, derived from quote momentum and market context."
         },
         {
           "name": "Volatility",
-          "score": 78,
-          "status": "Controlled",
-          "reason": "ATR is 2.32% of price, so volatility is controlled."
+          "score": 45,
+          "status": "Moderate",
+          "reason": "ATR is 5.15% of price, so volatility is moderate."
         },
         {
           "name": "Regime",
-          "score": 55,
+          "score": 64,
           "status": "Risk Off",
-          "reason": "Composite regime model classified CAKE as Risk Off."
+          "reason": "Composite regime model classified BILLIONS as Risk Off."
         }
       ],
       "backtest": {
-        "totalReturn": "8.6%",
-        "winRate": "50%",
-        "maxDrawdown": "2.4%",
-        "numberOfTrades": 14,
-        "averageTradeReturn": "1.1%",
-        "bestTrade": "9.9%",
-        "worstTrade": "-1.5%",
-        "riskAdjustedScore": 72,
-        "benchmarkReturn": "-16.9%",
-        "alphaVsBenchmark": "25.5%",
+        "totalReturn": "39.3%",
+        "winRate": "73%",
+        "maxDrawdown": "1.8%",
+        "numberOfTrades": 11,
+        "averageTradeReturn": "5.7%",
+        "bestTrade": "15.1%",
+        "worstTrade": "-1.8%",
+        "riskAdjustedScore": 100,
+        "benchmarkReturn": "-9.3%",
+        "alphaVsBenchmark": "48.6%",
         "feeAssumption": "0.10% per entry or exit",
         "startingCapital": "$1,000 simulated",
         "modelExposure": "55%"
@@ -195,202 +195,202 @@
       "equityCurve": [
         {
           "time": "Point 1",
-          "value": 999.45
+          "value": 1000
         },
         {
           "time": "Point 2",
-          "value": 1054.7
+          "value": 1044.25
         },
         {
           "time": "Point 3",
-          "value": 1075.32
+          "value": 1036.59
         },
         {
           "time": "Point 4",
-          "value": 1072
+          "value": 1077.72
         },
         {
           "time": "Point 5",
-          "value": 1059.7
+          "value": 1077.72
         },
         {
           "time": "Point 6",
-          "value": 1054.59
+          "value": 1077.72
         },
         {
           "time": "Point 7",
-          "value": 1054.59
+          "value": 1077.72
         },
         {
           "time": "Point 8",
-          "value": 1054.59
+          "value": 1077.72
         },
         {
           "time": "Point 9",
-          "value": 1054.59
+          "value": 1077.72
         },
         {
           "time": "Point 10",
-          "value": 1070.28
+          "value": 1091.99
         },
         {
           "time": "Point 11",
-          "value": 1079.43
+          "value": 1183.34
         },
         {
           "time": "Point 12",
-          "value": 1094.62
+          "value": 1268.95
         },
         {
           "time": "Point 13",
-          "value": 1106.5
+          "value": 1407.59
         },
         {
           "time": "Point 14",
-          "value": 1093.2
+          "value": 1393.33
         },
         {
           "time": "Point 15",
-          "value": 1085.86
+          "value": 1393.33
         },
         {
           "time": "Point 16",
-          "value": 1085.86
+          "value": 1393.33
         },
         {
           "time": "Point 17",
-          "value": 1085.86
+          "value": 1393.33
         },
         {
           "time": "Point 18",
-          "value": 1085.86
+          "value": 1393.33
         },
         {
           "time": "Point 19",
-          "value": 1085.86
+          "value": 1393.33
         },
         {
           "time": "Point 20",
-          "value": 1085.86
+          "value": 1393.33
         }
       ],
       "drawdownCurve": [
         {
           "time": "Point 1",
-          "value": -0.05
+          "value": 0
         },
         {
           "time": "Point 2",
-          "value": -0.24
+          "value": -0.79
         },
         {
           "time": "Point 3",
-          "value": -0.14
+          "value": -1.52
         },
         {
           "time": "Point 4",
-          "value": -0.45
+          "value": -1.3
         },
         {
           "time": "Point 5",
-          "value": -1.59
+          "value": -1.3
         },
         {
           "time": "Point 6",
-          "value": -2.07
+          "value": -1.3
         },
         {
           "time": "Point 7",
-          "value": -2.07
+          "value": -1.3
         },
         {
           "time": "Point 8",
-          "value": -2.07
+          "value": -1.3
         },
         {
           "time": "Point 9",
-          "value": -2.07
+          "value": -1.3
         },
         {
           "time": "Point 10",
-          "value": -0.61
+          "value": 0
         },
         {
           "time": "Point 11",
-          "value": -0.39
+          "value": -1.21
         },
         {
           "time": "Point 12",
-          "value": -0.66
+          "value": 0
         },
         {
           "time": "Point 13",
-          "value": -0.31
+          "value": -0.53
         },
         {
           "time": "Point 14",
-          "value": -1.51
+          "value": -1.54
         },
         {
           "time": "Point 15",
-          "value": -2.17
+          "value": -1.54
         },
         {
           "time": "Point 16",
-          "value": -2.17
+          "value": -1.54
         },
         {
           "time": "Point 17",
-          "value": -2.17
+          "value": -1.54
         },
         {
           "time": "Point 18",
-          "value": -2.17
+          "value": -1.54
         },
         {
           "time": "Point 19",
-          "value": -2.17
+          "value": -1.54
         },
         {
           "time": "Point 20",
-          "value": -2.17
+          "value": -1.54
         }
       ],
       "signalStrength": [
         {
           "name": "RSI",
-          "value": 72
+          "value": 40
         },
         {
           "name": "MACD",
-          "value": 77
+          "value": 34
         },
         {
           "name": "Volume",
-          "value": 44
+          "value": 63
         },
         {
           "name": "F&G",
-          "value": 65
+          "value": 54
         },
         {
           "name": "Sentiment",
-          "value": 57
+          "value": 41
         },
         {
           "name": "Volatility",
-          "value": 78
+          "value": 45
         },
         {
           "name": "Regime",
-          "value": 55
+          "value": 64
         }
       ],
       "jsonOutput": {
         "strategySpec": {
           "name": "Capital Protection Regime Strategy",
           "version": "1.3.0",
-          "asset": "CAKE",
+          "asset": "BILLIONS",
           "timeframe": "1h",
           "lookbackDays": 30,
           "riskLevel": "moderate",
@@ -400,22 +400,22 @@
             "provider": "sample_fallback",
             "cmcApiConfigured": true,
             "cmcQuoteUsed": false,
-            "fallbackReason": "CoinMarketCap quote request failed: fetch failed",
-            "dataSnapshotAt": "2026-06-16T10:20:00.000Z",
+            "fallbackReason": "CoinMarketCap returned no USD quote for BILLIONS.",
+            "dataSnapshotAt": "2026-06-16T12:05:00.000Z",
             "cachePolicy": "Same symbol, timeframe, and lookback reuse one market snapshot for five minutes so repeated backtests stay consistent."
           },
           "regime": {
             "name": "Risk Off",
-            "confidence": 55,
+            "confidence": 64,
             "trendState": "Bearish",
-            "volatilityState": "Controlled",
+            "volatilityState": "Moderate",
             "sentimentState": "Neutral",
             "liquidityState": "High"
           },
           "decisionRationale": [
-            "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 77 selection score.",
-            "CAKE was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
-            "The strongest supporting signals were Volatility: Controlled (78), MACD: Bullish (77), RSI: Weak (72).",
+            "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 110 selection score.",
+            "BILLIONS was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
+            "The strongest supporting signals were Regime: Risk Off (64), Volume: Strong (63), Fear & Greed: Neutral (54).",
             "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
           ],
           "rules": {
@@ -449,16 +449,16 @@
           },
           "positionSizing": "Moderate risk profile: 40% to 55% model exposure, 1% to 1.5% risk per setup, volatility-adjusted sizing.",
           "backtest": {
-            "totalReturn": "8.6%",
-            "winRate": "50%",
-            "maxDrawdown": "2.4%",
-            "numberOfTrades": 14,
-            "averageTradeReturn": "1.1%",
-            "bestTrade": "9.9%",
-            "worstTrade": "-1.5%",
-            "riskAdjustedScore": 72,
-            "benchmarkReturn": "-16.9%",
-            "alphaVsBenchmark": "25.5%",
+            "totalReturn": "39.3%",
+            "winRate": "73%",
+            "maxDrawdown": "1.8%",
+            "numberOfTrades": 11,
+            "averageTradeReturn": "5.7%",
+            "bestTrade": "15.1%",
+            "worstTrade": "-1.8%",
+            "riskAdjustedScore": 100,
+            "benchmarkReturn": "-9.3%",
+            "alphaVsBenchmark": "48.6%",
             "feeAssumption": "0.10% per entry or exit",
             "startingCapital": "$1,000 simulated",
             "modelExposure": "55%"
@@ -466,45 +466,45 @@
           "signals": [
             {
               "name": "RSI",
-              "score": 72,
+              "score": 40,
               "status": "Weak",
-              "reason": "RSI is 47.8, showing weak momentum."
+              "reason": "RSI is 33.8, showing weak momentum."
             },
             {
               "name": "MACD",
-              "score": 77,
-              "status": "Bullish",
-              "reason": "MACD is above its signal line."
+              "score": 34,
+              "status": "Bearish",
+              "reason": "MACD is below its signal line."
             },
             {
               "name": "Volume",
-              "score": 44,
-              "status": "Neutral",
-              "reason": "Latest volume is 0.97x its 20-candle average."
+              "score": 63,
+              "status": "Strong",
+              "reason": "Latest volume is 1.4x its 20-candle average."
             },
             {
               "name": "Fear & Greed",
-              "score": 65,
-              "status": "Positive",
-              "reason": "Fear and Greed proxy score is 65.2 from the market dataset."
+              "score": 54,
+              "status": "Neutral",
+              "reason": "Fear and Greed proxy score is 54.1 from the market dataset."
             },
             {
               "name": "Sentiment",
-              "score": 57,
+              "score": 41,
               "status": "Neutral",
-              "reason": "Sentiment proxy score is 56.8, derived from quote momentum and market context."
+              "reason": "Sentiment proxy score is 41.1, derived from quote momentum and market context."
             },
             {
               "name": "Volatility",
-              "score": 78,
-              "status": "Controlled",
-              "reason": "ATR is 2.32% of price, so volatility is controlled."
+              "score": 45,
+              "status": "Moderate",
+              "reason": "ATR is 5.15% of price, so volatility is moderate."
             },
             {
               "name": "Regime",
-              "score": 55,
+              "score": 64,
               "status": "Risk Off",
-              "reason": "Composite regime model classified CAKE as Risk Off."
+              "reason": "Composite regime model classified BILLIONS as Risk Off."
             }
           ],
           "autoSelection": {
@@ -513,7 +513,7 @@
             "selectedFocusLabel": "Risk Off",
             "selectedStrategy": "Capital Protection Regime Strategy",
             "selectedRegime": "Risk Off",
-            "selectionScore": 77,
+            "selectionScore": 110,
             "reason": "Capital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.",
             "candidates": [
               {
@@ -522,12 +522,12 @@
                 "focusLabel": "Risk Off",
                 "regime": "Risk Off",
                 "strategyName": "Capital Protection Regime Strategy",
-                "totalReturn": "8.6%",
-                "maxDrawdown": "2.4%",
-                "winRate": "50%",
-                "riskAdjustedScore": 72,
-                "alphaVsBenchmark": "25.5%",
-                "selectionScore": 77,
+                "totalReturn": "39.3%",
+                "maxDrawdown": "1.8%",
+                "winRate": "73%",
+                "riskAdjustedScore": 100,
+                "alphaVsBenchmark": "48.6%",
+                "selectionScore": 110,
                 "selected": true
               },
               {
@@ -536,12 +536,12 @@
                 "focusLabel": "Momentum",
                 "regime": "Momentum",
                 "strategyName": "Guarded Momentum Strategy",
-                "totalReturn": "-0.7%",
+                "totalReturn": "7.6%",
                 "maxDrawdown": "2%",
-                "winRate": "25%",
-                "riskAdjustedScore": 55,
-                "alphaVsBenchmark": "16.3%",
-                "selectionScore": 65,
+                "winRate": "50%",
+                "riskAdjustedScore": 71,
+                "alphaVsBenchmark": "16.9%",
+                "selectionScore": 76,
                 "selected": false
               },
               {
@@ -550,12 +550,12 @@
                 "focusLabel": "Sentiment Divergence",
                 "regime": "Sentiment Divergence",
                 "strategyName": "Sentiment Divergence Filter Strategy",
-                "totalReturn": "-0.1%",
-                "maxDrawdown": "2.4%",
-                "winRate": "22%",
-                "riskAdjustedScore": 54,
-                "alphaVsBenchmark": "16.8%",
-                "selectionScore": 64,
+                "totalReturn": "6.2%",
+                "maxDrawdown": "4.1%",
+                "winRate": "43%",
+                "riskAdjustedScore": 64,
+                "alphaVsBenchmark": "15.5%",
+                "selectionScore": 66,
                 "selected": false
               },
               {
@@ -564,12 +564,12 @@
                 "focusLabel": "Regime Detection",
                 "regime": "Range / Mixed",
                 "strategyName": "Range Aware Mean Reversion Strategy",
-                "totalReturn": "-2.4%",
-                "maxDrawdown": "3.9%",
-                "winRate": "25%",
-                "riskAdjustedScore": 48,
-                "alphaVsBenchmark": "14.5%",
-                "selectionScore": 56,
+                "totalReturn": "-9.8%",
+                "maxDrawdown": "10.9%",
+                "winRate": "19%",
+                "riskAdjustedScore": 22,
+                "alphaVsBenchmark": "-0.5%",
+                "selectionScore": 20,
                 "selected": false
               }
             ],
@@ -579,10 +579,10 @@
             "startingCapital": "$1,000 simulated",
             "feeAssumption": "0.10% per entry or exit",
             "modelExposure": "55%",
-            "benchmarkReturn": "-16.9%",
-            "alphaVsBenchmark": "25.5%",
+            "benchmarkReturn": "-9.3%",
+            "alphaVsBenchmark": "48.6%",
             "candlesAnalyzed": 720,
-            "dataSnapshotAt": "2026-06-16T10:20:00.000Z"
+            "dataSnapshotAt": "2026-06-16T12:05:00.000Z"
           },
           "constraints": [
             "No wallet connection",
@@ -592,7 +592,7 @@
           ]
         }
       },
-      "markdownReport": "# BestStrat Report — CAKE/1h\n\n## Strategy\n**Name:** Capital Protection Regime Strategy  \n**Detected Regime:** Risk Off (55% confidence)  \n**Data Source:** Deterministic sample market data  \n**CMC API Configured:** Yes\n**Fallback Note:** CoinMarketCap quote request failed: fetch failed\n\nAvoid new momentum entries until trend structure, sentiment, and volatility return to acceptable conditions.\n\n## Why This Strategy Was Generated\n- Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 77 selection score.\n- CAKE was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.\n- The strongest supporting signals were Volatility: Controlled (78), MACD: Bullish (77), RSI: Weak (72).\n- The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion.\n\n## Market State\n- Trend: Bearish\n- Volatility: Controlled\n- Sentiment: Neutral\n- Liquidity: High\n- Latest price used by engine: 2.271353\n- Candles analyzed: 720\n- Data snapshot: 2026-06-16T10:20:00.000Z\n\n## Entry Rules\n- Do not open a new long setup while price remains below EMA 50\n- Only consider re-entry after price recovers EMA 20 and EMA 50 alignment\n- Require RSI recovery above 50 with volume above the 20-candle average\n\n## Exit Rules\n- Exit research setup if price closes below EMA 20 after attempted recovery\n- Exit if RSI falls below 45\n- Exit if volatility expands above the strategy threshold\n\n## Risk Rules\n- Use moderate sizing with maximum 40% to 55% model exposure\n- Stop using this setup if strategy drawdown exceeds 8%\n- Prefer capital preservation until regime improves\n\n## Invalidation Rules\n- Invalid if regime remains Risk Off after the lookback window refreshes\n- Invalid if liquidity score falls below 40\n- Invalid if price fails to reclaim EMA 50\n\n## No Trade Conditions\n- Risk Off regime\n- Price below EMA 50\n- Conflicting trend and momentum signals\n- Weak liquidity or unstable volume confirmation\n- Volatility spike without clear trend confirmation\n\n## Auto Strategy Selection\nBestStrat compared candidate strategies before selecting the final output.\n\n| Rank | Focus | Strategy | Return | Max Drawdown | Win Rate | Selection Score |\n|------|-------|----------|--------|--------------|----------|-----------------|\n| 1 (selected) | Risk Off | Capital Protection Regime Strategy | 8.6% | 2.4% | 50% | 77 |\n| 2 | Momentum | Guarded Momentum Strategy | -0.7% | 2% | 25% | 65 |\n| 3 | Sentiment Divergence | Sentiment Divergence Filter Strategy | -0.1% | 2.4% | 22% | 64 |\n| 4 | Regime Detection | Range Aware Mean Reversion Strategy | -2.4% | 3.9% | 25% | 56 |\n\nCapital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.\n\n## Backtest Results\n| Metric | Value |\n|--------|-------|\n| Total Return | 8.6% |\n| Win Rate | 50% |\n| Max Drawdown | 2.4% |\n| Number of Trades | 14 |\n| Average Trade Return | 1.1% |\n| Best Trade | 9.9% |\n| Worst Trade | -1.5% |\n| Risk Adjusted Score | 72 |\n| Buy-and-Hold Benchmark | -16.9% |\n| Outperformance vs Benchmark | 25.5% |\n| Fee Assumption | 0.10% per entry or exit |\n| Model Exposure | 55% |\n\n## Backtest Methodology\n- Starting capital: $1,000 simulated\n- Fees: 0.10% per entry or exit\n- Model exposure: 55%\n- Buy-and-hold benchmark: token return over the same backtest window\n- Candles analyzed: 720\n- Data snapshot: 2026-06-16T10:20:00.000Z\n- Snapshot policy: same symbol, timeframe, and lookback reuse one market snapshot briefly so repeated backtests remain consistent\n\n## Signal Breakdown\n| Signal | Score | Status | Reason |\n|--------|-------|--------|--------|\n| RSI | 72 | Weak | RSI is 47.8, showing weak momentum. |\n| MACD | 77 | Bullish | MACD is above its signal line. |\n| Volume | 44 | Neutral | Latest volume is 0.97x its 20-candle average. |\n| Fear & Greed | 65 | Positive | Fear and Greed proxy score is 65.2 from the market dataset. |\n| Sentiment | 57 | Neutral | Sentiment proxy score is 56.8, derived from quote momentum and market context. |\n| Volatility | 78 | Controlled | ATR is 2.32% of price, so volatility is controlled. |\n| Regime | 55 | Risk Off | Composite regime model classified CAKE as Risk Off. |\n\n## LLM Skill Authorship\n- Invocation name: beststrat.generate_strategy\n- Skill role: repeatable LLM workflow for turning CMC market context into a backtestable strategy spec\n- Required inputs: symbol, timeframe, lookbackDays, riskLevel, strategyFocus\n- Required outputs: regime, rationale, rules, backtest, methodology, JSON, Markdown, CMC Skill output, LLM Skill output\n\n## Strategy Skill Notes\n- Product role: Quantopian-style crypto strategy generation Skill authored as an LLM Skill\n- Output type: backtestable strategy specification\n- Execution: none\n- Wallet connection: none\n\n---\nGenerated by BestStrat. Research strategy specification only. Not financial advice. No trade execution.",
+      "markdownReport": "# BestStrat Report — BILLIONS/1h\n\n## Strategy\n**Name:** Capital Protection Regime Strategy  \n**Detected Regime:** Risk Off (64% confidence)  \n**Data Source:** Deterministic sample market data  \n**CMC API Configured:** Yes\n**Fallback Note:** CoinMarketCap returned no USD quote for BILLIONS.\n\nAvoid new momentum entries until trend structure, sentiment, and volatility return to acceptable conditions.\n\n## Why This Strategy Was Generated\n- Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 110 selection score.\n- BILLIONS was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.\n- The strongest supporting signals were Regime: Risk Off (64), Volume: Strong (63), Fear & Greed: Neutral (54).\n- The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion.\n\n## Market State\n- Trend: Bearish\n- Volatility: Moderate\n- Sentiment: Neutral\n- Liquidity: High\n- Latest price used by engine: 84.66003\n- Candles analyzed: 720\n- Data snapshot: 2026-06-16T12:05:00.000Z\n\n## Entry Rules\n- Do not open a new long setup while price remains below EMA 50\n- Only consider re-entry after price recovers EMA 20 and EMA 50 alignment\n- Require RSI recovery above 50 with volume above the 20-candle average\n\n## Exit Rules\n- Exit research setup if price closes below EMA 20 after attempted recovery\n- Exit if RSI falls below 45\n- Exit if volatility expands above the strategy threshold\n\n## Risk Rules\n- Use moderate sizing with maximum 40% to 55% model exposure\n- Stop using this setup if strategy drawdown exceeds 8%\n- Prefer capital preservation until regime improves\n\n## Invalidation Rules\n- Invalid if regime remains Risk Off after the lookback window refreshes\n- Invalid if liquidity score falls below 40\n- Invalid if price fails to reclaim EMA 50\n\n## No Trade Conditions\n- Risk Off regime\n- Price below EMA 50\n- Conflicting trend and momentum signals\n- Weak liquidity or unstable volume confirmation\n- Volatility spike without clear trend confirmation\n\n## Auto Strategy Selection\nBestStrat compared candidate strategies before selecting the final output.\n\n| Rank | Focus | Strategy | Return | Max Drawdown | Win Rate | Selection Score |\n|------|-------|----------|--------|--------------|----------|-----------------|\n| 1 (selected) | Risk Off | Capital Protection Regime Strategy | 39.3% | 1.8% | 73% | 110 |\n| 2 | Momentum | Guarded Momentum Strategy | 7.6% | 2% | 50% | 76 |\n| 3 | Sentiment Divergence | Sentiment Divergence Filter Strategy | 6.2% | 4.1% | 43% | 66 |\n| 4 | Regime Detection | Range Aware Mean Reversion Strategy | -9.8% | 10.9% | 19% | 20 |\n\nCapital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.\n\n## Backtest Results\n| Metric | Value |\n|--------|-------|\n| Total Return | 39.3% |\n| Win Rate | 73% |\n| Max Drawdown | 1.8% |\n| Number of Trades | 11 |\n| Average Trade Return | 5.7% |\n| Best Trade | 15.1% |\n| Worst Trade | -1.8% |\n| Risk Adjusted Score | 100 |\n| Buy-and-Hold Benchmark | -9.3% |\n| Outperformance vs Benchmark | 48.6% |\n| Fee Assumption | 0.10% per entry or exit |\n| Model Exposure | 55% |\n\n## Backtest Methodology\n- Starting capital: $1,000 simulated\n- Fees: 0.10% per entry or exit\n- Model exposure: 55%\n- Buy-and-hold benchmark: token return over the same backtest window\n- Candles analyzed: 720\n- Data snapshot: 2026-06-16T12:05:00.000Z\n- Snapshot policy: same symbol, timeframe, and lookback reuse one market snapshot briefly so repeated backtests remain consistent\n\n## Signal Breakdown\n| Signal | Score | Status | Reason |\n|--------|-------|--------|--------|\n| RSI | 40 | Weak | RSI is 33.8, showing weak momentum. |\n| MACD | 34 | Bearish | MACD is below its signal line. |\n| Volume | 63 | Strong | Latest volume is 1.4x its 20-candle average. |\n| Fear & Greed | 54 | Neutral | Fear and Greed proxy score is 54.1 from the market dataset. |\n| Sentiment | 41 | Neutral | Sentiment proxy score is 41.1, derived from quote momentum and market context. |\n| Volatility | 45 | Moderate | ATR is 5.15% of price, so volatility is moderate. |\n| Regime | 64 | Risk Off | Composite regime model classified BILLIONS as Risk Off. |\n\n## LLM Skill Authorship\n- Invocation name: beststrat.generate_strategy\n- Skill role: repeatable LLM workflow for turning CMC market context into a backtestable strategy spec\n- Required inputs: symbol, timeframe, lookbackDays, riskLevel, strategyFocus\n- Required outputs: regime, rationale, rules, backtest, methodology, JSON, Markdown, CMC Skill output, LLM Skill output\n\n## Strategy Skill Notes\n- Product role: Quantopian-style crypto strategy generation Skill authored as an LLM Skill\n- Output type: backtestable strategy specification\n- Execution: none\n- Wallet connection: none\n\n---\nGenerated by BestStrat. Research strategy specification only. Not financial advice. No trade execution.",
       "cmcSkillOutput": {
         "skillType": "strategy_generation",
         "skillVersion": "1.3.0",
@@ -601,7 +601,7 @@
         "cmcCompatible": true,
         "purpose": "Turn CMC-style market data into a backtestable crypto strategy specification that an LLM agent can execute as a repeatable workflow.",
         "input": {
-          "symbol": "CAKE",
+          "symbol": "BILLIONS",
           "timeframe": "1h",
           "lookbackDays": 30,
           "riskLevel": "moderate",
@@ -612,20 +612,20 @@
           "provider": "sample_fallback",
           "cmcApiConfigured": true,
           "cmcQuoteUsed": false,
-          "fallbackReason": "CoinMarketCap quote request failed: fetch failed",
+          "fallbackReason": "CoinMarketCap returned no USD quote for BILLIONS.",
           "candlesAnalyzed": 720,
-          "dataSnapshotAt": "2026-06-16T10:20:00.000Z",
+          "dataSnapshotAt": "2026-06-16T12:05:00.000Z",
           "cachePolicy": "Same symbol, timeframe, and lookback reuse one market snapshot for five minutes so repeated backtests stay consistent."
         },
         "output": {
           "strategyName": "Capital Protection Regime Strategy",
           "strategySummary": "Avoid new momentum entries until trend structure, sentiment, and volatility return to acceptable conditions.",
           "detectedRegime": "Risk Off",
-          "regimeConfidence": 55,
+          "regimeConfidence": 64,
           "decisionRationale": [
-            "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 77 selection score.",
-            "CAKE was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
-            "The strongest supporting signals were Volatility: Controlled (78), MACD: Bullish (77), RSI: Weak (72).",
+            "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 110 selection score.",
+            "BILLIONS was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
+            "The strongest supporting signals were Regime: Risk Off (64), Volume: Strong (63), Fear & Greed: Neutral (54).",
             "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
           ],
           "entryRules": [
@@ -657,16 +657,16 @@
           ],
           "positionSizing": "Moderate risk profile: 40% to 55% model exposure, 1% to 1.5% risk per setup, volatility-adjusted sizing.",
           "backtest": {
-            "totalReturn": "8.6%",
-            "winRate": "50%",
-            "maxDrawdown": "2.4%",
-            "numberOfTrades": 14,
-            "averageTradeReturn": "1.1%",
-            "bestTrade": "9.9%",
-            "worstTrade": "-1.5%",
-            "riskAdjustedScore": 72,
-            "benchmarkReturn": "-16.9%",
-            "alphaVsBenchmark": "25.5%",
+            "totalReturn": "39.3%",
+            "winRate": "73%",
+            "maxDrawdown": "1.8%",
+            "numberOfTrades": 11,
+            "averageTradeReturn": "5.7%",
+            "bestTrade": "15.1%",
+            "worstTrade": "-1.8%",
+            "riskAdjustedScore": 100,
+            "benchmarkReturn": "-9.3%",
+            "alphaVsBenchmark": "48.6%",
             "feeAssumption": "0.10% per entry or exit",
             "startingCapital": "$1,000 simulated",
             "modelExposure": "55%"
@@ -674,45 +674,45 @@
           "signals": [
             {
               "name": "RSI",
-              "score": 72,
+              "score": 40,
               "status": "Weak",
-              "reason": "RSI is 47.8, showing weak momentum."
+              "reason": "RSI is 33.8, showing weak momentum."
             },
             {
               "name": "MACD",
-              "score": 77,
-              "status": "Bullish",
-              "reason": "MACD is above its signal line."
+              "score": 34,
+              "status": "Bearish",
+              "reason": "MACD is below its signal line."
             },
             {
               "name": "Volume",
-              "score": 44,
-              "status": "Neutral",
-              "reason": "Latest volume is 0.97x its 20-candle average."
+              "score": 63,
+              "status": "Strong",
+              "reason": "Latest volume is 1.4x its 20-candle average."
             },
             {
               "name": "Fear & Greed",
-              "score": 65,
-              "status": "Positive",
-              "reason": "Fear and Greed proxy score is 65.2 from the market dataset."
+              "score": 54,
+              "status": "Neutral",
+              "reason": "Fear and Greed proxy score is 54.1 from the market dataset."
             },
             {
               "name": "Sentiment",
-              "score": 57,
+              "score": 41,
               "status": "Neutral",
-              "reason": "Sentiment proxy score is 56.8, derived from quote momentum and market context."
+              "reason": "Sentiment proxy score is 41.1, derived from quote momentum and market context."
             },
             {
               "name": "Volatility",
-              "score": 78,
-              "status": "Controlled",
-              "reason": "ATR is 2.32% of price, so volatility is controlled."
+              "score": 45,
+              "status": "Moderate",
+              "reason": "ATR is 5.15% of price, so volatility is moderate."
             },
             {
               "name": "Regime",
-              "score": 55,
+              "score": 64,
               "status": "Risk Off",
-              "reason": "Composite regime model classified CAKE as Risk Off."
+              "reason": "Composite regime model classified BILLIONS as Risk Off."
             }
           ],
           "autoSelection": {
@@ -721,7 +721,7 @@
             "selectedFocusLabel": "Risk Off",
             "selectedStrategy": "Capital Protection Regime Strategy",
             "selectedRegime": "Risk Off",
-            "selectionScore": 77,
+            "selectionScore": 110,
             "reason": "Capital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.",
             "candidates": [
               {
@@ -730,12 +730,12 @@
                 "focusLabel": "Risk Off",
                 "regime": "Risk Off",
                 "strategyName": "Capital Protection Regime Strategy",
-                "totalReturn": "8.6%",
-                "maxDrawdown": "2.4%",
-                "winRate": "50%",
-                "riskAdjustedScore": 72,
-                "alphaVsBenchmark": "25.5%",
-                "selectionScore": 77,
+                "totalReturn": "39.3%",
+                "maxDrawdown": "1.8%",
+                "winRate": "73%",
+                "riskAdjustedScore": 100,
+                "alphaVsBenchmark": "48.6%",
+                "selectionScore": 110,
                 "selected": true
               },
               {
@@ -744,12 +744,12 @@
                 "focusLabel": "Momentum",
                 "regime": "Momentum",
                 "strategyName": "Guarded Momentum Strategy",
-                "totalReturn": "-0.7%",
+                "totalReturn": "7.6%",
                 "maxDrawdown": "2%",
-                "winRate": "25%",
-                "riskAdjustedScore": 55,
-                "alphaVsBenchmark": "16.3%",
-                "selectionScore": 65,
+                "winRate": "50%",
+                "riskAdjustedScore": 71,
+                "alphaVsBenchmark": "16.9%",
+                "selectionScore": 76,
                 "selected": false
               },
               {
@@ -758,12 +758,12 @@
                 "focusLabel": "Sentiment Divergence",
                 "regime": "Sentiment Divergence",
                 "strategyName": "Sentiment Divergence Filter Strategy",
-                "totalReturn": "-0.1%",
-                "maxDrawdown": "2.4%",
-                "winRate": "22%",
-                "riskAdjustedScore": 54,
-                "alphaVsBenchmark": "16.8%",
-                "selectionScore": 64,
+                "totalReturn": "6.2%",
+                "maxDrawdown": "4.1%",
+                "winRate": "43%",
+                "riskAdjustedScore": 64,
+                "alphaVsBenchmark": "15.5%",
+                "selectionScore": 66,
                 "selected": false
               },
               {
@@ -772,12 +772,12 @@
                 "focusLabel": "Regime Detection",
                 "regime": "Range / Mixed",
                 "strategyName": "Range Aware Mean Reversion Strategy",
-                "totalReturn": "-2.4%",
-                "maxDrawdown": "3.9%",
-                "winRate": "25%",
-                "riskAdjustedScore": 48,
-                "alphaVsBenchmark": "14.5%",
-                "selectionScore": 56,
+                "totalReturn": "-9.8%",
+                "maxDrawdown": "10.9%",
+                "winRate": "19%",
+                "riskAdjustedScore": 22,
+                "alphaVsBenchmark": "-0.5%",
+                "selectionScore": 20,
                 "selected": false
               }
             ],
@@ -787,10 +787,10 @@
             "startingCapital": "$1,000 simulated",
             "feeAssumption": "0.10% per entry or exit",
             "modelExposure": "55%",
-            "benchmarkReturn": "-16.9%",
-            "alphaVsBenchmark": "25.5%",
+            "benchmarkReturn": "-9.3%",
+            "alphaVsBenchmark": "48.6%",
             "candlesAnalyzed": 720,
-            "dataSnapshotAt": "2026-06-16T10:20:00.000Z"
+            "dataSnapshotAt": "2026-06-16T12:05:00.000Z"
           }
         },
         "signalWeights": {
@@ -832,7 +832,7 @@
           ]
         },
         "input": {
-          "symbol": "CAKE",
+          "symbol": "BILLIONS",
           "timeframe": "1h",
           "lookbackDays": 30,
           "riskLevel": "moderate",
@@ -843,9 +843,9 @@
           "label": "Deterministic sample market data",
           "cmcApiConfigured": true,
           "cmcQuoteUsed": false,
-          "fallbackReason": "CoinMarketCap quote request failed: fetch failed",
+          "fallbackReason": "CoinMarketCap returned no USD quote for BILLIONS.",
           "candlesAnalyzed": 720,
-          "dataSnapshotAt": "2026-06-16T10:20:00.000Z",
+          "dataSnapshotAt": "2026-06-16T12:05:00.000Z",
           "cachePolicy": "Same symbol, timeframe, and lookback reuse one market snapshot for five minutes so repeated backtests stay consistent."
         },
         "workflow": [
@@ -911,11 +911,11 @@
           "strategyName": "Capital Protection Regime Strategy",
           "strategySummary": "Avoid new momentum entries until trend structure, sentiment, and volatility return to acceptable conditions.",
           "detectedRegime": "Risk Off",
-          "regimeConfidence": 55,
+          "regimeConfidence": 64,
           "decisionRationale": [
-            "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 77 selection score.",
-            "CAKE was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
-            "The strongest supporting signals were Volatility: Controlled (78), MACD: Bullish (77), RSI: Weak (72).",
+            "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 110 selection score.",
+            "BILLIONS was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
+            "The strongest supporting signals were Regime: Risk Off (64), Volume: Strong (63), Fear & Greed: Neutral (54).",
             "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
           ],
           "entryRules": [
@@ -949,58 +949,58 @@
           "signals": [
             {
               "name": "RSI",
-              "score": 72,
+              "score": 40,
               "status": "Weak",
-              "reason": "RSI is 47.8, showing weak momentum."
+              "reason": "RSI is 33.8, showing weak momentum."
             },
             {
               "name": "MACD",
-              "score": 77,
-              "status": "Bullish",
-              "reason": "MACD is above its signal line."
+              "score": 34,
+              "status": "Bearish",
+              "reason": "MACD is below its signal line."
             },
             {
               "name": "Volume",
-              "score": 44,
-              "status": "Neutral",
-              "reason": "Latest volume is 0.97x its 20-candle average."
+              "score": 63,
+              "status": "Strong",
+              "reason": "Latest volume is 1.4x its 20-candle average."
             },
             {
               "name": "Fear & Greed",
-              "score": 65,
-              "status": "Positive",
-              "reason": "Fear and Greed proxy score is 65.2 from the market dataset."
+              "score": 54,
+              "status": "Neutral",
+              "reason": "Fear and Greed proxy score is 54.1 from the market dataset."
             },
             {
               "name": "Sentiment",
-              "score": 57,
+              "score": 41,
               "status": "Neutral",
-              "reason": "Sentiment proxy score is 56.8, derived from quote momentum and market context."
+              "reason": "Sentiment proxy score is 41.1, derived from quote momentum and market context."
             },
             {
               "name": "Volatility",
-              "score": 78,
-              "status": "Controlled",
-              "reason": "ATR is 2.32% of price, so volatility is controlled."
+              "score": 45,
+              "status": "Moderate",
+              "reason": "ATR is 5.15% of price, so volatility is moderate."
             },
             {
               "name": "Regime",
-              "score": 55,
+              "score": 64,
               "status": "Risk Off",
-              "reason": "Composite regime model classified CAKE as Risk Off."
+              "reason": "Composite regime model classified BILLIONS as Risk Off."
             }
           ],
           "backtest": {
-            "totalReturn": "8.6%",
-            "winRate": "50%",
-            "maxDrawdown": "2.4%",
-            "numberOfTrades": 14,
-            "averageTradeReturn": "1.1%",
-            "bestTrade": "9.9%",
-            "worstTrade": "-1.5%",
-            "riskAdjustedScore": 72,
-            "benchmarkReturn": "-16.9%",
-            "alphaVsBenchmark": "25.5%",
+            "totalReturn": "39.3%",
+            "winRate": "73%",
+            "maxDrawdown": "1.8%",
+            "numberOfTrades": 11,
+            "averageTradeReturn": "5.7%",
+            "bestTrade": "15.1%",
+            "worstTrade": "-1.8%",
+            "riskAdjustedScore": 100,
+            "benchmarkReturn": "-9.3%",
+            "alphaVsBenchmark": "48.6%",
             "feeAssumption": "0.10% per entry or exit",
             "startingCapital": "$1,000 simulated",
             "modelExposure": "55%"
@@ -1011,7 +1011,7 @@
             "selectedFocusLabel": "Risk Off",
             "selectedStrategy": "Capital Protection Regime Strategy",
             "selectedRegime": "Risk Off",
-            "selectionScore": 77,
+            "selectionScore": 110,
             "reason": "Capital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.",
             "candidates": [
               {
@@ -1020,12 +1020,12 @@
                 "focusLabel": "Risk Off",
                 "regime": "Risk Off",
                 "strategyName": "Capital Protection Regime Strategy",
-                "totalReturn": "8.6%",
-                "maxDrawdown": "2.4%",
-                "winRate": "50%",
-                "riskAdjustedScore": 72,
-                "alphaVsBenchmark": "25.5%",
-                "selectionScore": 77,
+                "totalReturn": "39.3%",
+                "maxDrawdown": "1.8%",
+                "winRate": "73%",
+                "riskAdjustedScore": 100,
+                "alphaVsBenchmark": "48.6%",
+                "selectionScore": 110,
                 "selected": true
               },
               {
@@ -1034,12 +1034,12 @@
                 "focusLabel": "Momentum",
                 "regime": "Momentum",
                 "strategyName": "Guarded Momentum Strategy",
-                "totalReturn": "-0.7%",
+                "totalReturn": "7.6%",
                 "maxDrawdown": "2%",
-                "winRate": "25%",
-                "riskAdjustedScore": 55,
-                "alphaVsBenchmark": "16.3%",
-                "selectionScore": 65,
+                "winRate": "50%",
+                "riskAdjustedScore": 71,
+                "alphaVsBenchmark": "16.9%",
+                "selectionScore": 76,
                 "selected": false
               },
               {
@@ -1048,12 +1048,12 @@
                 "focusLabel": "Sentiment Divergence",
                 "regime": "Sentiment Divergence",
                 "strategyName": "Sentiment Divergence Filter Strategy",
-                "totalReturn": "-0.1%",
-                "maxDrawdown": "2.4%",
-                "winRate": "22%",
-                "riskAdjustedScore": 54,
-                "alphaVsBenchmark": "16.8%",
-                "selectionScore": 64,
+                "totalReturn": "6.2%",
+                "maxDrawdown": "4.1%",
+                "winRate": "43%",
+                "riskAdjustedScore": 64,
+                "alphaVsBenchmark": "15.5%",
+                "selectionScore": 66,
                 "selected": false
               },
               {
@@ -1062,12 +1062,12 @@
                 "focusLabel": "Regime Detection",
                 "regime": "Range / Mixed",
                 "strategyName": "Range Aware Mean Reversion Strategy",
-                "totalReturn": "-2.4%",
-                "maxDrawdown": "3.9%",
-                "winRate": "25%",
-                "riskAdjustedScore": 48,
-                "alphaVsBenchmark": "14.5%",
-                "selectionScore": 56,
+                "totalReturn": "-9.8%",
+                "maxDrawdown": "10.9%",
+                "winRate": "19%",
+                "riskAdjustedScore": 22,
+                "alphaVsBenchmark": "-0.5%",
+                "selectionScore": 20,
                 "selected": false
               }
             ],
@@ -1077,10 +1077,10 @@
             "startingCapital": "$1,000 simulated",
             "feeAssumption": "0.10% per entry or exit",
             "modelExposure": "55%",
-            "benchmarkReturn": "-16.9%",
-            "alphaVsBenchmark": "25.5%",
+            "benchmarkReturn": "-9.3%",
+            "alphaVsBenchmark": "48.6%",
             "candlesAnalyzed": 720,
-            "dataSnapshotAt": "2026-06-16T10:20:00.000Z"
+            "dataSnapshotAt": "2026-06-16T12:05:00.000Z"
           }
         },
         "guardrails": [
@@ -1103,1128 +1103,13 @@
         "dataProvider": "sample_fallback",
         "cmcApiConfigured": true,
         "cmcQuoteUsed": false,
-        "fallbackReason": "CoinMarketCap quote request failed: fetch failed",
+        "fallbackReason": "CoinMarketCap returned no USD quote for BILLIONS.",
         "candlesAnalyzed": 720,
-        "dataSnapshotAt": "2026-06-16T10:20:00.000Z",
+        "dataSnapshotAt": "2026-06-16T12:05:00.000Z",
         "cacheHit": false,
         "cachePolicy": "Same symbol, timeframe, and lookback reuse one market snapshot for five minutes so repeated backtests stay consistent.",
-        "cacheExpiresAt": "2026-06-16T10:25:00.000Z",
-        "generatedAt": "2026-06-16T10:21:25.138Z",
-        "note": "Research strategy specification only. Not financial advice. No trade execution."
-      }
-    }
-  },
-  {
-    "id": "46e9fb7a-76b9-4d5d-9f11-3fd3769315e9",
-    "createdAt": "2026-06-15 19:52",
-    "token": "CAKE",
-    "timeframe": "1h",
-    "inputFocus": "auto",
-    "inputFocusLabel": "Auto Detect",
-    "selectedFocus": "risk_off",
-    "selectedFocusLabel": "Risk Off",
-    "regime": "Risk Off",
-    "strategy": "Capital Protection Regime Strategy",
-    "totalReturn": "47.5%",
-    "maxDrawdown": "2.1%",
-    "dataSnapshotAt": "2026-06-15T19:50:00.000Z",
-    "response": {
-      "id": "46e9fb7a-76b9-4d5d-9f11-3fd3769315e9",
-      "createdAt": "2026-06-15 19:52",
-      "symbol": "CAKE",
-      "timeframe": "1h",
-      "lookbackDays": 30,
-      "riskLevel": "moderate",
-      "strategyFocus": "auto",
-      "selectedStrategyFocus": "risk_off",
-      "autoSelection": {
-        "enabled": true,
-        "selectedFocus": "risk_off",
-        "selectedFocusLabel": "Risk Off",
-        "selectedStrategy": "Capital Protection Regime Strategy",
-        "selectedRegime": "Risk Off",
-        "selectionScore": 115,
-        "reason": "Capital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.",
-        "candidates": [
-          {
-            "rank": 1,
-            "focus": "risk_off",
-            "focusLabel": "Risk Off",
-            "regime": "Risk Off",
-            "strategyName": "Capital Protection Regime Strategy",
-            "totalReturn": "47.5%",
-            "maxDrawdown": "2.1%",
-            "winRate": "60%",
-            "riskAdjustedScore": 100,
-            "alphaVsBenchmark": "65.9%",
-            "selectionScore": 115,
-            "selected": true
-          },
-          {
-            "rank": 2,
-            "focus": "momentum",
-            "focusLabel": "Momentum",
-            "regime": "Momentum",
-            "strategyName": "Guarded Momentum Strategy",
-            "totalReturn": "46.3%",
-            "maxDrawdown": "2.3%",
-            "winRate": "57%",
-            "riskAdjustedScore": 100,
-            "alphaVsBenchmark": "64.8%",
-            "selectionScore": 114,
-            "selected": false
-          },
-          {
-            "rank": 3,
-            "focus": "regime_detection",
-            "focusLabel": "Regime Detection",
-            "regime": "Momentum",
-            "strategyName": "Guarded Momentum Strategy",
-            "totalReturn": "46.3%",
-            "maxDrawdown": "2.3%",
-            "winRate": "57%",
-            "riskAdjustedScore": 100,
-            "alphaVsBenchmark": "64.8%",
-            "selectionScore": 114,
-            "selected": false
-          },
-          {
-            "rank": 4,
-            "focus": "sentiment_divergence",
-            "focusLabel": "Sentiment Divergence",
-            "regime": "Sentiment Divergence",
-            "strategyName": "Sentiment Divergence Filter Strategy",
-            "totalReturn": "46.4%",
-            "maxDrawdown": "3.2%",
-            "winRate": "50%",
-            "riskAdjustedScore": 100,
-            "alphaVsBenchmark": "64.8%",
-            "selectionScore": 110,
-            "selected": false
-          }
-        ],
-        "note": "Auto Detect selected the top-ranked candidate."
-      },
-      "detectedRegime": "Risk Off",
-      "regimeConfidence": 55,
-      "marketSummary": "CAKE is classified as Risk Off with 55% confidence, trend is bullish, volatility is moderate, sentiment is positive, liquidity is high.",
-      "trendState": "Bullish",
-      "volatilityState": "Moderate",
-      "sentimentState": "Positive",
-      "liquidityState": "High",
-      "strategyName": "Capital Protection Regime Strategy",
-      "strategySummary": "Avoid new momentum entries until trend structure, sentiment, and volatility return to acceptable conditions.",
-      "entryRules": [
-        "Do not open a new long setup while price remains below EMA 50",
-        "Only consider re-entry after price recovers EMA 20 and EMA 50 alignment",
-        "Require RSI recovery above 50 with volume above the 20-candle average"
-      ],
-      "exitRules": [
-        "Exit research setup if price closes below EMA 20 after attempted recovery",
-        "Exit if RSI falls below 45",
-        "Exit if volatility expands above the strategy threshold"
-      ],
-      "riskRules": [
-        "Use moderate sizing with maximum 40% to 55% model exposure",
-        "Stop using this setup if strategy drawdown exceeds 8%",
-        "Prefer capital preservation until regime improves"
-      ],
-      "invalidationRules": [
-        "Invalid if regime remains Risk Off after the lookback window refreshes",
-        "Invalid if liquidity score falls below 40",
-        "Invalid if price fails to reclaim EMA 50"
-      ],
-      "positionSizing": "Moderate risk profile: 40% to 55% model exposure, 1% to 1.5% risk per setup, volatility-adjusted sizing.",
-      "noTradeConditions": [
-        "Risk Off regime",
-        "Price below EMA 50",
-        "Conflicting trend and momentum signals",
-        "Weak liquidity or unstable volume confirmation",
-        "Volatility spike without clear trend confirmation"
-      ],
-      "decisionRationale": [
-        "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 115 selection score.",
-        "CAKE was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
-        "The strongest supporting signals were RSI: Bullish (87), MACD: Bullish (87), Fear & Greed: Neutral (65).",
-        "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
-      ],
-      "signals": [
-        {
-          "name": "RSI",
-          "score": 87,
-          "status": "Bullish",
-          "reason": "RSI is 65.6, showing constructive momentum."
-        },
-        {
-          "name": "MACD",
-          "score": 87,
-          "status": "Bullish",
-          "reason": "MACD is above its signal line."
-        },
-        {
-          "name": "Volume",
-          "score": 60,
-          "status": "Strong",
-          "reason": "Latest volume is 1.34x its 20-candle average."
-        },
-        {
-          "name": "Fear & Greed",
-          "score": 65,
-          "status": "Neutral",
-          "reason": "Fear and Greed proxy score is 64.6 from the market dataset."
-        },
-        {
-          "name": "Sentiment",
-          "score": 65,
-          "status": "Positive",
-          "reason": "Sentiment proxy score is 65.2, derived from quote momentum and market context."
-        },
-        {
-          "name": "Volatility",
-          "score": 61,
-          "status": "Moderate",
-          "reason": "ATR is 3.75% of price, so volatility is moderate."
-        },
-        {
-          "name": "Regime",
-          "score": 55,
-          "status": "Risk Off",
-          "reason": "Composite regime model classified CAKE as Risk Off."
-        }
-      ],
-      "backtest": {
-        "totalReturn": "47.5%",
-        "winRate": "60%",
-        "maxDrawdown": "2.1%",
-        "numberOfTrades": 10,
-        "averageTradeReturn": "7.6%",
-        "bestTrade": "33.4%",
-        "worstTrade": "-1%",
-        "riskAdjustedScore": 100,
-        "benchmarkReturn": "-18.4%",
-        "alphaVsBenchmark": "65.9%",
-        "feeAssumption": "0.10% per entry or exit",
-        "startingCapital": "$1,000 simulated",
-        "modelExposure": "55%"
-      },
-      "equityCurve": [
-        {
-          "time": "Point 1",
-          "value": 999.45
-        },
-        {
-          "time": "Point 2",
-          "value": 1106.9
-        },
-        {
-          "time": "Point 3",
-          "value": 1153.69
-        },
-        {
-          "time": "Point 4",
-          "value": 1162.65
-        },
-        {
-          "time": "Point 5",
-          "value": 1150.32
-        },
-        {
-          "time": "Point 6",
-          "value": 1150.32
-        },
-        {
-          "time": "Point 7",
-          "value": 1150.32
-        },
-        {
-          "time": "Point 8",
-          "value": 1150.32
-        },
-        {
-          "time": "Point 9",
-          "value": 1150.32
-        },
-        {
-          "time": "Point 10",
-          "value": 1150.32
-        },
-        {
-          "time": "Point 11",
-          "value": 1210.06
-        },
-        {
-          "time": "Point 12",
-          "value": 1246.31
-        },
-        {
-          "time": "Point 13",
-          "value": 1421.38
-        },
-        {
-          "time": "Point 14",
-          "value": 1475.02
-        },
-        {
-          "time": "Point 15",
-          "value": 1475.02
-        },
-        {
-          "time": "Point 16",
-          "value": 1470.69
-        },
-        {
-          "time": "Point 17",
-          "value": 1470.69
-        },
-        {
-          "time": "Point 18",
-          "value": 1470.69
-        },
-        {
-          "time": "Point 19",
-          "value": 1470.69
-        },
-        {
-          "time": "Point 20",
-          "value": 1476.03
-        }
-      ],
-      "drawdownCurve": [
-        {
-          "time": "Point 1",
-          "value": -0.05
-        },
-        {
-          "time": "Point 2",
-          "value": 0
-        },
-        {
-          "time": "Point 3",
-          "value": -1.17
-        },
-        {
-          "time": "Point 4",
-          "value": -0.41
-        },
-        {
-          "time": "Point 5",
-          "value": -1.49
-        },
-        {
-          "time": "Point 6",
-          "value": -1.49
-        },
-        {
-          "time": "Point 7",
-          "value": -1.49
-        },
-        {
-          "time": "Point 8",
-          "value": -1.49
-        },
-        {
-          "time": "Point 9",
-          "value": -1.49
-        },
-        {
-          "time": "Point 10",
-          "value": -1.49
-        },
-        {
-          "time": "Point 11",
-          "value": 0
-        },
-        {
-          "time": "Point 12",
-          "value": -0.37
-        },
-        {
-          "time": "Point 13",
-          "value": 0
-        },
-        {
-          "time": "Point 14",
-          "value": -1.28
-        },
-        {
-          "time": "Point 15",
-          "value": -1.28
-        },
-        {
-          "time": "Point 16",
-          "value": -1.57
-        },
-        {
-          "time": "Point 17",
-          "value": -1.57
-        },
-        {
-          "time": "Point 18",
-          "value": -1.57
-        },
-        {
-          "time": "Point 19",
-          "value": -1.57
-        },
-        {
-          "time": "Point 20",
-          "value": -1.21
-        }
-      ],
-      "signalStrength": [
-        {
-          "name": "RSI",
-          "value": 87
-        },
-        {
-          "name": "MACD",
-          "value": 87
-        },
-        {
-          "name": "Volume",
-          "value": 60
-        },
-        {
-          "name": "F&G",
-          "value": 65
-        },
-        {
-          "name": "Sentiment",
-          "value": 65
-        },
-        {
-          "name": "Volatility",
-          "value": 61
-        },
-        {
-          "name": "Regime",
-          "value": 55
-        }
-      ],
-      "jsonOutput": {
-        "strategySpec": {
-          "name": "Capital Protection Regime Strategy",
-          "version": "1.3.0",
-          "asset": "CAKE",
-          "timeframe": "1h",
-          "lookbackDays": 30,
-          "riskLevel": "moderate",
-          "strategyFocus": "auto",
-          "dataSource": {
-            "label": "CoinMarketCap latest quote + deterministic backtest candles",
-            "provider": "cmc_latest_quote",
-            "cmcApiConfigured": true,
-            "cmcQuoteUsed": true,
-            "fallbackReason": null,
-            "dataSnapshotAt": "2026-06-15T19:50:00.000Z",
-            "cachePolicy": "Same symbol, timeframe, and lookback reuse one market snapshot for five minutes so repeated backtests stay consistent."
-          },
-          "regime": {
-            "name": "Risk Off",
-            "confidence": 55,
-            "trendState": "Bullish",
-            "volatilityState": "Moderate",
-            "sentimentState": "Positive",
-            "liquidityState": "High"
-          },
-          "decisionRationale": [
-            "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 115 selection score.",
-            "CAKE was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
-            "The strongest supporting signals were RSI: Bullish (87), MACD: Bullish (87), Fear & Greed: Neutral (65).",
-            "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
-          ],
-          "rules": {
-            "entry": [
-              "Do not open a new long setup while price remains below EMA 50",
-              "Only consider re-entry after price recovers EMA 20 and EMA 50 alignment",
-              "Require RSI recovery above 50 with volume above the 20-candle average"
-            ],
-            "exit": [
-              "Exit research setup if price closes below EMA 20 after attempted recovery",
-              "Exit if RSI falls below 45",
-              "Exit if volatility expands above the strategy threshold"
-            ],
-            "risk": [
-              "Use moderate sizing with maximum 40% to 55% model exposure",
-              "Stop using this setup if strategy drawdown exceeds 8%",
-              "Prefer capital preservation until regime improves"
-            ],
-            "invalidation": [
-              "Invalid if regime remains Risk Off after the lookback window refreshes",
-              "Invalid if liquidity score falls below 40",
-              "Invalid if price fails to reclaim EMA 50"
-            ],
-            "noTradeConditions": [
-              "Risk Off regime",
-              "Price below EMA 50",
-              "Conflicting trend and momentum signals",
-              "Weak liquidity or unstable volume confirmation",
-              "Volatility spike without clear trend confirmation"
-            ]
-          },
-          "positionSizing": "Moderate risk profile: 40% to 55% model exposure, 1% to 1.5% risk per setup, volatility-adjusted sizing.",
-          "backtest": {
-            "totalReturn": "47.5%",
-            "winRate": "60%",
-            "maxDrawdown": "2.1%",
-            "numberOfTrades": 10,
-            "averageTradeReturn": "7.6%",
-            "bestTrade": "33.4%",
-            "worstTrade": "-1%",
-            "riskAdjustedScore": 100,
-            "benchmarkReturn": "-18.4%",
-            "alphaVsBenchmark": "65.9%",
-            "feeAssumption": "0.10% per entry or exit",
-            "startingCapital": "$1,000 simulated",
-            "modelExposure": "55%"
-          },
-          "signals": [
-            {
-              "name": "RSI",
-              "score": 87,
-              "status": "Bullish",
-              "reason": "RSI is 65.6, showing constructive momentum."
-            },
-            {
-              "name": "MACD",
-              "score": 87,
-              "status": "Bullish",
-              "reason": "MACD is above its signal line."
-            },
-            {
-              "name": "Volume",
-              "score": 60,
-              "status": "Strong",
-              "reason": "Latest volume is 1.34x its 20-candle average."
-            },
-            {
-              "name": "Fear & Greed",
-              "score": 65,
-              "status": "Neutral",
-              "reason": "Fear and Greed proxy score is 64.6 from the market dataset."
-            },
-            {
-              "name": "Sentiment",
-              "score": 65,
-              "status": "Positive",
-              "reason": "Sentiment proxy score is 65.2, derived from quote momentum and market context."
-            },
-            {
-              "name": "Volatility",
-              "score": 61,
-              "status": "Moderate",
-              "reason": "ATR is 3.75% of price, so volatility is moderate."
-            },
-            {
-              "name": "Regime",
-              "score": 55,
-              "status": "Risk Off",
-              "reason": "Composite regime model classified CAKE as Risk Off."
-            }
-          ],
-          "autoSelection": {
-            "enabled": true,
-            "selectedFocus": "risk_off",
-            "selectedFocusLabel": "Risk Off",
-            "selectedStrategy": "Capital Protection Regime Strategy",
-            "selectedRegime": "Risk Off",
-            "selectionScore": 115,
-            "reason": "Capital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.",
-            "candidates": [
-              {
-                "rank": 1,
-                "focus": "risk_off",
-                "focusLabel": "Risk Off",
-                "regime": "Risk Off",
-                "strategyName": "Capital Protection Regime Strategy",
-                "totalReturn": "47.5%",
-                "maxDrawdown": "2.1%",
-                "winRate": "60%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "65.9%",
-                "selectionScore": 115,
-                "selected": true
-              },
-              {
-                "rank": 2,
-                "focus": "momentum",
-                "focusLabel": "Momentum",
-                "regime": "Momentum",
-                "strategyName": "Guarded Momentum Strategy",
-                "totalReturn": "46.3%",
-                "maxDrawdown": "2.3%",
-                "winRate": "57%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "64.8%",
-                "selectionScore": 114,
-                "selected": false
-              },
-              {
-                "rank": 3,
-                "focus": "regime_detection",
-                "focusLabel": "Regime Detection",
-                "regime": "Momentum",
-                "strategyName": "Guarded Momentum Strategy",
-                "totalReturn": "46.3%",
-                "maxDrawdown": "2.3%",
-                "winRate": "57%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "64.8%",
-                "selectionScore": 114,
-                "selected": false
-              },
-              {
-                "rank": 4,
-                "focus": "sentiment_divergence",
-                "focusLabel": "Sentiment Divergence",
-                "regime": "Sentiment Divergence",
-                "strategyName": "Sentiment Divergence Filter Strategy",
-                "totalReturn": "46.4%",
-                "maxDrawdown": "3.2%",
-                "winRate": "50%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "64.8%",
-                "selectionScore": 110,
-                "selected": false
-              }
-            ],
-            "note": "Auto Detect selected the top-ranked candidate."
-          },
-          "backtestMethodology": {
-            "startingCapital": "$1,000 simulated",
-            "feeAssumption": "0.10% per entry or exit",
-            "modelExposure": "55%",
-            "benchmarkReturn": "-18.4%",
-            "alphaVsBenchmark": "65.9%",
-            "candlesAnalyzed": 720,
-            "dataSnapshotAt": "2026-06-15T19:50:00.000Z"
-          },
-          "constraints": [
-            "No wallet connection",
-            "No live order execution",
-            "No buy or sell transaction",
-            "Research and strategy specification output only"
-          ]
-        }
-      },
-      "markdownReport": "# BestStrat Report — CAKE/1h\n\n## Strategy\n**Name:** Capital Protection Regime Strategy  \n**Detected Regime:** Risk Off (55% confidence)  \n**Data Source:** CoinMarketCap latest quote + deterministic backtest candles  \n**CMC API Configured:** Yes\n\nAvoid new momentum entries until trend structure, sentiment, and volatility return to acceptable conditions.\n\n## Why This Strategy Was Generated\n- Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 115 selection score.\n- CAKE was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.\n- The strongest supporting signals were RSI: Bullish (87), MACD: Bullish (87), Fear & Greed: Neutral (65).\n- The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion.\n\n## Market State\n- Trend: Bullish\n- Volatility: Moderate\n- Sentiment: Positive\n- Liquidity: High\n- Latest price used by engine: 1.22816\n- Candles analyzed: 720\n- Data snapshot: 2026-06-15T19:50:00.000Z\n\n## Entry Rules\n- Do not open a new long setup while price remains below EMA 50\n- Only consider re-entry after price recovers EMA 20 and EMA 50 alignment\n- Require RSI recovery above 50 with volume above the 20-candle average\n\n## Exit Rules\n- Exit research setup if price closes below EMA 20 after attempted recovery\n- Exit if RSI falls below 45\n- Exit if volatility expands above the strategy threshold\n\n## Risk Rules\n- Use moderate sizing with maximum 40% to 55% model exposure\n- Stop using this setup if strategy drawdown exceeds 8%\n- Prefer capital preservation until regime improves\n\n## Invalidation Rules\n- Invalid if regime remains Risk Off after the lookback window refreshes\n- Invalid if liquidity score falls below 40\n- Invalid if price fails to reclaim EMA 50\n\n## No Trade Conditions\n- Risk Off regime\n- Price below EMA 50\n- Conflicting trend and momentum signals\n- Weak liquidity or unstable volume confirmation\n- Volatility spike without clear trend confirmation\n\n## Auto Strategy Selection\nBestStrat compared candidate strategies before selecting the final output.\n\n| Rank | Focus | Strategy | Return | Max Drawdown | Win Rate | Selection Score |\n|------|-------|----------|--------|--------------|----------|-----------------|\n| 1 (selected) | Risk Off | Capital Protection Regime Strategy | 47.5% | 2.1% | 60% | 115 |\n| 2 | Momentum | Guarded Momentum Strategy | 46.3% | 2.3% | 57% | 114 |\n| 3 | Regime Detection | Guarded Momentum Strategy | 46.3% | 2.3% | 57% | 114 |\n| 4 | Sentiment Divergence | Sentiment Divergence Filter Strategy | 46.4% | 3.2% | 50% | 110 |\n\nCapital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.\n\n## Backtest Results\n| Metric | Value |\n|--------|-------|\n| Total Return | 47.5% |\n| Win Rate | 60% |\n| Max Drawdown | 2.1% |\n| Number of Trades | 10 |\n| Average Trade Return | 7.6% |\n| Best Trade | 33.4% |\n| Worst Trade | -1% |\n| Risk Adjusted Score | 100 |\n| Buy-and-Hold Benchmark | -18.4% |\n| Outperformance vs Benchmark | 65.9% |\n| Fee Assumption | 0.10% per entry or exit |\n| Model Exposure | 55% |\n\n## Backtest Methodology\n- Starting capital: $1,000 simulated\n- Fees: 0.10% per entry or exit\n- Model exposure: 55%\n- Buy-and-hold benchmark: token return over the same backtest window\n- Candles analyzed: 720\n- Data snapshot: 2026-06-15T19:50:00.000Z\n- Snapshot policy: same symbol, timeframe, and lookback reuse one market snapshot briefly so repeated backtests remain consistent\n\n## Signal Breakdown\n| Signal | Score | Status | Reason |\n|--------|-------|--------|--------|\n| RSI | 87 | Bullish | RSI is 65.6, showing constructive momentum. |\n| MACD | 87 | Bullish | MACD is above its signal line. |\n| Volume | 60 | Strong | Latest volume is 1.34x its 20-candle average. |\n| Fear & Greed | 65 | Neutral | Fear and Greed proxy score is 64.6 from the market dataset. |\n| Sentiment | 65 | Positive | Sentiment proxy score is 65.2, derived from quote momentum and market context. |\n| Volatility | 61 | Moderate | ATR is 3.75% of price, so volatility is moderate. |\n| Regime | 55 | Risk Off | Composite regime model classified CAKE as Risk Off. |\n\n## LLM Skill Authorship\n- Invocation name: beststrat.generate_strategy\n- Skill role: repeatable LLM workflow for turning CMC market context into a backtestable strategy spec\n- Required inputs: symbol, timeframe, lookbackDays, riskLevel, strategyFocus\n- Required outputs: regime, rationale, rules, backtest, methodology, JSON, Markdown, CMC Skill output, LLM Skill output\n\n## Strategy Skill Notes\n- Product role: Quantopian-style crypto strategy generation Skill authored as an LLM Skill\n- Output type: backtestable strategy specification\n- Execution: none\n- Wallet connection: none\n\n---\nGenerated by BestStrat. Research strategy specification only. Not financial advice. No trade execution.",
-      "cmcSkillOutput": {
-        "skillType": "strategy_generation",
-        "skillVersion": "1.3.0",
-        "project": "BestStrat",
-        "category": "CMC Strategy Skill",
-        "cmcCompatible": true,
-        "purpose": "Turn CMC-style market data into a backtestable crypto strategy specification that an LLM agent can execute as a repeatable workflow.",
-        "input": {
-          "symbol": "CAKE",
-          "timeframe": "1h",
-          "lookbackDays": 30,
-          "riskLevel": "moderate",
-          "strategyFocus": "auto"
-        },
-        "dataSource": {
-          "label": "CoinMarketCap latest quote + deterministic backtest candles",
-          "provider": "cmc_latest_quote",
-          "cmcApiConfigured": true,
-          "cmcQuoteUsed": true,
-          "fallbackReason": null,
-          "candlesAnalyzed": 720,
-          "dataSnapshotAt": "2026-06-15T19:50:00.000Z",
-          "cachePolicy": "Same symbol, timeframe, and lookback reuse one market snapshot for five minutes so repeated backtests stay consistent."
-        },
-        "output": {
-          "strategyName": "Capital Protection Regime Strategy",
-          "strategySummary": "Avoid new momentum entries until trend structure, sentiment, and volatility return to acceptable conditions.",
-          "detectedRegime": "Risk Off",
-          "regimeConfidence": 55,
-          "decisionRationale": [
-            "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 115 selection score.",
-            "CAKE was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
-            "The strongest supporting signals were RSI: Bullish (87), MACD: Bullish (87), Fear & Greed: Neutral (65).",
-            "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
-          ],
-          "entryRules": [
-            "Do not open a new long setup while price remains below EMA 50",
-            "Only consider re-entry after price recovers EMA 20 and EMA 50 alignment",
-            "Require RSI recovery above 50 with volume above the 20-candle average"
-          ],
-          "exitRules": [
-            "Exit research setup if price closes below EMA 20 after attempted recovery",
-            "Exit if RSI falls below 45",
-            "Exit if volatility expands above the strategy threshold"
-          ],
-          "riskRules": [
-            "Use moderate sizing with maximum 40% to 55% model exposure",
-            "Stop using this setup if strategy drawdown exceeds 8%",
-            "Prefer capital preservation until regime improves"
-          ],
-          "invalidationRules": [
-            "Invalid if regime remains Risk Off after the lookback window refreshes",
-            "Invalid if liquidity score falls below 40",
-            "Invalid if price fails to reclaim EMA 50"
-          ],
-          "noTradeConditions": [
-            "Risk Off regime",
-            "Price below EMA 50",
-            "Conflicting trend and momentum signals",
-            "Weak liquidity or unstable volume confirmation",
-            "Volatility spike without clear trend confirmation"
-          ],
-          "positionSizing": "Moderate risk profile: 40% to 55% model exposure, 1% to 1.5% risk per setup, volatility-adjusted sizing.",
-          "backtest": {
-            "totalReturn": "47.5%",
-            "winRate": "60%",
-            "maxDrawdown": "2.1%",
-            "numberOfTrades": 10,
-            "averageTradeReturn": "7.6%",
-            "bestTrade": "33.4%",
-            "worstTrade": "-1%",
-            "riskAdjustedScore": 100,
-            "benchmarkReturn": "-18.4%",
-            "alphaVsBenchmark": "65.9%",
-            "feeAssumption": "0.10% per entry or exit",
-            "startingCapital": "$1,000 simulated",
-            "modelExposure": "55%"
-          },
-          "signals": [
-            {
-              "name": "RSI",
-              "score": 87,
-              "status": "Bullish",
-              "reason": "RSI is 65.6, showing constructive momentum."
-            },
-            {
-              "name": "MACD",
-              "score": 87,
-              "status": "Bullish",
-              "reason": "MACD is above its signal line."
-            },
-            {
-              "name": "Volume",
-              "score": 60,
-              "status": "Strong",
-              "reason": "Latest volume is 1.34x its 20-candle average."
-            },
-            {
-              "name": "Fear & Greed",
-              "score": 65,
-              "status": "Neutral",
-              "reason": "Fear and Greed proxy score is 64.6 from the market dataset."
-            },
-            {
-              "name": "Sentiment",
-              "score": 65,
-              "status": "Positive",
-              "reason": "Sentiment proxy score is 65.2, derived from quote momentum and market context."
-            },
-            {
-              "name": "Volatility",
-              "score": 61,
-              "status": "Moderate",
-              "reason": "ATR is 3.75% of price, so volatility is moderate."
-            },
-            {
-              "name": "Regime",
-              "score": 55,
-              "status": "Risk Off",
-              "reason": "Composite regime model classified CAKE as Risk Off."
-            }
-          ],
-          "autoSelection": {
-            "enabled": true,
-            "selectedFocus": "risk_off",
-            "selectedFocusLabel": "Risk Off",
-            "selectedStrategy": "Capital Protection Regime Strategy",
-            "selectedRegime": "Risk Off",
-            "selectionScore": 115,
-            "reason": "Capital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.",
-            "candidates": [
-              {
-                "rank": 1,
-                "focus": "risk_off",
-                "focusLabel": "Risk Off",
-                "regime": "Risk Off",
-                "strategyName": "Capital Protection Regime Strategy",
-                "totalReturn": "47.5%",
-                "maxDrawdown": "2.1%",
-                "winRate": "60%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "65.9%",
-                "selectionScore": 115,
-                "selected": true
-              },
-              {
-                "rank": 2,
-                "focus": "momentum",
-                "focusLabel": "Momentum",
-                "regime": "Momentum",
-                "strategyName": "Guarded Momentum Strategy",
-                "totalReturn": "46.3%",
-                "maxDrawdown": "2.3%",
-                "winRate": "57%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "64.8%",
-                "selectionScore": 114,
-                "selected": false
-              },
-              {
-                "rank": 3,
-                "focus": "regime_detection",
-                "focusLabel": "Regime Detection",
-                "regime": "Momentum",
-                "strategyName": "Guarded Momentum Strategy",
-                "totalReturn": "46.3%",
-                "maxDrawdown": "2.3%",
-                "winRate": "57%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "64.8%",
-                "selectionScore": 114,
-                "selected": false
-              },
-              {
-                "rank": 4,
-                "focus": "sentiment_divergence",
-                "focusLabel": "Sentiment Divergence",
-                "regime": "Sentiment Divergence",
-                "strategyName": "Sentiment Divergence Filter Strategy",
-                "totalReturn": "46.4%",
-                "maxDrawdown": "3.2%",
-                "winRate": "50%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "64.8%",
-                "selectionScore": 110,
-                "selected": false
-              }
-            ],
-            "note": "Auto Detect selected the top-ranked candidate."
-          },
-          "backtestMethodology": {
-            "startingCapital": "$1,000 simulated",
-            "feeAssumption": "0.10% per entry or exit",
-            "modelExposure": "55%",
-            "benchmarkReturn": "-18.4%",
-            "alphaVsBenchmark": "65.9%",
-            "candlesAnalyzed": 720,
-            "dataSnapshotAt": "2026-06-15T19:50:00.000Z"
-          }
-        },
-        "signalWeights": {
-          "trend": 0.25,
-          "momentum": 0.2,
-          "volume": 0.15,
-          "sentiment": 0.15,
-          "volatility": 0.15,
-          "liquidity": 0.1
-        },
-        "disclaimer": "Research strategy specification only. Not financial advice. No trade execution."
-      },
-      "llmSkillOutput": {
-        "skill": {
-          "name": "BestStrat",
-          "version": "1.3.0",
-          "type": "llm_strategy_generation_skill",
-          "description": "A repeatable LLM Skill for converting CMC market context into a backtestable crypto strategy specification.",
-          "invocationName": "beststrat.generate_strategy",
-          "intendedAgentUse": "Use when a user asks for a crypto trading strategy research spec, not when they ask to place a live trade."
-        },
-        "activation": {
-          "userIntentExamples": [
-            "Generate a strategy for CAKE on 1h candles with moderate risk.",
-            "Create a backtestable momentum strategy for BNB.",
-            "Detect the market regime for ETH and write entry, exit, and risk rules."
-          ],
-          "requiredInputs": [
-            "symbol",
-            "timeframe",
-            "lookbackDays",
-            "riskLevel",
-            "strategyFocus"
-          ],
-          "optionalInputs": [
-            "preferredRegime",
-            "maxDrawdownTolerance",
-            "feeAssumption"
-          ]
-        },
-        "input": {
-          "symbol": "CAKE",
-          "timeframe": "1h",
-          "lookbackDays": 30,
-          "riskLevel": "moderate",
-          "strategyFocus": "auto"
-        },
-        "dataContext": {
-          "provider": "cmc_latest_quote",
-          "label": "CoinMarketCap latest quote + deterministic backtest candles",
-          "cmcApiConfigured": true,
-          "cmcQuoteUsed": true,
-          "fallbackReason": null,
-          "candlesAnalyzed": 720,
-          "dataSnapshotAt": "2026-06-15T19:50:00.000Z",
-          "cachePolicy": "Same symbol, timeframe, and lookback reuse one market snapshot for five minutes so repeated backtests stay consistent."
-        },
-        "workflow": [
-          {
-            "step": 1,
-            "name": "Normalize user request",
-            "instruction": "Extract symbol, timeframe, lookbackDays, riskLevel, and strategyFocus. Ask for missing required inputs when needed."
-          },
-          {
-            "step": 2,
-            "name": "Fetch CMC market context",
-            "instruction": "Use CoinMarketCap data when configured. If unavailable, clearly mark deterministic fallback data."
-          },
-          {
-            "step": 3,
-            "name": "Classify market regime",
-            "instruction": "Score trend, momentum, volume, sentiment, volatility, and liquidity before selecting a regime."
-          },
-          {
-            "step": 4,
-            "name": "Auto-select strategy candidate when requested",
-            "instruction": "When strategyFocus is auto, compare momentum, risk-off, sentiment-divergence, and regime-detection candidates by risk-adjusted score before selecting a strategy."
-          },
-          {
-            "step": 5,
-            "name": "Generate strategy rules",
-            "instruction": "Return entry, exit, risk, invalidation, position sizing, and no-trade conditions as explicit testable rules."
-          },
-          {
-            "step": 6,
-            "name": "Backtest and compare",
-            "instruction": "Run the strategy over the selected lookback window and compare it with a buy-and-hold benchmark using stated fee assumptions."
-          },
-          {
-            "step": 7,
-            "name": "Return structured output",
-            "instruction": "Return JSON, Markdown, CMC Skill output, and LLM Skill output without any live execution instructions."
-          }
-        ],
-        "responseContract": {
-          "mustInclude": [
-            "detectedRegime",
-            "regimeConfidence",
-            "decisionRationale",
-            "entryRules",
-            "exitRules",
-            "riskRules",
-            "invalidationRules",
-            "noTradeConditions",
-            "backtest",
-            "backtestMethodology",
-            "disclaimer"
-          ],
-          "mustNotInclude": [
-            "wallet connection request",
-            "private key handling",
-            "live buy instruction",
-            "live sell instruction",
-            "guaranteed return claim"
-          ]
-        },
-        "generatedStrategy": {
-          "strategyName": "Capital Protection Regime Strategy",
-          "strategySummary": "Avoid new momentum entries until trend structure, sentiment, and volatility return to acceptable conditions.",
-          "detectedRegime": "Risk Off",
-          "regimeConfidence": 55,
-          "decisionRationale": [
-            "Auto Detect compared 4 candidate strategies and selected Capital Protection Regime Strategy with a 115 selection score.",
-            "CAKE was classified as Risk Off, so BestStrat selected Capital Protection Regime Strategy.",
-            "The strongest supporting signals were RSI: Bullish (87), MACD: Bullish (87), Fear & Greed: Neutral (65).",
-            "The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion."
-          ],
-          "entryRules": [
-            "Do not open a new long setup while price remains below EMA 50",
-            "Only consider re-entry after price recovers EMA 20 and EMA 50 alignment",
-            "Require RSI recovery above 50 with volume above the 20-candle average"
-          ],
-          "exitRules": [
-            "Exit research setup if price closes below EMA 20 after attempted recovery",
-            "Exit if RSI falls below 45",
-            "Exit if volatility expands above the strategy threshold"
-          ],
-          "riskRules": [
-            "Use moderate sizing with maximum 40% to 55% model exposure",
-            "Stop using this setup if strategy drawdown exceeds 8%",
-            "Prefer capital preservation until regime improves"
-          ],
-          "invalidationRules": [
-            "Invalid if regime remains Risk Off after the lookback window refreshes",
-            "Invalid if liquidity score falls below 40",
-            "Invalid if price fails to reclaim EMA 50"
-          ],
-          "noTradeConditions": [
-            "Risk Off regime",
-            "Price below EMA 50",
-            "Conflicting trend and momentum signals",
-            "Weak liquidity or unstable volume confirmation",
-            "Volatility spike without clear trend confirmation"
-          ],
-          "positionSizing": "Moderate risk profile: 40% to 55% model exposure, 1% to 1.5% risk per setup, volatility-adjusted sizing.",
-          "signals": [
-            {
-              "name": "RSI",
-              "score": 87,
-              "status": "Bullish",
-              "reason": "RSI is 65.6, showing constructive momentum."
-            },
-            {
-              "name": "MACD",
-              "score": 87,
-              "status": "Bullish",
-              "reason": "MACD is above its signal line."
-            },
-            {
-              "name": "Volume",
-              "score": 60,
-              "status": "Strong",
-              "reason": "Latest volume is 1.34x its 20-candle average."
-            },
-            {
-              "name": "Fear & Greed",
-              "score": 65,
-              "status": "Neutral",
-              "reason": "Fear and Greed proxy score is 64.6 from the market dataset."
-            },
-            {
-              "name": "Sentiment",
-              "score": 65,
-              "status": "Positive",
-              "reason": "Sentiment proxy score is 65.2, derived from quote momentum and market context."
-            },
-            {
-              "name": "Volatility",
-              "score": 61,
-              "status": "Moderate",
-              "reason": "ATR is 3.75% of price, so volatility is moderate."
-            },
-            {
-              "name": "Regime",
-              "score": 55,
-              "status": "Risk Off",
-              "reason": "Composite regime model classified CAKE as Risk Off."
-            }
-          ],
-          "backtest": {
-            "totalReturn": "47.5%",
-            "winRate": "60%",
-            "maxDrawdown": "2.1%",
-            "numberOfTrades": 10,
-            "averageTradeReturn": "7.6%",
-            "bestTrade": "33.4%",
-            "worstTrade": "-1%",
-            "riskAdjustedScore": 100,
-            "benchmarkReturn": "-18.4%",
-            "alphaVsBenchmark": "65.9%",
-            "feeAssumption": "0.10% per entry or exit",
-            "startingCapital": "$1,000 simulated",
-            "modelExposure": "55%"
-          },
-          "autoSelection": {
-            "enabled": true,
-            "selectedFocus": "risk_off",
-            "selectedFocusLabel": "Risk Off",
-            "selectedStrategy": "Capital Protection Regime Strategy",
-            "selectedRegime": "Risk Off",
-            "selectionScore": 115,
-            "reason": "Capital Protection Regime Strategy was selected because it produced the strongest risk-adjusted candidate score after comparing return, max drawdown, win rate, outperformance vs benchmark, and regime confidence.",
-            "candidates": [
-              {
-                "rank": 1,
-                "focus": "risk_off",
-                "focusLabel": "Risk Off",
-                "regime": "Risk Off",
-                "strategyName": "Capital Protection Regime Strategy",
-                "totalReturn": "47.5%",
-                "maxDrawdown": "2.1%",
-                "winRate": "60%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "65.9%",
-                "selectionScore": 115,
-                "selected": true
-              },
-              {
-                "rank": 2,
-                "focus": "momentum",
-                "focusLabel": "Momentum",
-                "regime": "Momentum",
-                "strategyName": "Guarded Momentum Strategy",
-                "totalReturn": "46.3%",
-                "maxDrawdown": "2.3%",
-                "winRate": "57%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "64.8%",
-                "selectionScore": 114,
-                "selected": false
-              },
-              {
-                "rank": 3,
-                "focus": "regime_detection",
-                "focusLabel": "Regime Detection",
-                "regime": "Momentum",
-                "strategyName": "Guarded Momentum Strategy",
-                "totalReturn": "46.3%",
-                "maxDrawdown": "2.3%",
-                "winRate": "57%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "64.8%",
-                "selectionScore": 114,
-                "selected": false
-              },
-              {
-                "rank": 4,
-                "focus": "sentiment_divergence",
-                "focusLabel": "Sentiment Divergence",
-                "regime": "Sentiment Divergence",
-                "strategyName": "Sentiment Divergence Filter Strategy",
-                "totalReturn": "46.4%",
-                "maxDrawdown": "3.2%",
-                "winRate": "50%",
-                "riskAdjustedScore": 100,
-                "alphaVsBenchmark": "64.8%",
-                "selectionScore": 110,
-                "selected": false
-              }
-            ],
-            "note": "Auto Detect selected the top-ranked candidate."
-          },
-          "backtestMethodology": {
-            "startingCapital": "$1,000 simulated",
-            "feeAssumption": "0.10% per entry or exit",
-            "modelExposure": "55%",
-            "benchmarkReturn": "-18.4%",
-            "alphaVsBenchmark": "65.9%",
-            "candlesAnalyzed": 720,
-            "dataSnapshotAt": "2026-06-15T19:50:00.000Z"
-          }
-        },
-        "guardrails": [
-          "Research strategy specification only",
-          "No wallet connection",
-          "No live order execution",
-          "No private key collection",
-          "Do not present historical simulations as guaranteed future performance"
-        ],
-        "finalAnswerStyle": {
-          "tone": "clear, research-focused, concise",
-          "includeTables": true,
-          "includeMachineReadableJson": true,
-          "includeDisclaimer": true
-        },
-        "disclaimer": "BestStrat generates research strategy specifications only. It is not financial advice and does not execute trades."
-      },
-      "meta": {
-        "dataSource": "CoinMarketCap latest quote + deterministic backtest candles",
-        "dataProvider": "cmc_latest_quote",
-        "cmcApiConfigured": true,
-        "cmcQuoteUsed": true,
-        "fallbackReason": null,
-        "candlesAnalyzed": 720,
-        "dataSnapshotAt": "2026-06-15T19:50:00.000Z",
-        "cacheHit": false,
-        "cachePolicy": "Same symbol, timeframe, and lookback reuse one market snapshot for five minutes so repeated backtests stay consistent.",
-        "cacheExpiresAt": "2026-06-15T19:55:00.000Z",
-        "generatedAt": "2026-06-15T19:52:14.026Z",
+        "cacheExpiresAt": "2026-06-16T12:10:00.000Z",
+        "generatedAt": "2026-06-16T12:08:04.768Z",
         "note": "Research strategy specification only. Not financial advice. No trade execution."
       }
     }
