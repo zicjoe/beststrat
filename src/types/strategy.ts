@@ -31,6 +31,33 @@ export interface SignalStrengthPoint {
   value: number;
 }
 
+export interface AutoSelectionCandidate {
+  rank: number;
+  focus: string;
+  focusLabel: string;
+  regime: string;
+  strategyName: string;
+  totalReturn: string;
+  maxDrawdown: string;
+  winRate: string;
+  riskAdjustedScore: number;
+  alphaVsBenchmark?: string;
+  selectionScore: number;
+  selected: boolean;
+}
+
+export interface AutoSelection {
+  enabled: boolean;
+  selectedFocus: string;
+  selectedFocusLabel: string;
+  selectedStrategy: string;
+  selectedRegime: string;
+  selectionScore: number;
+  reason: string;
+  candidates: AutoSelectionCandidate[];
+  note?: string;
+}
+
 export interface StrategyResponse {
   id?: string;
   createdAt?: string;
@@ -39,6 +66,8 @@ export interface StrategyResponse {
   lookbackDays: number;
   riskLevel: string;
   strategyFocus: string;
+  selectedStrategyFocus?: string;
+  autoSelection?: AutoSelection | null;
   detectedRegime: string;
   regimeConfidence: number;
   marketSummary: string;
@@ -71,6 +100,10 @@ export interface StrategyResponse {
     cmcQuoteUsed?: boolean;
     fallbackReason?: string | null;
     candlesAnalyzed?: number;
+    dataSnapshotAt?: string;
+    cacheHit?: boolean;
+    cachePolicy?: string;
+    cacheExpiresAt?: string;
     generatedAt?: string;
     note?: string;
   };
@@ -88,11 +121,16 @@ export interface RecentRun {
   id: string;
   token: string;
   timeframe: string;
+  inputFocus?: string;
+  inputFocusLabel?: string;
+  selectedFocus?: string;
+  selectedFocusLabel?: string;
   regime: string;
   strategy: string;
   totalReturn: string;
   maxDrawdown: string;
   createdAt: string;
+  dataSnapshotAt?: string | null;
 }
 
 export type AppState = "idle" | "loading" | "success" | "error";

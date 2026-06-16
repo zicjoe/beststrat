@@ -10,20 +10,28 @@ export function buildMarketSummary(dataset, analysis) {
   return `${parts.join(", ")}.`;
 }
 
-export function buildDecisionRationale(dataset, analysis, strategy) {
+export function buildDecisionRationale(dataset, analysis, strategy, autoSelection = null) {
   const strongestSignals = [...analysis.signals]
     .sort((a, b) => b.score - a.score)
     .slice(0, 3)
     .map((signal) => `${signal.name}: ${signal.status} (${signal.score})`);
 
-  return [
+  const rationale = [
     `${dataset.symbol} was classified as ${analysis.detectedRegime}, so BestStrat selected ${strategy.strategyName}.`,
     `The strongest supporting signals were ${strongestSignals.join(", ")}.`,
     `The generated rules are constrained by volatility, liquidity, invalidation, and no-trade conditions so the output stays backtestable instead of becoming a vague trading opinion.`,
   ];
+
+  if (autoSelection?.enabled) {
+    rationale.unshift(
+      `Auto Detect compared ${autoSelection.candidates.length} candidate strategies and selected ${autoSelection.selectedStrategy} with a ${autoSelection.selectionScore} selection score.`
+    );
+  }
+
+  return rationale;
 }
 
-export function buildJsonOutput(dataset, request, analysis, strategy, backtestResult) {
+export function buildJsonOutput(dataset, request, analysis, strategy, backtestResult, autoSelection = null) {
   return {
     strategySpec: {
       name: strategy.strategyName,
@@ -39,6 +47,8 @@ export function buildJsonOutput(dataset, request, analysis, strategy, backtestRe
         cmcApiConfigured: dataset.cmcApiConfigured,
         cmcQuoteUsed: dataset.dataProvider === "cmc_latest_quote",
         fallbackReason: dataset.fallbackReason,
+        dataSnapshotAt: dataset.dataSnapshotAt,
+        cachePolicy: dataset.cache?.policy,
       },
       regime: {
         name: analysis.detectedRegime,
@@ -48,7 +58,7 @@ export function buildJsonOutput(dataset, request, analysis, strategy, backtestRe
         sentimentState: analysis.sentimentState,
         liquidityState: analysis.liquidityState,
       },
-      decisionRationale: buildDecisionRationale(dataset, analysis, strategy),
+      decisionRationale: buildDecisionRationale(dataset, analysis, strategy, autoSelection),
       rules: {
         entry: strategy.entryRules,
         exit: strategy.exitRules,
@@ -64,6 +74,7 @@ export function buildJsonOutput(dataset, request, analysis, strategy, backtestRe
         status: signal.status,
         reason: signal.reason,
       })),
+      autoSelection: autoSelection || undefined,
       backtestMethodology: {
         startingCapital: backtestResult.backtest.startingCapital,
         feeAssumption: backtestResult.backtest.feeAssumption,
@@ -71,6 +82,7 @@ export function buildJsonOutput(dataset, request, analysis, strategy, backtestRe
         benchmarkReturn: backtestResult.backtest.benchmarkReturn,
         alphaVsBenchmark: backtestResult.backtest.alphaVsBenchmark,
         candlesAnalyzed: dataset.candles.length,
+        dataSnapshotAt: dataset.dataSnapshotAt,
       },
       constraints: [
         "No wallet connection",
@@ -82,12 +94,12 @@ export function buildJsonOutput(dataset, request, analysis, strategy, backtestRe
   };
 }
 
-export function buildCmcSkillOutput(dataset, request, analysis, strategy, backtestResult) {
+export function buildCmcSkillOutput(dataset, request, analysis, strategy, backtestResult, autoSelection = null) {
   return {
     skillType: "strategy_generation",
     skillVersion: "1.3.0",
     project: "BestStrat",
-    track: "BNB Hack Track 2 Strategy Skill",
+    category: "CMC Strategy Skill",
     cmcCompatible: true,
     purpose: "Turn CMC-style market data into a backtestable crypto strategy specification that an LLM agent can execute as a repeatable workflow.",
     input: {
@@ -104,13 +116,15 @@ export function buildCmcSkillOutput(dataset, request, analysis, strategy, backte
       cmcQuoteUsed: dataset.dataProvider === "cmc_latest_quote",
       fallbackReason: dataset.fallbackReason,
       candlesAnalyzed: dataset.candles.length,
+      dataSnapshotAt: dataset.dataSnapshotAt,
+      cachePolicy: dataset.cache?.policy,
     },
     output: {
       strategyName: strategy.strategyName,
       strategySummary: strategy.strategySummary,
       detectedRegime: analysis.detectedRegime,
       regimeConfidence: analysis.regimeConfidence,
-      decisionRationale: buildDecisionRationale(dataset, analysis, strategy),
+      decisionRationale: buildDecisionRationale(dataset, analysis, strategy, autoSelection),
       entryRules: strategy.entryRules,
       exitRules: strategy.exitRules,
       riskRules: strategy.riskRules,
@@ -119,6 +133,7 @@ export function buildCmcSkillOutput(dataset, request, analysis, strategy, backte
       positionSizing: strategy.positionSizing,
       backtest: backtestResult.backtest,
       signals: analysis.signals,
+      autoSelection: autoSelection || undefined,
       backtestMethodology: {
         startingCapital: backtestResult.backtest.startingCapital,
         feeAssumption: backtestResult.backtest.feeAssumption,
@@ -126,6 +141,7 @@ export function buildCmcSkillOutput(dataset, request, analysis, strategy, backte
         benchmarkReturn: backtestResult.backtest.benchmarkReturn,
         alphaVsBenchmark: backtestResult.backtest.alphaVsBenchmark,
         candlesAnalyzed: dataset.candles.length,
+        dataSnapshotAt: dataset.dataSnapshotAt,
       },
     },
     signalWeights: {
@@ -141,8 +157,8 @@ export function buildCmcSkillOutput(dataset, request, analysis, strategy, backte
 }
 
 
-export function buildLlmSkillOutput(dataset, request, analysis, strategy, backtestResult) {
-  const rationale = buildDecisionRationale(dataset, analysis, strategy);
+export function buildLlmSkillOutput(dataset, request, analysis, strategy, backtestResult, autoSelection = null) {
+  const rationale = buildDecisionRationale(dataset, analysis, strategy, autoSelection);
   return {
     skill: {
       name: "BestStrat",
@@ -175,6 +191,8 @@ export function buildLlmSkillOutput(dataset, request, analysis, strategy, backte
       cmcQuoteUsed: dataset.dataProvider === "cmc_latest_quote",
       fallbackReason: dataset.fallbackReason,
       candlesAnalyzed: dataset.candles.length,
+      dataSnapshotAt: dataset.dataSnapshotAt,
+      cachePolicy: dataset.cache?.policy,
     },
     workflow: [
       {
@@ -194,16 +212,21 @@ export function buildLlmSkillOutput(dataset, request, analysis, strategy, backte
       },
       {
         step: 4,
+        name: "Auto-select strategy candidate when requested",
+        instruction: "When strategyFocus is auto, compare momentum, risk-off, sentiment-divergence, and regime-detection candidates by risk-adjusted score before selecting a strategy.",
+      },
+      {
+        step: 5,
         name: "Generate strategy rules",
         instruction: "Return entry, exit, risk, invalidation, position sizing, and no-trade conditions as explicit testable rules.",
       },
       {
-        step: 5,
+        step: 6,
         name: "Backtest and compare",
         instruction: "Run the strategy over the selected lookback window and compare it with a buy-and-hold benchmark using stated fee assumptions.",
       },
       {
-        step: 6,
+        step: 7,
         name: "Return structured output",
         instruction: "Return JSON, Markdown, CMC Skill output, and LLM Skill output without any live execution instructions.",
       },
@@ -244,6 +267,7 @@ export function buildLlmSkillOutput(dataset, request, analysis, strategy, backte
       positionSizing: strategy.positionSizing,
       signals: analysis.signals,
       backtest: backtestResult.backtest,
+      autoSelection: autoSelection || undefined,
       backtestMethodology: {
         startingCapital: backtestResult.backtest.startingCapital,
         feeAssumption: backtestResult.backtest.feeAssumption,
@@ -251,6 +275,7 @@ export function buildLlmSkillOutput(dataset, request, analysis, strategy, backte
         benchmarkReturn: backtestResult.backtest.benchmarkReturn,
         alphaVsBenchmark: backtestResult.backtest.alphaVsBenchmark,
         candlesAnalyzed: dataset.candles.length,
+        dataSnapshotAt: dataset.dataSnapshotAt,
       },
     },
     guardrails: [
@@ -258,7 +283,7 @@ export function buildLlmSkillOutput(dataset, request, analysis, strategy, backte
       "No wallet connection",
       "No live order execution",
       "No private key collection",
-      "Do not present backtest results as guaranteed future performance",
+      "Do not present historical simulations as guaranteed future performance",
     ],
     finalAnswerStyle: {
       tone: "clear, research-focused, concise",
@@ -270,10 +295,10 @@ export function buildLlmSkillOutput(dataset, request, analysis, strategy, backte
   };
 }
 
-export function buildMarkdownReport(dataset, request, analysis, strategy, backtestResult) {
+export function buildMarkdownReport(dataset, request, analysis, strategy, backtestResult, autoSelection = null) {
   const rules = (items) => items.map((item) => `- ${item}`).join("\n");
   const signals = analysis.signals.map((signal) => `| ${signal.name} | ${signal.score} | ${signal.status} | ${signal.reason} |`).join("\n");
-  const rationale = buildDecisionRationale(dataset, analysis, strategy).map((line) => `- ${line}`).join("\n");
+  const rationale = buildDecisionRationale(dataset, analysis, strategy, autoSelection).map((line) => `- ${line}`).join("\n");
 
   return `# BestStrat Report — ${dataset.symbol}/${request.timeframe}
 
@@ -295,6 +320,7 @@ ${rationale}
 - Liquidity: ${analysis.liquidityState}
 - Latest price used by engine: ${round(analysis.current.close, 6)}
 - Candles analyzed: ${dataset.candles.length}
+- Data snapshot: ${dataset.dataSnapshotAt || "Current request"}
 
 ## Entry Rules
 ${rules(strategy.entryRules)}
@@ -311,7 +337,16 @@ ${rules(strategy.invalidationRules)}
 ## No Trade Conditions
 ${rules(strategy.noTradeConditions)}
 
-## Backtest Results
+${autoSelection?.enabled ? `## Auto Strategy Selection
+BestStrat compared candidate strategies before selecting the final output.
+
+| Rank | Focus | Strategy | Return | Max Drawdown | Win Rate | Selection Score |
+|------|-------|----------|--------|--------------|----------|-----------------|
+${autoSelection.candidates.map((candidate) => `| ${candidate.rank}${candidate.selected ? " (selected)" : ""} | ${candidate.focusLabel} | ${candidate.strategyName} | ${candidate.totalReturn} | ${candidate.maxDrawdown} | ${candidate.winRate} | ${candidate.selectionScore} |`).join("\n")}
+
+${autoSelection.reason}
+
+` : ""}## Backtest Results
 | Metric | Value |
 |--------|-------|
 | Total Return | ${backtestResult.backtest.totalReturn} |
@@ -322,8 +357,8 @@ ${rules(strategy.noTradeConditions)}
 | Best Trade | ${backtestResult.backtest.bestTrade} |
 | Worst Trade | ${backtestResult.backtest.worstTrade} |
 | Risk Adjusted Score | ${backtestResult.backtest.riskAdjustedScore} |
-| Benchmark Return | ${backtestResult.backtest.benchmarkReturn} |
-| Alpha vs Benchmark | ${backtestResult.backtest.alphaVsBenchmark} |
+| Buy-and-Hold Benchmark | ${backtestResult.backtest.benchmarkReturn} |
+| Outperformance vs Benchmark | ${backtestResult.backtest.alphaVsBenchmark} |
 | Fee Assumption | ${backtestResult.backtest.feeAssumption} |
 | Model Exposure | ${backtestResult.backtest.modelExposure} |
 
@@ -331,8 +366,10 @@ ${rules(strategy.noTradeConditions)}
 - Starting capital: ${backtestResult.backtest.startingCapital}
 - Fees: ${backtestResult.backtest.feeAssumption}
 - Model exposure: ${backtestResult.backtest.modelExposure}
-- Benchmark: buy-and-hold over the same backtest window
+- Buy-and-hold benchmark: token return over the same backtest window
 - Candles analyzed: ${dataset.candles.length}
+- Data snapshot: ${dataset.dataSnapshotAt || "Current request"}
+- Snapshot policy: same symbol, timeframe, and lookback reuse one market snapshot briefly so repeated backtests remain consistent
 
 ## Signal Breakdown
 | Signal | Score | Status | Reason |
@@ -345,8 +382,7 @@ ${signals}
 - Required inputs: symbol, timeframe, lookbackDays, riskLevel, strategyFocus
 - Required outputs: regime, rationale, rules, backtest, methodology, JSON, Markdown, CMC Skill output, LLM Skill output
 
-## CMC Skill Submission Notes
-- Track: BNB Hack Track 2 Strategy Skills
+## Strategy Skill Notes
 - Product role: Quantopian-style crypto strategy generation Skill authored as an LLM Skill
 - Output type: backtestable strategy specification
 - Execution: none

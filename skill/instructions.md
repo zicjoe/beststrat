@@ -1,6 +1,6 @@
 # BestStrat LLM Skill Instructions
 
-BestStrat is authored as an LLM Skill for Track 2 Strategy Skills. It gives an AI agent a repeatable workflow for turning CoinMarketCap market context into a backtestable crypto strategy specification.
+BestStrat is authored as an LLM Skill. It gives an AI agent a repeatable workflow for turning CoinMarketCap market context into a backtestable crypto strategy specification.
 
 BestStrat is not a trading-execution Skill. It must not request wallet access, private keys, or permission to place live orders.
 
@@ -77,3 +77,8 @@ Every Skill response should include:
 ## Disclaimer
 
 BestStrat generates research strategy specifications only. It is not financial advice and does not execute trades.
+
+
+## Auto Strategy Selection
+
+When strategy focus is set to `auto`, BestStrat evaluates momentum, risk-off, sentiment-divergence, and regime-detection candidates internally. It selects the final strategy using a risk-adjusted score that considers total return, max drawdown, win rate, outperformance vs benchmark, and regime confidence. This prevents Auto Detect from blindly choosing a regime when another candidate has a stronger backtest profile.

@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { StrategyInputPanel } from "../components/StrategyInputPanel";
-import { MarketRegimeSection } from "../components/MarketRegimeSection";
-import { GeneratedStrategySpec } from "../components/GeneratedStrategySpec";
-import { SignalBreakdownSection } from "../components/SignalBreakdownSection";
-import { BacktestResultsSection } from "../components/BacktestResultsSection";
-import { ChartsSection } from "../components/Charts";
-import { ExportSection } from "../components/ExportSection";
-import { RecentStrategyRunsTable } from "../components/RecentStrategyRunsTable";
+import { StrategyDecisionSummary } from "../components/StrategyDecisionSummary";
+import { PerformanceSnapshot } from "../components/PerformanceSnapshot";
+import { StrategyResultTabs } from "../components/StrategyResultTabs";
 import { LoadingState, EmptyState, ErrorState } from "../components/StateComponents";
 import { fetchRecentRuns, fetchStrategyRun, generateStrategy, healthCheck } from "../../lib/api";
 import { mockRecentRuns } from "../../data/mockStrategy";
@@ -49,11 +45,16 @@ export function BuilderPage() {
           id: result.id || Date.now().toString(),
           token: result.symbol,
           timeframe: result.timeframe,
+          inputFocus: result.strategyFocus,
+          inputFocusLabel: result.strategyFocus === "auto" ? "Auto Detect" : result.strategyFocus.replaceAll("_", " "),
+          selectedFocus: result.selectedStrategyFocus || result.strategyFocus,
+          selectedFocusLabel: (result.selectedStrategyFocus || result.strategyFocus).replaceAll("_", " "),
           regime: result.detectedRegime,
           strategy: result.strategyName,
           totalReturn: result.backtest.totalReturn,
           maxDrawdown: result.backtest.maxDrawdown,
           createdAt: result.createdAt || new Date().toISOString().slice(0, 16).replace("T", " "),
+          dataSnapshotAt: result.meta?.dataSnapshotAt || null,
         };
         setRecentRuns((prev) => [newRun, ...prev.slice(0, 9)]);
       }
@@ -124,42 +125,37 @@ export function BuilderPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row gap-6">
-          <div className="lg:w-72 xl:w-80 flex-shrink-0">
-            <div className="lg:sticky lg:top-24">
-              <StrategyInputPanel onGenerate={handleGenerate} isLoading={appState === "loading"} />
-            </div>
-          </div>
+        <div className="flex flex-col lg:flex-row lg:items-start gap-6">
+          <aside className="lg:w-72 xl:w-80 flex-shrink-0 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)]">
+            <StrategyInputPanel onGenerate={handleGenerate} isLoading={appState === "loading"} />
+          </aside>
 
-          <div className="flex-1 min-w-0 flex flex-col gap-8">
+          <main className="flex-1 min-w-0 flex flex-col gap-8">
             {appState === "idle" && <EmptyState />}
             {appState === "loading" && <LoadingState />}
             {appState === "error" && <ErrorState message={errorMessage} onRetry={handleRetry} />}
 
             {appState === "success" && strategyData && (
               <>
-                <MarketRegimeSection data={strategyData} />
-                <GeneratedStrategySpec data={strategyData} />
-                <SignalBreakdownSection signals={strategyData.signals} />
-                <BacktestResultsSection backtest={strategyData.backtest} />
-                <ChartsSection
-                  equityCurve={strategyData.equityCurve}
-                  drawdownCurve={strategyData.drawdownCurve}
-                  signalStrength={strategyData.signalStrength}
-                />
-                <ExportSection data={strategyData} />
+                <StrategyDecisionSummary data={strategyData} />
+                <PerformanceSnapshot backtest={strategyData.backtest} />
+                <StrategyResultTabs data={strategyData} recentRuns={recentRuns} onViewRun={handleViewRun} />
               </>
             )}
 
-            <RecentStrategyRunsTable runs={recentRuns} onView={handleViewRun} />
-          </div>
+            {appState !== "success" && (
+              <div className="text-[#4B5563] text-xs text-center py-2">
+                Recent strategy runs will appear inside the result tabs after a strategy is generated.
+              </div>
+            )}
+          </main>
         </div>
       </div>
 
       <footer className="border-t border-[#2B3139] mt-8 py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
           <span className="text-[#4B5563] text-xs">
-            BestStrat · CMC Strategy Skill Builder · Track 2 · BNB Hack AI Trading Agent Edition
+            BestStrat · CMC Strategy Skill Builder
           </span>
           <span className="text-[#4B5563] text-xs">
             Generates strategy specs only · Not financial advice · Does not execute trades

@@ -3,7 +3,6 @@
   "version": "1.3.0",
   "type": "llm_strategy_generation_skill",
   "description": "An LLM-authored CMC Strategy Skill that turns market data into backtestable crypto strategy specs with regime detection, explicit rules, risk constraints, rationale, and backtest results.",
-  "track": "BNB Hack Track 2 Strategy Skills",
   "inputs": {
     "symbol": "string",
     "timeframe": "5m | 15m | 1h | 4h | 1d",

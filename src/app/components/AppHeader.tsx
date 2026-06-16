@@ -9,7 +9,8 @@ interface AppHeaderProps {
 const navLinks = [
   { label: "How it Works", href: "/#how-it-works" },
   { label: "Strategy Builder", href: "/builder" },
-  { label: "Output", href: "/#output-preview" },
+  { label: "API", href: "/#api" },
+  { label: "Skill Output", href: "/#output-preview" },
 ];
 
 export function AppHeader({ isBuilder }: AppHeaderProps) {
@@ -50,7 +51,7 @@ export function AppHeader({ isBuilder }: AppHeaderProps) {
           {/* Badge + Desktop Nav */}
           <div className="flex items-center gap-4">
             <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#F0B90B]/10 text-[#F0B90B] border border-[#F0B90B]/30">
-              Track 2 Strategy Skill
+              CMC Strategy Skill
             </span>
             <nav className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => (

@@ -1,6 +1,6 @@
 # BestStrat
 
-BestStrat is an LLM-authored CoinMarketCap Strategy Skill Builder for BNB Hack Track 2. It generates backtestable crypto strategy specifications from market inputs, detects market regimes, runs a lightweight backtest, and exports JSON, Markdown, CMC Skill-compatible output, and LLM Skill output.
+BestStrat is an LLM-authored CoinMarketCap Strategy Skill Builder. It generates backtestable crypto strategy specifications from market inputs, detects market regimes, runs a lightweight backtest, and exports JSON, Markdown, CMC Skill-compatible output, and LLM Skill output.
 
 BestStrat does not connect wallets, does not execute trades, and does not place live orders.
 
@@ -13,7 +13,7 @@ BestStrat does not connect wallets, does not execute trades, and does not place 
 - Market regime engine
 - Indicator engine: EMA, RSI, MACD, ATR, volume average
 - Strategy generator: momentum, range/mixed, sentiment divergence, and risk-off modes
-- Lightweight backtest engine with equity curve, drawdown curve, trade metrics, benchmark return, and fee assumptions
+- Lightweight backtest engine with equity curve, drawdown curve, trade metrics, buy-and-hold benchmark, and fee assumptions
 - Data source visibility inside the UI
 - Project-root `.env` and `backend/.env` support
 - Recent strategy run persistence in `backend/data/runs.json`
@@ -25,7 +25,7 @@ BestStrat does not connect wallets, does not execute trades, and does not place 
 
 - Frontend: Vite, React, TypeScript, Tailwind CSS, Recharts
 - Backend: Node.js ESM HTTP server, no backend framework dependency
-- Storage: local JSON file for hackathon MVP history
+- Storage: local JSON file for local strategy run history
 - Skill artifacts: `skill/skill.json`, `skill/instructions.md`, `skill/input_schema.json`, `skill/output_schema.json`, `skill/examples`
 
 ## Local setup with pnpm
@@ -160,10 +160,10 @@ GET /api/strategy/runs/:id
 3. Generate a CAKE strategy with 1h timeframe, 30d lookback, moderate risk, and auto detect focus.
 4. Show the detected regime and data source badge.
 5. Walk through strategy summary, entry rules, exit rules, risk rules, invalidation rules, and no-trade conditions.
-6. Show backtest metrics, benchmark comparison, methodology, and charts.
+6. Show backtest metrics, buy-and-hold benchmark comparison, methodology, and charts.
 7. Open Export Strategy.
 8. Copy JSON Strategy Spec, Markdown Report, CMC Skill Output, and LLM Skill Output.
-9. Explain that BestStrat is a Track 2 Skill product, not a trading execution bot.
+9. Explain that BestStrat is a Strategy Skill product, not a trading execution bot.
 
 ## Professional demo readiness
 
@@ -195,4 +195,60 @@ BestStrat turns CMC market data into backtestable crypto strategy specs by detec
 
 ## Disclaimer
 
-This project is for research and hackathon demonstration. It is not financial advice. It does not execute trades.
+This project is for research and demonstration. It is not financial advice. It does not execute trades.
+
+
+## Auto Strategy Selection
+
+When strategy focus is set to `auto`, BestStrat evaluates momentum, risk-off, sentiment-divergence, and regime-detection candidates internally. It selects the final strategy using a risk-adjusted score that considers total return, max drawdown, win rate, outperformance vs benchmark, and regime confidence. This prevents Auto Detect from blindly choosing a regime when another candidate has a stronger backtest profile.
+
+## Using BestStrat from another product
+
+BestStrat can be used as a backend strategy-generation service. Another product can call the API endpoint and consume the returned `jsonOutput`, `cmcSkillOutput`, `markdownReport`, or `llmSkillOutput`.
+
+Important security note: keep `CMC_API_KEY` on the BestStrat backend. Do not expose the CMC key inside another frontend application.
+
+### Endpoint
+
+```http
+POST /api/strategy/generate
+Content-Type: application/json
+```
+
+### Request body
+
+```json
+{
+  "symbol": "BTC",
+  "timeframe": "1h",
+  "lookbackDays": 30,
+  "riskLevel": "moderate",
+  "strategyFocus": "auto"
+}
+```
+
+### JavaScript integration example
+
+```js
+const response = await fetch("https://your-beststrat-api.com/api/strategy/generate", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    symbol: "BTC",
+    timeframe: "1h",
+    lookbackDays: 30,
+    riskLevel: "moderate",
+    strategyFocus: "auto"
+  })
+});
+
+const strategy = await response.json();
+console.log(strategy.llmSkillOutput);
+```
+
+### Common integration use cases
+
+- AI research assistant that generates strategy specs for a user request.
+- Crypto dashboard that embeds BestStrat's regime, strategy rules, and backtest output.
+- Trading journal that stores generated strategies beside market notes.
+- Agent workflow that uses BestStrat as a repeatable strategy-generation Skill.

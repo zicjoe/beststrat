@@ -8,7 +8,7 @@
   },
   "expectedOutput": {
     "project": "BestStrat",
-    "track": "BNB Hack Track 2 Strategy Skill",
+    "category": "CMC Strategy Skill",
     "outputType": "backtestable strategy specification",
     "mustInclude": ["detectedRegime", "decisionRationale", "entryRules", "exitRules", "riskRules", "backtest"]
   }

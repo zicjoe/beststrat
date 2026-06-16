@@ -1,5 +1,21 @@
 import { clamp, round, seededRandom, timeframeToMinutes } from "./utils.mjs";
 
+const DATASET_CACHE_TTL_MS = 5 * 60 * 1000;
+const datasetCache = new Map();
+
+function cloneDataset(dataset) {
+  return JSON.parse(JSON.stringify(dataset));
+}
+
+function marketCacheKey(symbol, timeframe, lookbackDays) {
+  return `${symbol}:${timeframe}:${lookbackDays}`;
+}
+
+function snapshotBucketStart(now = Date.now()) {
+  return Math.floor(now / DATASET_CACHE_TTL_MS) * DATASET_CACHE_TTL_MS;
+}
+
+
 const DEFAULT_PRICES = {
   BTC: 68000,
   ETH: 3600,
@@ -80,7 +96,24 @@ function buildSyntheticQuote(symbol, random, fallbackReason) {
 
 export async function getMarketDataset(request) {
   const symbol = request.symbol.trim().toUpperCase();
-  const seed = `${symbol}:${request.timeframe}:${request.lookbackDays}:${request.riskLevel}:${request.strategyFocus}`;
+  const cacheKey = marketCacheKey(symbol, request.timeframe, request.lookbackDays);
+  const cached = datasetCache.get(cacheKey);
+
+  if (cached && cached.expiresAt > Date.now()) {
+    return cloneDataset({
+      ...cached.dataset,
+      cache: {
+        ...cached.dataset.cache,
+        hit: true,
+      },
+    });
+  }
+
+  // Important: market data must not be seeded by risk level or strategy focus.
+  // Otherwise Auto Detect, Momentum, and Risk Off can test different candles for the same token/timeframe.
+  const bucketStart = snapshotBucketStart();
+  const snapshotAt = new Date(bucketStart).toISOString();
+  const seed = `${symbol}:${request.timeframe}:${request.lookbackDays}:${bucketStart}`;
   const random = seededRandom(seed);
   const cmcResult = await fetchCmcQuote(symbol);
   const quote = cmcResult.quote ?? buildSyntheticQuote(symbol, random, cmcResult.fallbackReason);
@@ -92,7 +125,7 @@ export async function getMarketDataset(request) {
   const volatilityBase = 0.004 + random() * 0.018 + Math.abs(quote.percentChange24h) / 2500;
   const candles = [];
   let price = quote.price / (1 + trendBias || 1);
-  const start = Date.now() - candleCount * minutes * 60 * 1000;
+  const start = bucketStart - candleCount * minutes * 60 * 1000;
 
   for (let i = 0; i < candleCount; i += 1) {
     const progress = i / Math.max(1, candleCount - 1);
@@ -122,7 +155,7 @@ export async function getMarketDataset(request) {
   const socialHeatScore = clamp(sentimentScore + (random() - 0.5) * 28, 5, 95);
   const liquidityScore = clamp(35 + Math.log10(Math.max(quote.volume24h, 1000)) * 8 + random() * 12, 15, 98);
 
-  return {
+  const dataset = {
     symbol,
     quote,
     candles,
@@ -134,5 +167,20 @@ export async function getMarketDataset(request) {
     dataProvider: quote.dataProvider,
     fallbackReason: quote.fallbackReason ?? null,
     cmcApiConfigured: Boolean(process.env.CMC_API_KEY),
+    dataSnapshotAt: snapshotAt,
+    cache: {
+      key: cacheKey,
+      hit: false,
+      ttlSeconds: Math.round(DATASET_CACHE_TTL_MS / 1000),
+      expiresAt: new Date(bucketStart + DATASET_CACHE_TTL_MS).toISOString(),
+      policy: "Same symbol, timeframe, and lookback reuse one market snapshot for five minutes so repeated backtests stay consistent.",
+    },
   };
+
+  datasetCache.set(cacheKey, {
+    expiresAt: bucketStart + DATASET_CACHE_TTL_MS,
+    dataset: cloneDataset(dataset),
+  });
+
+  return dataset;
 }

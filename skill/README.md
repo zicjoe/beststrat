@@ -46,3 +46,25 @@ beststrat.generate_strategy
 ## Output contract
 
 The generated output must include market regime, rationale, entry rules, exit rules, risk rules, invalidation rules, no-trade conditions, backtest metrics, methodology, and disclaimer.
+
+
+## Auto Strategy Selection
+
+When strategy focus is set to `auto`, BestStrat evaluates momentum, risk-off, sentiment-divergence, and regime-detection candidates internally. It selects the final strategy using a risk-adjusted score that considers total return, max drawdown, win rate, outperformance vs benchmark, and regime confidence. This prevents Auto Detect from blindly choosing a regime when another candidate has a stronger backtest profile.
+
+## How another product can use the Skill
+
+Another product can treat BestStrat as a strategy-generation service. The product sends a strategy request to the API and consumes the structured response.
+
+```http
+POST /api/strategy/generate
+```
+
+The response includes fields suitable for different consumers:
+
+- `jsonOutput` for structured strategy storage.
+- `markdownReport` for human-readable strategy reports.
+- `cmcSkillOutput` for CMC-style Skill presentation.
+- `llmSkillOutput` for agent-readable workflow output.
+
+Keep CMC credentials on the BestStrat backend. External clients should call the backend endpoint and should not receive the CMC API key.

@@ -169,21 +169,27 @@ export function StrategyInputPanel({ onGenerate, isLoading }: Props) {
   };
 
   return (
-    <div className="bg-[#161A20] border border-[#2B3139] rounded-2xl p-5">
-      <div className="flex items-center gap-2 mb-5">
+    <div className="bg-[#161A20] border border-[#2B3139] rounded-2xl overflow-hidden lg:max-h-[calc(100vh-7rem)] lg:flex lg:flex-col">
+      <div className="flex items-center gap-2 px-5 pt-5 pb-4 flex-shrink-0">
         <span className="w-1 h-4 rounded-full bg-[#F0B90B]" />
         <h2 className="text-white" style={{ fontSize: "0.9rem", fontWeight: 600 }}>Strategy Parameters</h2>
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-        <TokenInput value={symbol} onChange={setSymbol} />
-        <TimeframeSelect value={timeframe} onChange={setTimeframe} />
-        <LookbackSelect value={lookbackDays} onChange={setLookbackDays} />
-        <RiskLevelSelect value={riskLevel} onChange={setRiskLevel} />
-        <StrategyFocusSelect value={strategyFocus} onChange={setStrategyFocus} />
-        <GenerateStrategyButton isLoading={isLoading} disabled={!symbol.trim()} />
-        <p className="text-[#4B5563] text-xs text-center leading-relaxed">
-          BestStrat generates strategy specs only. Does not execute trades, connect wallets, or place live orders.
-        </p>
+
+      <form onSubmit={handleSubmit} className="lg:min-h-0 lg:flex lg:flex-1 lg:flex-col">
+        <div className="px-5 pb-4 flex flex-col gap-4 lg:min-h-0 lg:overflow-y-auto lg:pr-4 beststrat-sidebar-scroll">
+          <TokenInput value={symbol} onChange={setSymbol} />
+          <TimeframeSelect value={timeframe} onChange={setTimeframe} />
+          <LookbackSelect value={lookbackDays} onChange={setLookbackDays} />
+          <RiskLevelSelect value={riskLevel} onChange={setRiskLevel} />
+          <StrategyFocusSelect value={strategyFocus} onChange={setStrategyFocus} />
+        </div>
+
+        <div className="border-t border-[#2B3139] bg-[#161A20] p-4 flex-shrink-0">
+          <GenerateStrategyButton isLoading={isLoading} disabled={!symbol.trim()} />
+          <p className="text-[#4B5563] text-xs text-center leading-relaxed mt-3">
+            BestStrat generates strategy specs only. Does not execute trades, connect wallets, or place live orders.
+          </p>
+        </div>
       </form>
     </div>
   );

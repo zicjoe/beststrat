@@ -31,7 +31,7 @@ export function BacktestResultsSection({ backtest }: { backtest: Backtest }) {
       <div className="flex items-center gap-2 mb-4">
         <span className="w-1 h-4 rounded-full bg-[#F0B90B]" />
         <h2 className="text-white" style={{ fontSize: "1rem", fontWeight: 600 }}>Backtest Results</h2>
-        <span className="text-[#848E9C] text-xs ml-1">Simulated — not live performance</span>
+        <span className="text-[#848E9C] text-xs ml-1">Historical simulation — not future performance</span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <BacktestMetricCard label="Total Return" value={backtest.totalReturn} positive large />
@@ -42,8 +42,8 @@ export function BacktestResultsSection({ backtest }: { backtest: Backtest }) {
         <BacktestMetricCard label="Avg Trade Return" value={backtest.averageTradeReturn} positive />
         <BacktestMetricCard label="Best Trade" value={backtest.bestTrade} positive />
         <BacktestMetricCard label="Worst Trade" value={backtest.worstTrade} negative />
-        {backtest.benchmarkReturn && <BacktestMetricCard label="Benchmark" value={backtest.benchmarkReturn} neutral />}
-        {backtest.alphaVsBenchmark && <BacktestMetricCard label="Alpha vs Benchmark" value={backtest.alphaVsBenchmark} positive={String(backtest.alphaVsBenchmark).startsWith("-") === false} negative={String(backtest.alphaVsBenchmark).startsWith("-")} />}
+        {backtest.benchmarkReturn && <BacktestMetricCard label="Buy & Hold Benchmark" value={backtest.benchmarkReturn} neutral />}
+        {backtest.alphaVsBenchmark && <BacktestMetricCard label="Outperformance" value={backtest.alphaVsBenchmark} positive={String(backtest.alphaVsBenchmark).startsWith("-") === false} negative={String(backtest.alphaVsBenchmark).startsWith("-")} />}
         {backtest.modelExposure && <BacktestMetricCard label="Model Exposure" value={backtest.modelExposure} />}
         {backtest.feeAssumption && <BacktestMetricCard label="Fee Assumption" value={backtest.feeAssumption} />}
       </div>
@@ -51,7 +51,7 @@ export function BacktestResultsSection({ backtest }: { backtest: Backtest }) {
         <div className="text-[#848E9C] text-xs font-medium uppercase tracking-wider mb-2">Backtest Methodology</div>
         <p className="text-[#C8CDD6] text-sm leading-relaxed">
           Starting capital: {backtest.startingCapital || "$1,000 simulated"}. Fees: {backtest.feeAssumption || "0.10% per entry or exit"}.
-          Benchmark compares the generated strategy against buy-and-hold over the same backtest window. Results are simulated and for research only.
+          Buy-and-hold benchmark shows what the token returned over the same backtest window without using BestStrat rules. Outperformance compares the generated strategy against that benchmark. Results are historical simulations for research only, not predictions.
         </p>
       </div>
     </section>

@@ -18,7 +18,7 @@ BestStrat turns CoinMarketCap-style market data into backtestable crypto strateg
 5. Show the data source badge. If no CMC key is configured, explain deterministic fallback mode; if a key is configured, explain CMC latest quote support.
 6. Walk through market regime detection: trend, volatility, sentiment, liquidity, and confidence.
 7. Show the generated strategy spec: rationale, entry rules, exit rules, risk rules, invalidation rules, and no-trade conditions.
-8. Show backtest results: total return, win rate, max drawdown, benchmark return, alpha vs benchmark, fees, and model exposure.
+8. Show backtest results: total return, win rate, max drawdown, buy-and-hold benchmark, outperformance vs benchmark, fees, and model exposure.
 9. Show charts: equity curve, drawdown curve, and signal strength.
 10. Open Export Strategy and copy JSON Strategy Spec, Markdown Report, CMC Skill Output, and LLM Skill Output.
 11. Mention that the `skill/` folder packages BestStrat as an LLM Skill with input schema, output schema, instructions, guardrails, and examples.
@@ -27,3 +27,8 @@ BestStrat turns CoinMarketCap-style market data into backtestable crypto strateg
 ## Closing line
 
 BestStrat gives agent builders the missing research layer: a repeatable way to turn CMC market context into testable strategy specs before any execution layer is added.
+
+
+## Auto Strategy Selection
+
+When strategy focus is set to `auto`, BestStrat evaluates momentum, risk-off, sentiment-divergence, and regime-detection candidates internally. It selects the final strategy using a risk-adjusted score that considers total return, max drawdown, win rate, outperformance vs benchmark, and regime confidence. This prevents Auto Detect from blindly choosing a regime when another candidate has a stronger backtest profile.

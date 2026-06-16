@@ -99,6 +99,33 @@
     },
     "disclaimer": {
       "type": "string"
+    },
+    "autoSelection": {
+      "type": "object",
+      "description": "Risk-adjusted comparison used when strategyFocus is auto.",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "selectedFocus": {
+          "type": "string"
+        },
+        "selectedStrategy": {
+          "type": "string"
+        },
+        "selectionScore": {
+          "type": "number"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
     }
   },
   "additionalProperties": true

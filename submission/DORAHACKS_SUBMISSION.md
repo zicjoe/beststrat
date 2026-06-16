@@ -31,7 +31,7 @@ The Skill first classifies the market as Momentum, Range / Mixed, Sentiment Dive
 - Regime detection engine
 - Indicator engine using EMA, RSI, MACD, ATR, and volume averages
 - Strategy generator for momentum, range/mixed, sentiment divergence, and risk-off modes
-- Backtest engine with equity curve, drawdown curve, return metrics, benchmark return, alpha vs benchmark, fee assumptions, and model exposure
+- Backtest engine with equity curve, drawdown curve, return metrics, buy-and-hold benchmark, outperformance vs benchmark, fee assumptions, and model exposure
 - Export system for JSON Strategy Spec, Markdown Report, CMC Skill Output, and LLM Skill Output
 - LLM Skill package with manifest, instructions, input schema, output schema, guardrails, and examples
 - CMC-ready data layer with optional CMC API key support and deterministic fallback data for local demos
@@ -47,3 +47,8 @@ BestStrat is built around a clear research workflow: parameters in, regime class
 ## Disclaimer
 
 BestStrat is for research and hackathon demonstration only. It does not execute trades and is not financial advice.
+
+
+## Auto Strategy Selection
+
+When strategy focus is set to `auto`, BestStrat evaluates momentum, risk-off, sentiment-divergence, and regime-detection candidates internally. It selects the final strategy using a risk-adjusted score that considers total return, max drawdown, win rate, outperformance vs benchmark, and regime confidence. This prevents Auto Detect from blindly choosing a regime when another candidate has a stronger backtest profile.

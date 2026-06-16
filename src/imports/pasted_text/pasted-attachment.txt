@@ -1,6 +1,6 @@
 Create a production ready React TypeScript frontend for a crypto strategy generation product called BestStrat.
 
-BestStrat is a CoinMarketCap Strategy Skill product for the BNB Hack AI Trading Agent Edition, Track 2. It does not execute trades, does not connect wallets, and does not place live orders. It turns CoinMarketCap market data into a backtestable trading strategy spec.
+BestStrat is a CoinMarketCap Strategy Skill product. It does not execute trades, does not connect wallets, and does not place live orders. It turns CoinMarketCap market data into a backtestable trading strategy spec.
 
 Core product idea:
 BestStrat helps users generate Quantopian style crypto strategies. The app detects market regime, analyzes market signals, generates entry rules, exit rules, risk rules, invalidation rules, and shows backtest results. The final output should be usable as a CMC Skill strategy spec.
@@ -23,7 +23,7 @@ Use a desktop first dashboard layout with responsive mobile support.
 Top header:
 BestStrat logo text
 Subtitle: CMC Strategy Skill Builder
-Status pill: Track 2 Strategy Skill
+Status pill: CMC Strategy Skill
 Small navigation items: Generate, Backtest, Strategy Spec, Export
 
 Main page sections:
