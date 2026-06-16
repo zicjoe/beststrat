@@ -19,6 +19,8 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  ComposedChart,
+  Line,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
@@ -284,6 +286,135 @@ const chartTooltipStyle = {
   padding: "5px 9px",
 };
 
+
+function BacktestEvidenceChart({ data }: { data: StrategyResponse }) {
+  const chartData = data.priceChart ?? [];
+  const evidence = data.backtestEvidence;
+  const snapshot = data.meta?.dataSnapshotAt ? new Date(data.meta.dataSnapshotAt).toLocaleString() : "Current request";
+  const dataSource = data.meta?.dataSource || data.meta?.dataProvider || "BestStrat data layer";
+
+  return (
+    <div className="bg-[#0F1318] border border-[#2B3139] rounded-xl overflow-hidden">
+      <div className="px-4 py-3 border-b border-[#2B3139] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
+        <div>
+          <div className="text-white text-xs font-semibold uppercase tracking-wide">Backtest Evidence Chart</div>
+          <p className="text-[#4B5563] text-xs mt-1">Price path, simulated entries, exits, and strategy context used for this historical simulation.</p>
+        </div>
+        <div className="flex flex-wrap gap-1.5 text-xs">
+          <span className="px-2 py-1 rounded-full bg-[#161A20] border border-[#2B3139] text-[#C8CDD6]">{data.symbol} / {data.timeframe} / {data.lookbackDays}d</span>
+          <span className="px-2 py-1 rounded-full bg-[#F0B90B]/8 border border-[#F0B90B]/20 text-[#F0B90B]">Historical simulation — not future performance</span>
+        </div>
+      </div>
+
+      <div className="p-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+          {[
+            { label: "Strategy", value: data.strategyName },
+            { label: "Data Source", value: dataSource },
+            { label: "Snapshot", value: snapshot },
+            { label: "Regime", value: `${data.detectedRegime} · ${data.regimeConfidence}%` },
+          ].map(({ label, value }) => (
+            <div key={label} className="bg-[#161A20] rounded-lg border border-[#2B3139] px-3 py-2 min-w-0">
+              <div className="text-[#4B5563] text-xs mb-0.5">{label}</div>
+              <div className="text-white text-xs font-semibold truncate" title={String(value)}>{value}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-[#0B0E11] border border-[#1A1F26] rounded-xl p-3">
+          {chartData.length ? (
+            <ResponsiveContainer width="100%" height={260}>
+              <ComposedChart data={chartData} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1E2329" />
+                <XAxis dataKey="time" tick={{ fill: "#4B5563", fontSize: 9 }} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={28} />
+                <YAxis yAxisId="price" tick={{ fill: "#4B5563", fontSize: 9 }} axisLine={false} tickLine={false} width={58} domain={["dataMin", "dataMax"]} />
+                <Tooltip contentStyle={chartTooltipStyle} formatter={(value, name) => [value, name === "price" ? "Price" : name === "entryPrice" ? "Entry" : name === "exitPrice" ? "Exit" : name]} />
+                <Line yAxisId="price" type="monotone" dataKey="price" stroke="#848E9C" strokeWidth={1.5} dot={false} activeDot={{ r: 4, fill: "#F0B90B", stroke: "#0B0E11" }} />
+                <Line yAxisId="price" type="monotone" dataKey="entryPrice" stroke="transparent" strokeWidth={0} dot={{ r: 4, fill: "#0ECB81", stroke: "#0B0E11", strokeWidth: 1.5 }} activeDot={{ r: 6, fill: "#0ECB81" }} connectNulls={false} />
+                <Line yAxisId="price" type="monotone" dataKey="exitPrice" stroke="transparent" strokeWidth={0} dot={{ r: 4, fill: "#F6465D", stroke: "#0B0E11", strokeWidth: 1.5 }} activeDot={{ r: 6, fill: "#F6465D" }} connectNulls={false} />
+              </ComposedChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-56 flex items-center justify-center text-[#4B5563] text-sm">No price evidence chart is available for this run.</div>
+          )}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-[#848E9C]">
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#848E9C]" /> Price path</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#0ECB81]" /> Simulated entry</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#F6465D]" /> Simulated exit</span>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-4">
+          {[
+            { label: "Candles tested", value: evidence?.candlesTested ?? data.meta?.candlesAnalyzed ?? "—" },
+            { label: "Trades simulated", value: data.backtest.numberOfTrades },
+            { label: "Starting capital", value: data.backtest.startingCapital || "$1,000 simulated" },
+            { label: "Fee assumption", value: data.backtest.feeAssumption || "0.10%" },
+            { label: "Buy & Hold", value: data.backtest.benchmarkReturn || "—" },
+            { label: "Strategy return", value: data.backtest.totalReturn },
+          ].map(({ label, value }) => (
+            <div key={label} className="bg-[#161A20] rounded-lg border border-[#2B3139] px-3 py-2">
+              <div className="text-[#4B5563] text-xs mb-0.5">{label}</div>
+              <div className="text-white text-sm font-semibold">{value}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TradeLedgerTable({ data }: { data: StrategyResponse }) {
+  const rows = data.tradeLedger ?? [];
+  return (
+    <div className="bg-[#0F1318] border border-[#2B3139] rounded-xl overflow-hidden">
+      <div className="px-4 py-3 border-b border-[#2B3139] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+        <div>
+          <div className="text-white text-xs font-semibold uppercase tracking-wide">Simulated Trade Ledger</div>
+          <p className="text-[#4B5563] text-xs mt-1">Trade-by-trade evidence behind the backtest result.</p>
+        </div>
+        <span className="text-[#848E9C] text-xs">{rows.length} ledger rows</span>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-[#2B3139] bg-[#0B0E11]">
+              {["#", "Action", "Time", "Price", "PnL", "Equity", "Reason"].map((col) => (
+                <th key={col} className="px-3.5 py-2.5 text-left text-[#848E9C] text-xs font-medium whitespace-nowrap">{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.length ? rows.slice(0, 24).map((row, index) => (
+              <tr key={row.id ?? `${row.tradeNumber}-${index}`} className={index < rows.length - 1 ? "border-b border-[#1A1F26]" : ""}>
+                <td className="px-3.5 py-3 text-[#4B5563] whitespace-nowrap">{row.tradeNumber}</td>
+                <td className="px-3.5 py-3 whitespace-nowrap">
+                  <span className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${row.action === "Entry" ? "bg-[#0ECB81]/8 text-[#0ECB81] border-[#0ECB81]/20" : "bg-[#F6465D]/8 text-[#F6465D] border-[#F6465D]/20"}`}>
+                    {row.action}
+                  </span>
+                </td>
+                <td className="px-3.5 py-3 text-[#848E9C] whitespace-nowrap">{row.time}</td>
+                <td className="px-3.5 py-3 text-white font-medium whitespace-nowrap">{row.price}</td>
+                <td className="px-3.5 py-3 font-medium whitespace-nowrap"><ReturnCell value={row.pnl} /></td>
+                <td className="px-3.5 py-3 text-[#C8CDD6] whitespace-nowrap">{row.equity}</td>
+                <td className="px-3.5 py-3 text-[#848E9C] min-w-96">{row.reason}</td>
+              </tr>
+            )) : (
+              <tr>
+                <td colSpan={7} className="px-4 py-8 text-center text-[#4B5563] text-sm">No simulated trades were generated for this strategy window.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      {rows.length > 24 && (
+        <div className="px-4 py-2.5 border-t border-[#2B3139] text-[#4B5563] text-xs">Showing first 24 rows out of {rows.length}. Full ledger is available in the JSON export.</div>
+      )}
+    </div>
+  );
+}
+
 function BacktestMethodologyCard({ data }: { data: StrategyResponse }) {
   return (
     <div className="bg-[#0F1318] border border-[#2B3139] rounded-xl p-4">
@@ -321,6 +452,8 @@ function BacktestMethodologyCard({ data }: { data: StrategyResponse }) {
 function BacktestTab({ data }: { data: StrategyResponse }) {
   return (
     <div className="flex flex-col gap-3">
+      <BacktestEvidenceChart data={data} />
+
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
         <div className="bg-[#0F1318] border border-[#2B3139] rounded-xl p-4">
           <div className="flex items-center justify-between mb-3">
@@ -394,6 +527,7 @@ function BacktestTab({ data }: { data: StrategyResponse }) {
         </ResponsiveContainer>
       </div>
 
+      <TradeLedgerTable data={data} />
       <BacktestMethodologyCard data={data} />
     </div>
   );

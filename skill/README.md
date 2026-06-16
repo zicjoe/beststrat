@@ -68,3 +68,13 @@ The response includes fields suitable for different consumers:
 - `llmSkillOutput` for agent-readable workflow output.
 
 Keep CMC credentials on the BestStrat backend. External clients should call the backend endpoint and should not receive the CMC API key.
+
+## Backtest Evidence Output
+
+BestStrat Skill responses include backtest evidence fields so an agent or reviewer can inspect how a result was produced:
+
+- `priceChart`: sampled price path with simulated entry and exit markers
+- `tradeLedger`: simulated trade-by-trade ledger with action, time, price, reason, PnL, and equity
+- `evidence`: candle window, candles tested, plotted price points, and ledger row count
+
+These fields support reproducibility and make it clear that the output is historical simulation evidence, not a future return prediction.

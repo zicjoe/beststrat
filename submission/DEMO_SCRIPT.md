@@ -32,3 +32,5 @@ BestStrat gives agent builders the missing research layer: a repeatable way to t
 ## Auto Strategy Selection
 
 When strategy focus is set to `auto`, BestStrat evaluates momentum, risk-off, sentiment-divergence, and regime-detection candidates internally. It selects the final strategy using a risk-adjusted score that considers total return, max drawdown, win rate, outperformance vs benchmark, and regime confidence. This prevents Auto Detect from blindly choosing a regime when another candidate has a stronger backtest profile.
+
+- Open the Backtest tab and show the Backtest Evidence Chart with simulated entry/exit markers, evidence summary, and simulated trade ledger.

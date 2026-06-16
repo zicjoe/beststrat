@@ -75,6 +75,11 @@ export function buildJsonOutput(dataset, request, analysis, strategy, backtestRe
         reason: signal.reason,
       })),
       autoSelection: autoSelection || undefined,
+      backtestEvidence: {
+        priceChart: backtestResult.priceChart,
+        tradeLedger: backtestResult.tradeLedger,
+        evidence: backtestResult.evidence,
+      },
       backtestMethodology: {
         startingCapital: backtestResult.backtest.startingCapital,
         feeAssumption: backtestResult.backtest.feeAssumption,
@@ -132,6 +137,11 @@ export function buildCmcSkillOutput(dataset, request, analysis, strategy, backte
       noTradeConditions: strategy.noTradeConditions,
       positionSizing: strategy.positionSizing,
       backtest: backtestResult.backtest,
+      backtestEvidence: {
+        priceChart: backtestResult.priceChart,
+        tradeLedger: backtestResult.tradeLedger,
+        evidence: backtestResult.evidence,
+      },
       signals: analysis.signals,
       autoSelection: autoSelection || undefined,
       backtestMethodology: {
@@ -242,6 +252,8 @@ export function buildLlmSkillOutput(dataset, request, analysis, strategy, backte
         "invalidationRules",
         "noTradeConditions",
         "backtest",
+        "backtestEvidence",
+        "tradeLedger",
         "backtestMethodology",
         "disclaimer",
       ],
@@ -267,6 +279,11 @@ export function buildLlmSkillOutput(dataset, request, analysis, strategy, backte
       positionSizing: strategy.positionSizing,
       signals: analysis.signals,
       backtest: backtestResult.backtest,
+      backtestEvidence: {
+        priceChart: backtestResult.priceChart,
+        tradeLedger: backtestResult.tradeLedger,
+        evidence: backtestResult.evidence,
+      },
       autoSelection: autoSelection || undefined,
       backtestMethodology: {
         startingCapital: backtestResult.backtest.startingCapital,
@@ -361,6 +378,19 @@ ${autoSelection.reason}
 | Outperformance vs Benchmark | ${backtestResult.backtest.alphaVsBenchmark} |
 | Fee Assumption | ${backtestResult.backtest.feeAssumption} |
 | Model Exposure | ${backtestResult.backtest.modelExposure} |
+
+
+## Backtest Evidence
+- Price chart points plotted: ${backtestResult.evidence?.pricePointsPlotted ?? 0}
+- Simulated trade ledger rows: ${backtestResult.evidence?.tradeLedgerRows ?? 0}
+- Backtest candle window: ${backtestResult.evidence?.candleWindow ?? "Not available"}
+
+| # | Action | Time | Price | PnL | Equity | Reason |
+|---|--------|------|-------|-----|--------|--------|
+${(backtestResult.tradeLedger || []).slice(0, 12).map((row) => `| ${row.tradeNumber} | ${row.action} | ${row.time} | ${row.price} | ${row.pnl} | ${row.equity} | ${String(row.reason).replace(/\|/g, "/")} |`).join("\n") || "| — | — | — | — | — | — | No simulated trades were generated for this window. |"}
+${(backtestResult.tradeLedger || []).length > 12 ? `
+_Showing first 12 ledger rows out of ${(backtestResult.tradeLedger || []).length}._
+` : ""}
 
 ## Backtest Methodology
 - Starting capital: ${backtestResult.backtest.startingCapital}

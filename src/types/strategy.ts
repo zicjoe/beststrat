@@ -31,6 +31,36 @@ export interface SignalStrengthPoint {
   value: number;
 }
 
+export interface PriceChartPoint {
+  time: string;
+  price: number;
+  high?: number;
+  low?: number;
+  volume?: number;
+  entryPrice?: number | null;
+  exitPrice?: number | null;
+  action?: string | null;
+  reason?: string | null;
+}
+
+export interface TradeLedgerRow {
+  id: string;
+  tradeNumber: number;
+  action: "Entry" | "Exit" | string;
+  time: string;
+  price: number;
+  reason: string;
+  pnl: string;
+  equity: number;
+}
+
+export interface BacktestEvidence {
+  candlesTested: number;
+  candleWindow: string;
+  pricePointsPlotted: number;
+  tradeLedgerRows: number;
+}
+
 export interface AutoSelectionCandidate {
   rank: number;
   focus: string;
@@ -88,6 +118,9 @@ export interface StrategyResponse {
   backtest: Backtest;
   equityCurve: ChartPoint[];
   drawdownCurve: ChartPoint[];
+  priceChart?: PriceChartPoint[];
+  tradeLedger?: TradeLedgerRow[];
+  backtestEvidence?: BacktestEvidence;
   signalStrength: SignalStrengthPoint[];
   jsonOutput: Record<string, unknown>;
   markdownReport: string;

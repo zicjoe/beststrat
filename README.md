@@ -124,6 +124,17 @@ pnpm start
 
 Production server runs the backend and serves the built frontend from `dist`.
 
+## Backtest Evidence
+
+BestStrat exposes the evidence behind each historical simulation, not only the headline metrics. The Backtest tab includes:
+
+- a Backtest Evidence Chart showing the tested price path with simulated entry and exit markers
+- a compact evidence summary with candles tested, snapshot time, starting capital, fee assumption, benchmark return, and strategy return
+- a simulated trade ledger showing each entry/exit, reason, PnL, and equity value
+- snapshot metadata so repeated runs can be checked against the same market window
+
+The generated JSON, Markdown, CMC Skill Output, and LLM Skill Output include the same evidence objects for external review or integration.
+
 ## API
 
 ### Health check
