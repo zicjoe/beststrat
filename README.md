@@ -7,8 +7,9 @@ BestStrat does not connect wallets, does not execute trades, and does not place 
 ## What is wired
 
 - React TypeScript frontend from the Figma export
-- Two-page flow: landing page and `/builder`
+- Product flow: landing page, `/builder`, and `/scanner`
 - Searchable token selector with curated popular tokens and custom symbol support
+- Category Strategy Scanner that ranks top strategy candidates by CMC/curated category
 - Real backend API at `POST /api/strategy/generate`
 - Strategy request validation
 - Market regime engine
@@ -158,6 +159,32 @@ Content-Type: application/json
 }
 ```
 
+### Strategy scanner categories
+
+```http
+GET /api/scanner/categories
+```
+
+Returns curated categories and, when `CMC_API_KEY` is configured, available CoinMarketCap categories.
+
+### Scan category strategy candidates
+
+```http
+POST /api/scanner/scan
+Content-Type: application/json
+
+{
+  "categoryId": "defi",
+  "timeframe": "1h",
+  "lookbackDays": 30,
+  "riskLevel": "moderate",
+  "strategyFocus": "auto",
+  "limit": 10
+}
+```
+
+Returns ranked strategy candidates for the selected category. Ranking is based on historical simulation quality, including total return, max drawdown, win rate, outperformance, risk-adjusted score, and regime confidence.
+
 ### Recent runs
 
 ```http
@@ -170,6 +197,7 @@ GET /api/strategy/runs/:id
 1. Open landing page.
 2. Click **Launch Strategy Builder**.
 3. Generate a CAKE strategy with 1h timeframe, 30d lookback, moderate risk, and auto detect focus.
+4. Open **Strategy Scanner**, choose a category like DeFi or BNB Ecosystem, and show the Top 10 Strategy Candidates table.
 4. Show the detected regime and data source badge.
 5. Walk through strategy summary, entry rules, exit rules, risk rules, invalidation rules, and no-trade conditions.
 6. Show backtest metrics, buy-and-hold benchmark comparison, methodology, and charts.

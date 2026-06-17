@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { generateStrategy, validateRequest } from "./lib/generator.mjs";
 import { findRun, listRecentRuns, saveRun } from "./lib/storage.mjs";
 import { loadEnvFiles } from "./lib/env.mjs";
+import { getAvailableCategories, scanCategory, validateScannerRequest } from "./lib/scanner.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -103,6 +104,25 @@ async function route(req, res) {
       loadedEnvFiles: loadedEnvFiles.map((item) => item.filePath),
       timestamp: new Date().toISOString(),
     });
+    return;
+  }
+
+
+  if (url.pathname === "/api/scanner/categories" && req.method === "GET") {
+    const response = await getAvailableCategories();
+    sendJson(res, 200, response);
+    return;
+  }
+
+  if (url.pathname === "/api/scanner/scan" && req.method === "POST") {
+    try {
+      const body = await readBody(req);
+      const request = validateScannerRequest(body);
+      const response = await scanCategory(request);
+      sendJson(res, 200, response);
+    } catch (error) {
+      sendJson(res, 400, { error: error instanceof Error ? error.message : "Strategy scan failed." });
+    }
     return;
   }
 

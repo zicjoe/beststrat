@@ -6,6 +6,7 @@ import type { StrategyRequest } from "../../types/strategy";
 interface Props {
   onGenerate: (req: StrategyRequest) => void;
   isLoading: boolean;
+  initialRequest?: Partial<StrategyRequest> | null;
 }
 
 const categoryStyles: Record<TokenOption["category"], string> = {
@@ -334,12 +335,21 @@ export function GenerateStrategyButton({ isLoading, disabled }: { isLoading: boo
   );
 }
 
-export function StrategyInputPanel({ onGenerate, isLoading }: Props) {
-  const [symbol, setSymbol] = useState("CAKE");
-  const [timeframe, setTimeframe] = useState("1h");
-  const [lookbackDays, setLookbackDays] = useState(30);
-  const [riskLevel, setRiskLevel] = useState("moderate");
-  const [strategyFocus, setStrategyFocus] = useState("auto");
+export function StrategyInputPanel({ onGenerate, isLoading, initialRequest }: Props) {
+  const [symbol, setSymbol] = useState(initialRequest?.symbol || "CAKE");
+  const [timeframe, setTimeframe] = useState(initialRequest?.timeframe || "1h");
+  const [lookbackDays, setLookbackDays] = useState(Number(initialRequest?.lookbackDays || 30));
+  const [riskLevel, setRiskLevel] = useState(initialRequest?.riskLevel || "moderate");
+  const [strategyFocus, setStrategyFocus] = useState(initialRequest?.strategyFocus || "auto");
+
+  useEffect(() => {
+    if (!initialRequest) return;
+    if (initialRequest.symbol) setSymbol(initialRequest.symbol);
+    if (initialRequest.timeframe) setTimeframe(initialRequest.timeframe);
+    if (initialRequest.lookbackDays) setLookbackDays(Number(initialRequest.lookbackDays));
+    if (initialRequest.riskLevel) setRiskLevel(initialRequest.riskLevel);
+    if (initialRequest.strategyFocus) setStrategyFocus(initialRequest.strategyFocus);
+  }, [initialRequest?.symbol, initialRequest?.timeframe, initialRequest?.lookbackDays, initialRequest?.riskLevel, initialRequest?.strategyFocus]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

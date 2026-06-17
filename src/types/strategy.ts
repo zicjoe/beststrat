@@ -169,3 +169,95 @@ export interface RecentRun {
 }
 
 export type AppState = "idle" | "loading" | "success" | "error";
+
+export interface ScannerCategory {
+  id: string;
+  cmcId?: string;
+  name: string;
+  source: "curated" | "coinmarketcap" | string;
+  description?: string;
+  tokenCount?: number;
+  symbols?: string[];
+  marketCap?: number;
+  volume24h?: number;
+}
+
+export interface ScannerCategoriesResponse {
+  categories: ScannerCategory[];
+  meta: {
+    cmcApiConfigured?: boolean;
+    source?: string;
+    categoryFallbackReason?: string | null;
+    note?: string;
+  };
+}
+
+export interface ScannerRequest {
+  categoryId: string;
+  timeframe: string;
+  lookbackDays: number;
+  riskLevel: string;
+  strategyFocus: string;
+  limit: number;
+}
+
+export interface ScannerResultRow {
+  rank: number;
+  symbol: string;
+  categoryId: string;
+  categoryName: string;
+  inputFocus: string;
+  inputFocusLabel: string;
+  selectedFocus: string;
+  selectedFocusLabel: string;
+  selectedStrategy: string;
+  detectedRegime: string;
+  regimeConfidence: number;
+  totalReturn: string;
+  maxDrawdown: string;
+  winRate: string;
+  outperformance: string;
+  riskAdjustedScore: number;
+  scannerScore: number;
+  numberOfTrades: number;
+  dataSource: string;
+  dataSnapshotAt?: string | null;
+  strategySummary: string;
+  entryRules: string[];
+  riskRules: string[];
+  builderRequest: StrategyRequest;
+}
+
+export interface ScannerResponse {
+  id: string;
+  scannedAt: string;
+  request: ScannerRequest;
+  category: {
+    id: string;
+    name: string;
+    source: string;
+    description?: string;
+    tokenCount?: number;
+    symbolsScanned: string[];
+    fallbackReason?: string | null;
+  };
+  summary: {
+    resultCount: number;
+    failedCount: number;
+    topSymbol: string | null;
+    topStrategy: string | null;
+    averageReturn: string;
+    averageMaxDrawdown: string;
+    averageScannerScore: number;
+    regimeDistribution: Record<string, number>;
+    note: string;
+  };
+  results: ScannerResultRow[];
+  failures?: { symbol: string; error: string }[];
+  meta: {
+    cmcApiConfigured?: boolean;
+    source?: string;
+    categoryFallbackReason?: string | null;
+    note?: string;
+  };
+}

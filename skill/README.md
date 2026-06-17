@@ -78,3 +78,10 @@ BestStrat Skill responses include backtest evidence fields so an agent or review
 - `evidence`: candle window, candles tested, plotted price points, and ledger row count
 
 These fields support reproducibility and make it clear that the output is historical simulation evidence, not a future return prediction.
+
+
+## Category Scanner Extension
+
+BestStrat also exposes a category scanner workflow through `/api/scanner/scan`. This workflow scans a token universe from a curated category or a CoinMarketCap category, generates strategy candidates for each token, runs historical simulations, and returns the top strategy candidates by risk-adjusted quality.
+
+The scanner output is still a research and strategy-specification workflow. It ranks backtested strategy candidates, not future token performance, and it does not execute trades.

@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import { Root } from "./Root";
 import { LandingPage } from "./pages/LandingPage";
 import { BuilderPage } from "./pages/BuilderPage";
+import { ScannerPage } from "./pages/ScannerPage";
 
 export const router = createBrowserRouter([
   {
@@ -10,6 +11,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: LandingPage },
       { path: "builder", Component: BuilderPage },
+      { path: "scanner", Component: ScannerPage },
     ],
   },
 ]);

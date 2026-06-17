@@ -4,16 +4,18 @@ import { useState } from "react";
 
 interface AppHeaderProps {
   isBuilder?: boolean;
+  isScanner?: boolean;
 }
 
 const navLinks = [
   { label: "How it Works", href: "/#how-it-works" },
   { label: "Strategy Builder", href: "/builder" },
+  { label: "Strategy Scanner", href: "/scanner" },
   { label: "API", href: "/#api" },
   { label: "Skill Output", href: "/#output-preview" },
 ];
 
-export function AppHeader({ isBuilder }: AppHeaderProps) {
+export function AppHeader({ isBuilder, isScanner }: AppHeaderProps) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -59,7 +61,7 @@ export function AppHeader({ isBuilder }: AppHeaderProps) {
                   key={link.label}
                   onClick={() => handleAnchor(link.href)}
                   className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
-                    isBuilder && link.href === "/builder"
+                    (isBuilder && link.href === "/builder") || (isScanner && link.href === "/scanner")
                       ? "bg-[#F0B90B]/10 text-[#F0B90B]"
                       : "text-[#848E9C] hover:text-white hover:bg-[#1E2329]"
                   }`}
