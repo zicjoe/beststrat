@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router";
-import { Zap, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 interface AppHeaderProps {
@@ -41,8 +41,13 @@ export function AppHeader({ isBuilder, isScanner }: AppHeaderProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#F0B90B]">
-              <Zap size={16} className="text-[#0B0E11]" />
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#F0B90B]/10 border border-[#F0B90B]/25 shadow-[0_0_20px_rgba(240,185,11,0.08)] overflow-hidden">
+              <img
+                src="/assets/beststrat-logo-mark.png"
+                alt="BestStrat logo"
+                className="w-9 h-9 object-contain"
+                draggable={false}
+              />
             </div>
             <div>
               <div className="text-white font-semibold tracking-tight leading-none">BestStrat</div>
