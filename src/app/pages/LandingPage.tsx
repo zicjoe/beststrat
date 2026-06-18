@@ -1,132 +1,149 @@
 import { useNavigate } from "react-router";
 import {
-  Zap,
-  Shield,
-  BarChart2,
-  FileCode,
-  ChevronRight,
-  ArrowRight,
-  CheckCircle,
-  Copy,
-  Check,
-  Database,
-  Brain,
-  GitCompareArrows,
-  FileText,
   Activity,
-  Layers,
+  ArrowRight,
+  BarChart3,
+  Brain,
+  CheckCircle2,
+  ChevronRight,
+  Database,
+  FileCode2,
+  FileText,
+  GitCompareArrows,
+  Layers3,
+  Radar,
+  ScanSearch,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  Workflow,
 } from "lucide-react";
-import { useState } from "react";
 
-// ─── Launch Button ──────────────────────────────────────────────────
-export function LaunchStrategyButton({ size = "default" }: { size?: "default" | "large" }) {
+function PrimaryButton({ children = "Start Strategy Builder", to = "/builder" }: { children?: string; to?: string }) {
   const navigate = useNavigate();
-  const cls =
-    size === "large"
-      ? "px-7 py-3.5 rounded-xl text-base font-semibold"
-      : "px-5 py-2.5 rounded-lg text-sm font-semibold";
+
   return (
     <button
-      onClick={() => navigate("/builder")}
-      className={`inline-flex items-center justify-center gap-2 bg-[#F0B90B] text-[#0B0E11] hover:bg-[#F0B90B]/90 active:scale-[0.98] transition-all shadow-[0_0_30px_rgba(240,185,11,0.16)] ${cls}`}
+      onClick={() => navigate(to)}
+      className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#F0B90B] px-6 py-3 text-sm font-semibold text-[#0B0E11] shadow-[0_18px_45px_rgba(240,185,11,0.16)] transition-all hover:bg-[#F0B90B]/90 active:scale-[0.98] sm:px-7 sm:py-3.5 sm:text-base"
     >
-      <Zap size={size === "large" ? 18 : 15} />
-      Launch Strategy Builder
-      <ArrowRight size={size === "large" ? 18 : 15} />
+      {children}
+      <ArrowRight size={17} />
     </button>
   );
 }
 
-function ProductPreviewCard() {
-  const candidates = [
-    { name: "Momentum", score: 84, status: "Selected", color: "#0ECB81" },
-    { name: "Risk Off", score: 78, status: "Candidate", color: "#F0B90B" },
-    { name: "Sentiment", score: 61, status: "Candidate", color: "#848E9C" },
-  ];
+function SecondaryButton({ children = "Scan Market Category", to = "/scanner" }: { children?: string; to?: string }) {
+  const navigate = useNavigate();
 
   return (
-    <div className="relative">
-      <div className="absolute -inset-4 rounded-[2rem] bg-[#F0B90B]/10 blur-2xl" />
-      <div className="relative bg-[#12161C] border border-[#2B3139] rounded-3xl overflow-hidden shadow-2xl">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#2B3139] bg-[#0B0E11]">
+    <button
+      onClick={() => navigate(to)}
+      className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#2B3139] bg-[#161A20] px-6 py-3 text-sm font-semibold text-white transition-all hover:border-[#F0B90B]/40 hover:bg-[#1E2329] active:scale-[0.98] sm:px-7 sm:py-3.5 sm:text-base"
+    >
+      {children}
+      <ChevronRight size={17} />
+    </button>
+  );
+}
+
+function MetricCard({ label, value, tone = "neutral" }: { label: string; value: string; tone?: "neutral" | "gold" | "green" | "red" }) {
+  const toneClass = {
+    neutral: "text-white",
+    gold: "text-[#F0B90B]",
+    green: "text-[#0ECB81]",
+    red: "text-[#F6465D]",
+  }[tone];
+
+  return (
+    <div className="min-h-[94px] rounded-2xl border border-[#2B3139] bg-[#0B0E11] p-4">
+      <div className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#848E9C]">{label}</div>
+      <div className={`mt-3 text-xl font-bold ${toneClass}`}>{value}</div>
+    </div>
+  );
+}
+
+function HeroProductPreview() {
+  const exports = ["JSON", "Markdown", "CMC Skill", "LLM Skill"];
+
+  return (
+    <div className="relative mx-auto w-full max-w-[560px]">
+      <div className="absolute -inset-5 rounded-[2rem] bg-[#F0B90B]/10 blur-3xl" />
+      <div className="relative overflow-hidden rounded-[1.75rem] border border-[#2B3139] bg-[#12161C] shadow-2xl">
+        <div className="flex items-center justify-between border-b border-[#2B3139] bg-[#0B0E11] px-5 py-4">
           <div>
-            <div className="text-white text-sm font-semibold">BestStrat Output Preview</div>
-            <div className="text-[#848E9C] text-xs mt-0.5">CMC data → strategy spec → LLM Skill output</div>
+            <div className="text-sm font-semibold text-white">BestStrat Strategy Preview</div>
+            <div className="mt-0.5 text-xs text-[#848E9C]">CMC context → regime → backtestable spec</div>
           </div>
-          <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-[#0ECB81]/10 text-[#0ECB81] border border-[#0ECB81]/20">
-            CMC Ready
+          <span className="rounded-full border border-[#0ECB81]/20 bg-[#0ECB81]/10 px-2.5 py-1 text-xs font-medium text-[#0ECB81]">
+            Research-ready
           </span>
         </div>
 
-        <div className="p-5 space-y-4">
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-[#0B0E11] border border-[#2B3139] rounded-2xl p-4">
-              <div className="text-[#848E9C] text-xs uppercase tracking-wider">Detected Regime</div>
-              <div className="text-[#F0B90B] font-bold mt-1" style={{ fontSize: "1.25rem" }}>
-                Momentum
+        <div className="space-y-4 p-5">
+          <div className="rounded-2xl border border-[#F0B90B]/25 bg-[#0B0E11] p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <div className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#848E9C]">Selected strategy</div>
+                <div className="mt-2 text-lg font-bold leading-tight text-white">Capital Protection Regime Strategy</div>
               </div>
-              <div className="mt-3 h-2 rounded-full bg-[#2B3139] overflow-hidden">
-                <div className="h-full w-[78%] bg-gradient-to-r from-[#F0B90B] to-[#0ECB81]" />
+              <div className="shrink-0 rounded-full border border-[#F0B90B]/25 bg-[#F0B90B]/10 px-3 py-1 text-xs font-semibold text-[#F0B90B]">
+                Risk Off
               </div>
             </div>
-            <div className="bg-[#0B0E11] border border-[#2B3139] rounded-2xl p-4">
-              <div className="text-[#848E9C] text-xs uppercase tracking-wider">Selected Strategy</div>
-              <div className="text-white font-semibold mt-1 leading-tight">Guarded Momentum</div>
-              <div className="text-[#848E9C] text-xs mt-2">Chosen by risk-adjusted candidate selection</div>
-            </div>
+            <p className="mt-3 text-sm leading-relaxed text-[#848E9C]">
+              Avoid new momentum entries until trend structure, sentiment, and volatility return to acceptable conditions.
+            </p>
           </div>
 
-          <div className="bg-[#0B0E11] border border-[#2B3139] rounded-2xl p-4">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2 text-white text-sm font-semibold">
-                <GitCompareArrows size={14} className="text-[#F0B90B]" />
-                Auto Strategy Selection
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <MetricCard label="Backtest return" value="45.8%" tone="green" />
+            <MetricCard label="Max drawdown" value="2.4%" tone="red" />
+            <MetricCard label="Risk score" value="100" tone="gold" />
+          </div>
+
+          <div className="rounded-2xl border border-[#2B3139] bg-[#0B0E11] p-4">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                <GitCompareArrows size={15} className="text-[#F0B90B]" />
+                Candidate ranking
               </div>
-              <span className="text-[#848E9C] text-xs">3 candidates</span>
+              <span className="text-xs text-[#848E9C]">4 strategies compared</span>
             </div>
-            <div className="space-y-2">
-              {candidates.map((candidate) => (
-                <div key={candidate.name} className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="w-2 h-2 rounded-full" style={{ background: candidate.color }} />
-                    <span className="text-[#C8CDD6] text-xs truncate">{candidate.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-24 h-1.5 rounded-full bg-[#2B3139] overflow-hidden">
-                      <div className="h-full" style={{ width: `${candidate.score}%`, background: candidate.color }} />
+            <div className="space-y-2.5">
+              {[
+                ["Risk Off", "119", "100%"],
+                ["Momentum", "98", "82%"],
+                ["Sentiment Divergence", "98", "82%"],
+              ].map(([name, score, width]) => (
+                <div key={name} className="flex items-center gap-3">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-3 text-xs">
+                      <span className="truncate text-[#C8CDD6]">{name}</span>
+                      <span className="font-semibold text-[#F0B90B]">{score}</span>
                     </div>
-                    <span className="text-[#848E9C] text-xs w-8 text-right">{candidate.score}</span>
+                    <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#2B3139]">
+                      <div className="h-full rounded-full bg-gradient-to-r from-[#F0B90B] to-[#0ECB81]" style={{ width }} />
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
-            <div className="bg-[#0B0E11] border border-[#2B3139] rounded-xl p-3 text-center">
-              <div className="text-[#848E9C] text-[10px] uppercase tracking-wider">Return</div>
-              <div className="text-[#0ECB81] font-bold mt-1">23.9%</div>
-            </div>
-            <div className="bg-[#0B0E11] border border-[#2B3139] rounded-xl p-3 text-center">
-              <div className="text-[#848E9C] text-[10px] uppercase tracking-wider">Drawdown</div>
-              <div className="text-[#F6465D] font-bold mt-1">2.6%</div>
-            </div>
-            <div className="bg-[#0B0E11] border border-[#2B3139] rounded-xl p-3 text-center">
-              <div className="text-[#848E9C] text-[10px] uppercase tracking-wider">Export</div>
-              <div className="text-[#F0B90B] font-bold mt-1">Skill</div>
-            </div>
+          <div className="flex flex-wrap gap-2">
+            {exports.map((item) => (
+              <span key={item} className="rounded-full border border-[#2B3139] bg-[#0B0E11] px-3 py-1.5 text-xs font-medium text-[#C8CDD6]">
+                {item}
+              </span>
+            ))}
           </div>
-
-          <p className="text-[#4B5563] text-xs leading-relaxed">
-            Backtest results are historical research outputs. BestStrat does not place trades or predict future returns.
-          </p>
         </div>
       </div>
     </div>
   );
 }
 
-// ─── Hero ────────────────────────────────────────────────────────────
 function HeroSection() {
   return (
     <section className="relative overflow-hidden border-b border-[#2B3139]">
@@ -134,113 +151,96 @@ function HeroSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 70% 50% at 50% -10%, rgba(240,185,11,0.12) 0%, transparent 70%)",
+            "radial-gradient(ellipse 70% 48% at 50% -10%, rgba(240,185,11,0.14) 0%, transparent 70%), radial-gradient(ellipse 55% 40% at 95% 20%, rgba(14,203,129,0.08) 0%, transparent 65%)",
         }}
       />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.02fr_0.98fr] gap-12 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1E2329] border border-[#2B3139] mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0ECB81] animate-pulse" />
-              <span className="text-[#848E9C] text-xs font-medium">CMC Strategy Skill · Backtestable Specs</span>
-            </div>
-            <h1
-              className="text-white max-w-3xl mb-6"
-              style={{ fontSize: "clamp(2rem, 4.2vw, 3.35rem)", fontWeight: 800, lineHeight: 1.08 }}
-            >
-              Generate backtestable crypto strategy specs from <span className="text-[#F0B90B]">CMC market data</span>
-            </h1>
-            <p className="text-[#A1A8B3] max-w-2xl mb-8" style={{ fontSize: "1.05rem", lineHeight: 1.75 }}>
-              BestStrat detects market regimes, compares strategy candidates, backtests the selected logic, and exports reusable strategy specs for agents and researchers.
-            </p>
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <LaunchStrategyButton size="large" />
-              <button
-                onClick={() => document.getElementById("output-preview")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-base font-semibold text-white bg-[#1E2329] border border-[#2B3139] hover:bg-[#2B3139] hover:border-[#3B4149] transition-all"
-              >
-                View Skill Output
-              </button>
-            </div>
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl">
-              {[
-                "CMC-powered strategy generation",
-                "Auto strategy candidate selection",
-                "Backtest methodology and benchmark",
-                "JSON, Markdown, CMC Skill, and LLM Skill exports",
-              ].map((item) => (
-                <span key={item} className="flex items-center gap-2 text-sm text-[#848E9C]">
-                  <CheckCircle size={14} className="text-[#0ECB81] shrink-0" />
-                  {item}
-                </span>
-              ))}
-            </div>
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-24">
+        <div>
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#2B3139] bg-[#1E2329] px-3 py-1.5">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#0ECB81]" />
+            <span className="text-xs font-medium text-[#A1A8B3]">CMC-powered strategy research</span>
           </div>
-          <ProductPreviewCard />
+
+          <h1
+            className="max-w-3xl text-white"
+            style={{ fontSize: "clamp(2.25rem, 5vw, 4.25rem)", fontWeight: 820, lineHeight: 1.03, letterSpacing: "-0.045em" }}
+          >
+            Turn market data into <span className="text-[#F0B90B]">backtestable crypto strategies.</span>
+          </h1>
+
+          <p className="mt-6 max-w-2xl text-base leading-8 text-[#A1A8B3] sm:text-lg">
+            BestStrat uses CoinMarketCap-powered market context to detect regimes, rank strategy candidates, backtest selected logic, and export reusable strategy specs.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <PrimaryButton />
+            <SecondaryButton />
+          </div>
+
+          <div className="mt-10 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
+            {[
+              "CMC-powered context",
+              "Backtestable specs",
+              "No wallet connection",
+              "Skill-ready exports",
+            ].map((item) => (
+              <div key={item} className="flex items-center gap-2 text-sm text-[#848E9C]">
+                <CheckCircle2 size={15} className="shrink-0 text-[#0ECB81]" />
+                {item}
+              </div>
+            ))}
+          </div>
         </div>
+
+        <HeroProductPreview />
       </div>
     </section>
   );
 }
 
-// ─── Feature Cards ────────────────────────────────────────────────────
-const features = [
+const workflowSteps = [
   {
-    icon: Database,
-    title: "CMC Data Layer",
-    desc: "Accepts token, timeframe, lookback, risk profile, and strategy focus, then prepares the market context for strategy generation.",
-    accent: "#F0B90B",
+    icon: Target,
+    title: "Choose asset or category",
+    desc: "Start with one token in Builder or scan a full market category in Scanner.",
   },
   {
-    icon: Brain,
-    title: "Regime-Aware Logic",
-    desc: "Classifies market behavior before generating rules, so BestStrat does not apply a momentum strategy to every condition.",
-    accent: "#0ECB81",
+    icon: Radar,
+    title: "Detect the regime",
+    desc: "BestStrat scores trend, momentum, volume, sentiment, volatility, and liquidity.",
   },
   {
     icon: GitCompareArrows,
-    title: "Auto Strategy Selection",
-    desc: "Auto Detect compares candidate strategies using return, drawdown, win rate, alpha, and risk-adjusted score before selecting one.",
-    accent: "#3B82F6",
+    title: "Rank strategy candidates",
+    desc: "Momentum, risk-off, sentiment-divergence, and regime-aware setups are compared.",
   },
   {
-    icon: FileCode,
-    title: "LLM Skill Output",
-    desc: "Exports structured JSON, Markdown, CMC Skill output, and LLM Skill output that an agent can reuse as a repeatable workflow.",
-    accent: "#A855F7",
+    icon: FileCode2,
+    title: "Export the spec",
+    desc: "Copy JSON, Markdown, CMC Skill Output, or LLM Skill Output for reuse.",
   },
 ];
 
-export function FeatureCards() {
+function HowItWorksSection() {
   return (
-    <section className="border-b border-[#2B3139]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-10">
-          <div className="text-[#848E9C] text-xs font-medium uppercase tracking-widest mb-2">Built for strategy research</div>
-          <h2 className="text-white" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
-            From market input to backtestable Skill output
-          </h2>
-          <p className="text-[#848E9C] text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
-            BestStrat is not a live trading bot. It is a strategy-spec engine built to generate testable, explainable,
-            agent-readable trading logic.
-          </p>
+    <section id="how-it-works" className="border-b border-[#2B3139]">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto mb-12 max-w-2xl text-center">
+          <div className="mb-2 text-xs font-medium uppercase tracking-[0.22em] text-[#848E9C]">How it works</div>
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">A simple strategy-generation workflow</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {features.map(({ icon: Icon, title, desc, accent }) => (
-            <div
-              key={title}
-              className="bg-[#161A20] border border-[#2B3139] rounded-2xl p-5 hover:border-[#3B4149] transition-colors group"
-            >
-              <div
-                className="flex items-center justify-center w-10 h-10 rounded-xl mb-4"
-                style={{ background: `${accent}18` }}
-              >
-                <Icon size={18} style={{ color: accent }} />
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {workflowSteps.map(({ icon: Icon, title, desc }, index) => (
+            <div key={title} className="relative rounded-2xl border border-[#2B3139] bg-[#161A20] p-5">
+              <div className="mb-5 flex items-center justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#F0B90B]/20 bg-[#F0B90B]/10">
+                  <Icon size={18} className="text-[#F0B90B]" />
+                </div>
+                <span className="text-sm font-bold text-[#2B3139]">0{index + 1}</span>
               </div>
-              <h3 className="text-white mb-2" style={{ fontSize: "0.95rem", fontWeight: 600 }}>
-                {title}
-              </h3>
-              <p className="text-[#848E9C] text-sm leading-relaxed">{desc}</p>
+              <h3 className="text-base font-semibold text-white">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#848E9C]">{desc}</p>
             </div>
           ))}
         </div>
@@ -249,366 +249,260 @@ export function FeatureCards() {
   );
 }
 
-// ─── How it Works ─────────────────────────────────────────────────────
-const steps = [
+function ToolCard({
+  icon: Icon,
+  title,
+  desc,
+  button,
+  to,
+}: {
+  icon: typeof Sparkles;
+  title: string;
+  desc: string;
+  button: string;
+  to: string;
+}) {
+  const navigate = useNavigate();
+
+  return (
+    <div className="group rounded-[1.5rem] border border-[#2B3139] bg-[#12161C] p-6 transition-all hover:border-[#F0B90B]/35 hover:bg-[#161A20]">
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#F0B90B]/20 bg-[#F0B90B]/10">
+          <Icon size={21} className="text-[#F0B90B]" />
+        </div>
+        <ArrowRight size={18} className="text-[#3B4149] transition-colors group-hover:text-[#F0B90B]" />
+      </div>
+      <h3 className="text-xl font-bold text-white">{title}</h3>
+      <p className="mt-3 min-h-[72px] text-sm leading-7 text-[#848E9C]">{desc}</p>
+      <button
+        onClick={() => navigate(to)}
+        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#2B3139] bg-[#0B0E11] px-4 py-3 text-sm font-semibold text-white transition-all hover:border-[#F0B90B]/35 hover:bg-[#1E2329]"
+      >
+        {button}
+        <ChevronRight size={16} />
+      </button>
+    </div>
+  );
+}
+
+function BuilderScannerSection() {
+  return (
+    <section className="border-b border-[#2B3139]">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <div className="mb-2 text-xs font-medium uppercase tracking-[0.22em] text-[#848E9C]">Two ways to start</div>
+            <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">Build one strategy or scan the market</h2>
+          </div>
+          <p className="max-w-xl text-sm leading-7 text-[#848E9C]">
+            Builder is for focused single-asset research. Scanner is for ranking multiple candidates before choosing what to inspect.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <ToolCard
+            icon={Workflow}
+            title="Strategy Builder"
+            desc="Generate a strategy for one asset using timeframe, lookback, risk level, and strategy focus. Review the logic, chart, ledger, and exports in one workspace."
+            button="Open Builder"
+            to="/builder"
+          />
+          <ToolCard
+            icon={ScanSearch}
+            title="Strategy Scanner"
+            desc="Scan a market category and rank the strongest candidates by return, drawdown, win rate, outperformance, and risk-adjusted score."
+            button="Open Scanner"
+            to="/scanner"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const features = [
   {
-    n: 1,
-    title: "Define the strategy request",
-    desc: "Choose a token, timeframe, lookback window, risk level, and whether BestStrat should auto-select the strategy focus.",
+    icon: Brain,
+    title: "Market Regime Detection",
+    desc: "Scores trend, momentum, volume, volatility, sentiment, and liquidity before selecting a strategy.",
   },
   {
-    n: 2,
-    title: "Read market context",
-    desc: "BestStrat prepares CMC-powered market context and technical signals for the requested asset and timeframe.",
+    icon: BarChart3,
+    title: "Strategy Candidate Ranking",
+    desc: "Compares multiple strategy types and selects the strongest risk-adjusted candidate.",
   },
   {
-    n: 3,
-    title: "Compare strategy candidates",
-    desc: "Momentum, Risk Off, Sentiment Divergence, and Regime Detection candidates are scored against return and risk quality.",
-  },
-  {
-    n: 4,
-    title: "Backtest the selected spec",
-    desc: "The selected strategy is tested with transparent assumptions, benchmark comparison, equity curve, and drawdown curve.",
-  },
-  {
-    n: 5,
-    title: "Export the Skill",
-    desc: "Generate JSON, Markdown, CMC Skill output, and LLM Skill output for demos, review, and agent workflows.",
+    icon: Layers3,
+    title: "Skill-Ready Exports",
+    desc: "Export JSON, Markdown, CMC Skill Output, and LLM Skill Output for research, documentation, and AI workflows.",
   },
 ];
 
-export function HowItWorks() {
+function WhatYouGetSection() {
   return (
-    <section id="how-it-works" className="border-b border-[#2B3139]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <div className="text-[#848E9C] text-xs font-medium uppercase tracking-widest mb-2">The BestStrat workflow</div>
-          <h2 className="text-white" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
-            A repeatable strategy-generation process
-          </h2>
+    <section className="border-b border-[#2B3139]">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto mb-10 max-w-2xl text-center">
+          <div className="mb-2 text-xs font-medium uppercase tracking-[0.22em] text-[#848E9C]">What you get</div>
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">Clear outputs, not vague market opinions</h2>
         </div>
-        <div className="relative">
-          <div className="hidden lg:block absolute top-8 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[#2B3139] to-transparent" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {steps.map((step) => (
-              <div key={step.n} className="flex flex-col items-center text-center lg:items-center">
-                <div className="relative z-10 flex items-center justify-center w-16 h-16 rounded-2xl bg-[#161A20] border border-[#2B3139] mb-4">
-                  <span className="text-[#F0B90B] font-bold" style={{ fontSize: "1.1rem" }}>
-                    {step.n}
-                  </span>
-                </div>
-                <h3 className="text-white mb-2" style={{ fontSize: "0.875rem", fontWeight: 600 }}>
-                  {step.title}
-                </h3>
-                <p className="text-[#848E9C] text-xs leading-relaxed">{step.desc}</p>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {features.map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="rounded-2xl border border-[#2B3139] bg-[#161A20] p-6">
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-[#F0B90B]/20 bg-[#F0B90B]/10">
+                <Icon size={19} className="text-[#F0B90B]" />
               </div>
-            ))}
-          </div>
-        </div>
-        <div className="flex justify-center mt-12">
-          <LaunchStrategyButton size="large" />
+              <h3 className="text-base font-semibold text-white">{title}</h3>
+              <p className="mt-3 text-sm leading-7 text-[#848E9C]">{desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function StrategySkillPositioning() {
-  const items = [
-    { icon: Layers, title: "Quantopian-style", desc: "Strategy rules are explicit, testable, and exportable instead of being presented as a simple buy/sell signal." },
-    { icon: Shield, title: "No execution layer", desc: "BestStrat does not connect wallets or place live trades. The deliverable is the strategy spec and backtest output." },
-    { icon: Activity, title: "Research-first", desc: "Backtests are framed as historical analysis with methodology, assumptions, drawdown, and benchmark context." },
+function OutputPreviewSection() {
+  const outputs = [
+    {
+      icon: Database,
+      title: "JSON strategy spec",
+      desc: "Machine-readable rules, metrics, backtest assumptions, and selected strategy metadata.",
+    },
+    {
+      icon: FileText,
+      title: "Markdown research brief",
+      desc: "Readable strategy summary for docs, reports, product notes, and community updates.",
+    },
+    {
+      icon: FileCode2,
+      title: "CMC Skill Output",
+      desc: "A CMC-compatible package showing market context, strategy selection, and backtest evidence.",
+    },
+    {
+      icon: Sparkles,
+      title: "LLM Skill Output",
+      desc: "An instruction-ready object another AI can use to explain, audit, or convert the strategy.",
+    },
   ];
 
   return (
-    <section className="border-b border-[#2B3139]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-8 items-start">
-          <div>
-            <div className="text-[#848E9C] text-xs font-medium uppercase tracking-widest mb-2">Product positioning</div>
-            <h2 className="text-white mb-4" style={{ fontSize: "1.75rem", fontWeight: 700, lineHeight: 1.2 }}>
-              Designed as a Strategy Skill, not a trading agent
-            </h2>
-            <p className="text-[#848E9C] text-sm leading-relaxed">
-              BestStrat focuses on a clear strategy workflow: market data in, strategy logic out, with a backtestable spec
-              that can be read by humans and reused by LLM agents.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {items.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-[#161A20] border border-[#2B3139] rounded-2xl p-5">
-                <Icon size={18} className="text-[#F0B90B] mb-4" />
-                <h3 className="text-white text-sm font-semibold mb-2">{title}</h3>
-                <p className="text-[#848E9C] text-xs leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
-
-function DeveloperApiSection() {
-  const [copied, setCopied] = useState<string | null>(null);
-  const endpoint = `POST /api/strategy/generate`;
-  const requestBody = `{
-  "symbol": "BTC",
-  "timeframe": "1h",
-  "lookbackDays": 30,
-  "riskLevel": "moderate",
-  "strategyFocus": "auto"
-}`;
-  const fetchExample = `const response = await fetch("https://your-beststrat-api.com/api/strategy/generate", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    symbol: "BTC",
-    timeframe: "1h",
-    lookbackDays: 30,
-    riskLevel: "moderate",
-    strategyFocus: "auto"
-  })
-});
-
-const strategy = await response.json();
-console.log(strategy.llmSkillOutput);`;
-
-  const copyText = (key: string, value: string) => {
-    navigator.clipboard.writeText(value).then(() => {
-      setCopied(key);
-      setTimeout(() => setCopied(null), 1800);
-    });
-  };
-
-  const codeBlock = (key: string, label: string, value: string) => (
-    <div className="bg-[#0B0E11] border border-[#2B3139] rounded-2xl overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[#2B3139] bg-[#101419]">
-        <div className="flex items-center gap-2">
-          <FileCode size={14} className="text-[#F0B90B]" />
-          <span className="text-[#C8CDD6] text-xs font-medium">{label}</span>
-        </div>
-        <button
-          onClick={() => copyText(key, value)}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-[#2B3139] text-[#848E9C] hover:bg-[#3B4149] hover:text-white transition-colors"
-        >
-          {copied === key ? <Check size={11} className="text-[#0ECB81]" /> : <Copy size={11} />}
-          {copied === key ? "Copied" : "Copy"}
-        </button>
-      </div>
-      <pre className="p-4 text-xs text-[#C8CDD6] leading-relaxed overflow-x-auto">
-        <code>{value}</code>
-      </pre>
-    </div>
-  );
-
-  return (
-    <section id="api" className="border-b border-[#2B3139]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] gap-8 items-start">
-          <div>
-            <div className="text-[#848E9C] text-xs font-medium uppercase tracking-widest mb-2">Use it as a Skill or API</div>
-            <h2 className="text-white mb-4" style={{ fontSize: "1.75rem", fontWeight: 700, lineHeight: 1.2 }}>
-              Connect BestStrat to another product
-            </h2>
-            <p className="text-[#848E9C] text-sm leading-relaxed mb-6">
-              BestStrat can be used from the web app, copied as an LLM Skill output, or called by another backend as a strategy-generation endpoint.
-              The external product sends a strategy request and receives regime, selected strategy, rules, backtest metrics, and Skill-ready output.
-            </p>
-            <div className="space-y-3">
-              {[
-                "Keep the CMC API key on the BestStrat backend, not inside another frontend.",
-                "Call the generation endpoint with symbol, timeframe, lookback, risk level, and strategy focus.",
-                "Use llmSkillOutput or jsonOutput inside an agent, dashboard, research tool, or trading journal.",
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-3 text-sm text-[#A1A8B3]">
-                  <CheckCircle size={15} className="text-[#0ECB81] shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div className="bg-[#161A20] border border-[#2B3139] rounded-2xl p-4">
-                <div className="text-[#848E9C] text-xs uppercase tracking-wider mb-1">Endpoint</div>
-                <div className="text-white text-sm font-semibold">/api/strategy/generate</div>
-              </div>
-              <div className="bg-[#161A20] border border-[#2B3139] rounded-2xl p-4">
-                <div className="text-[#848E9C] text-xs uppercase tracking-wider mb-1">Method</div>
-                <div className="text-[#F0B90B] text-sm font-semibold">POST JSON</div>
-              </div>
-              <div className="bg-[#161A20] border border-[#2B3139] rounded-2xl p-4">
-                <div className="text-[#848E9C] text-xs uppercase tracking-wider mb-1">Output</div>
-                <div className="text-[#0ECB81] text-sm font-semibold">Skill-ready spec</div>
-              </div>
-            </div>
-            {codeBlock("endpoint", "Endpoint", endpoint)}
-            {codeBlock("request", "Request body", requestBody)}
-            {codeBlock("fetch", "Example integration", fetchExample)}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Output Preview ────────────────────────────────────────────────────
-const sampleJson = `{
-  "skill": "beststrat.generate_strategy",
-  "input": {
-    "symbol": "BTC",
-    "timeframe": "1h",
-    "lookbackDays": 30,
-    "riskLevel": "moderate",
-    "strategyFocus": "auto"
-  },
-  "autoSelection": {
-    "selected": "Guarded Momentum Strategy",
-    "reason": "Highest risk-adjusted candidate score"
-  },
-  "strategySpec": {
-    "regime": "Momentum",
-    "entryRules": ["price > EMA20", "RSI between 50 and 70"],
-    "exitRules": ["price loses EMA20", "momentum weakens"],
-    "riskRules": ["reject high-volatility/no-trend setups"],
-    "invalidationRules": ["regime changes to Risk Off"]
-  }
-}`;
-
-export function OutputPreview() {
-  const [copied, setCopied] = useState(false);
-
-  const copyJson = () => {
-    navigator.clipboard.writeText(sampleJson).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
-
-  return (
     <section id="output-preview" className="border-b border-[#2B3139]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-10">
-          <div className="text-[#848E9C] text-xs font-medium uppercase tracking-widest mb-2">Exportable output</div>
-          <h2 className="text-white" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
-            What BestStrat produces
-          </h2>
-          <p className="text-[#848E9C] text-sm mt-2 max-w-2xl mx-auto leading-relaxed">
-            A structured, backtestable strategy spec with rationale, strategy candidate selection, methodology, and agent-readable exports.
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mb-10 grid grid-cols-1 gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <div className="mb-2 text-xs font-medium uppercase tracking-[0.22em] text-[#848E9C]">Skill outputs</div>
+            <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">Reusable strategy artifacts</h2>
+          </div>
+          <p className="text-sm leading-7 text-[#848E9C]">
+            BestStrat packages the strategy into formats that work for users, developers, documentation, and AI-agent workflows without adding an execution layer.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-          <div className="flex flex-col gap-4">
-            <div className="bg-[#161A20] border border-[#F0B90B]/30 rounded-2xl p-5">
-              <div className="text-[#848E9C] text-xs uppercase tracking-wider mb-1">LLM Skill Invocation</div>
-              <div className="text-[#F0B90B] font-bold" style={{ fontSize: "1.15rem" }}>
-                beststrat.generate_strategy
-              </div>
-              <p className="text-[#848E9C] text-sm mt-2">
-                A repeatable workflow for turning market context into strategy rules, backtest output, and exportable specs.
-              </p>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {outputs.map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="rounded-2xl border border-[#2B3139] bg-[#12161C] p-5">
+              <Icon size={18} className="mb-4 text-[#F0B90B]" />
+              <h3 className="text-sm font-semibold text-white">{title}</h3>
+              <p className="mt-2 text-xs leading-6 text-[#848E9C]">{desc}</p>
             </div>
-
-            <div className="bg-[#161A20] border border-[#2B3139] rounded-2xl p-5">
-              <div className="text-[#848E9C] text-xs uppercase tracking-wider mb-1">Selected Strategy</div>
-              <div className="text-white font-semibold" style={{ fontSize: "1.1rem" }}>Guarded Momentum Strategy</div>
-              <p className="text-[#848E9C] text-sm mt-1.5">
-                Chosen after comparing momentum, risk-off, sentiment-divergence, and regime-detection candidates.
-              </p>
-            </div>
-
-            <div className="bg-[#161A20] border border-[#0ECB81]/20 rounded-2xl p-5">
-              <div className="flex items-center gap-1.5 mb-3">
-                <span className="w-2 h-2 rounded-full bg-[#0ECB81]" />
-                <span className="text-white text-sm font-semibold">Generated rules</span>
-              </div>
-              <ul className="space-y-1.5">
-                {["Entry rules", "Exit rules", "Risk rules", "Invalidation rules", "No-trade conditions"].map((rule) => (
-                  <li key={rule} className="flex items-center gap-2 text-[#848E9C] text-sm">
-                    <ChevronRight size={12} className="text-[#0ECB81]" />
-                    {rule}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="grid grid-cols-3 gap-3">
-              <div className="bg-[#161A20] border border-[#2B3139] rounded-xl p-4 text-center">
-                <div className="text-[#848E9C] text-xs uppercase tracking-wider mb-1">Backtest</div>
-                <div className="text-[#0ECB81] font-bold" style={{ fontSize: "1.15rem" }}>Ready</div>
-              </div>
-              <div className="bg-[#161A20] border border-[#2B3139] rounded-xl p-4 text-center">
-                <div className="text-[#848E9C] text-xs uppercase tracking-wider mb-1">Exports</div>
-                <div className="text-[#F0B90B] font-bold" style={{ fontSize: "1.15rem" }}>4</div>
-              </div>
-              <div className="bg-[#161A20] border border-[#2B3139] rounded-xl p-4 text-center">
-                <div className="text-[#848E9C] text-xs uppercase tracking-wider mb-1">Wallets</div>
-                <div className="text-[#F6465D] font-bold" style={{ fontSize: "1.15rem" }}>None</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-[#161A20] border border-[#2B3139] rounded-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#2B3139] bg-[#0B0E11]">
-              <div className="flex items-center gap-2">
-                <FileCode size={14} className="text-[#F0B90B]" />
-                <span className="text-[#848E9C] text-xs font-medium">LLM Skill Output Preview</span>
-              </div>
-              <button
-                onClick={copyJson}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-[#2B3139] text-[#848E9C] hover:bg-[#3B4149] hover:text-white transition-colors"
-              >
-                {copied ? <Check size={11} className="text-[#0ECB81]" /> : <Copy size={11} />}
-                {copied ? "Copied!" : "Copy"}
-              </button>
-            </div>
-            <pre className="p-5 text-xs text-[#C8CDD6] leading-relaxed overflow-x-auto max-h-[420px]">
-              <code>{sampleJson}</code>
-            </pre>
-            <div className="px-4 py-3 border-t border-[#2B3139] bg-[#0B0E11]">
-              <p className="text-[#4B5563] text-xs">
-                Exportable as JSON Strategy Spec · Markdown Report · CMC Skill Output · LLM Skill Output
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
 
-        <div className="flex justify-center mt-12">
-          <LaunchStrategyButton size="large" />
+        <div className="mt-6 rounded-[1.5rem] border border-[#2B3139] bg-[#0B0E11] p-5 sm:p-6">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-[#848E9C]">Compact output preview</div>
+              <h3 className="mt-2 text-xl font-bold text-white">From strategy logic to agent-readable Skill</h3>
+              <p className="mt-3 text-sm leading-7 text-[#848E9C]">
+                The export includes detected regime, decision rationale, entry rules, exit rules, risk controls, invalidation rules, backtest metrics, and the research-only disclaimer.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-[#2B3139] bg-[#12161C] p-4 font-mono text-xs leading-6 text-[#C8CDD6]">
+              <div className="text-[#848E9C]">beststrat.generate_strategy</div>
+              <div className="mt-2 text-[#F0B90B]">strategy: Capital Protection Regime</div>
+              <div className="text-[#0ECB81]">backtest: return 45.8% · drawdown 2.4%</div>
+              <div className="text-[#C8CDD6]">exports: JSON · Markdown · CMC Skill · LLM Skill</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-// ─── Landing Page ─────────────────────────────────────────────────────
+function SafetySection() {
+  return (
+    <section className="border-b border-[#2B3139]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="rounded-[1.5rem] border border-[#F0B90B]/20 bg-[#F0B90B]/[0.04] p-6 sm:p-8">
+          <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+            <div className="flex gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#F0B90B]/20 bg-[#F0B90B]/10">
+                <ShieldCheck size={21} className="text-[#F0B90B]" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-white">Research-only by design.</h2>
+                <p className="mt-2 max-w-3xl text-sm leading-7 text-[#A1A8B3]">
+                  BestStrat does not connect wallets, place trades, collect private keys, or present historical backtests as guaranteed returns.
+                </p>
+              </div>
+            </div>
+            <SecondaryButton to="/scanner">Explore Scanner</SecondaryButton>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  const navigate = useNavigate();
+
+  return (
+    <footer className="py-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-[#F0B90B]/25 bg-[#F0B90B]/10">
+              <img src="/assets/beststrat-logo-mark.png" alt="BestStrat logo" className="h-9 w-9 object-contain" draggable={false} />
+            </div>
+            <div>
+              <div className="font-semibold text-white">BestStrat</div>
+              <div className="text-xs text-[#848E9C]">CMC-powered strategy research</div>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2 text-sm text-[#848E9C]">
+            <button onClick={() => navigate("/builder")} className="rounded-lg px-3 py-1.5 hover:bg-[#1E2329] hover:text-white">
+              Strategy Builder
+            </button>
+            <button onClick={() => navigate("/scanner")} className="rounded-lg px-3 py-1.5 hover:bg-[#1E2329] hover:text-white">
+              Scanner
+            </button>
+            <button onClick={() => document.getElementById("output-preview")?.scrollIntoView({ behavior: "smooth" })} className="rounded-lg px-3 py-1.5 hover:bg-[#1E2329] hover:text-white">
+              Skill Outputs
+            </button>
+          </div>
+        </div>
+        <p className="max-w-4xl text-xs leading-6 text-[#4B5563]">
+          BestStrat generates research strategy specifications only. It is not financial advice, does not execute trades, and does not predict future returns. Backtest results are historical simulations based on the selected market window and assumptions.
+        </p>
+      </div>
+    </footer>
+  );
+}
+
 export function LandingPage() {
   return (
-    <main>
+    <main className="overflow-hidden">
       <HeroSection />
-      <FeatureCards />
-      <HowItWorks />
-      <StrategySkillPositioning />
-      <DeveloperApiSection />
-      <OutputPreview />
-      <footer className="border-t border-[#2B3139] py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-[#4B5563] text-sm leading-relaxed max-w-3xl mx-auto">
-            BestStrat generates strategy specifications for research and demonstration purposes only.
-            It is not financial advice, does not execute trades, does not connect to any wallet, and does not predict future returns.
-            Backtest results are historical simulations based on the selected market window and assumptions.
-          </p>
-          <p className="text-[#2B3139] text-xs mt-4">
-            BestStrat · CMC Strategy Skill Builder
-          </p>
-        </div>
-      </footer>
+      <HowItWorksSection />
+      <BuilderScannerSection />
+      <WhatYouGetSection />
+      <OutputPreviewSection />
+      <SafetySection />
+      <Footer />
     </main>
   );
 }

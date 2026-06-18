@@ -9,10 +9,9 @@ interface AppHeaderProps {
 
 const navLinks = [
   { label: "How it Works", href: "/#how-it-works" },
-  { label: "Strategy Builder", href: "/builder" },
-  { label: "Strategy Scanner", href: "/scanner" },
-  { label: "API", href: "/#api" },
-  { label: "Skill Output", href: "/#output-preview" },
+  { label: "Builder", href: "/builder" },
+  { label: "Scanner", href: "/scanner" },
+  { label: "Skill Outputs", href: "/#output-preview" },
 ];
 
 export function AppHeader({ isBuilder, isScanner }: AppHeaderProps) {
@@ -37,66 +36,74 @@ export function AppHeader({ isBuilder, isScanner }: AppHeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#2B3139] bg-[#0B0E11]/95 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#F0B90B]/10 border border-[#F0B90B]/25 shadow-[0_0_20px_rgba(240,185,11,0.08)] overflow-hidden">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between gap-4">
+          <Link to="/" className="flex min-w-0 items-center gap-3 transition-opacity hover:opacity-90">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#F0B90B]/25 bg-[#F0B90B]/10 shadow-[0_0_20px_rgba(240,185,11,0.08)]">
               <img
                 src="/assets/beststrat-logo-mark.png"
                 alt="BestStrat logo"
-                className="w-9 h-9 object-contain"
+                className="h-9 w-9 object-contain"
                 draggable={false}
               />
             </div>
-            <div>
-              <div className="text-white font-semibold tracking-tight leading-none">BestStrat</div>
-              <div className="text-[#848E9C] text-xs leading-none mt-0.5">CMC Strategy Skill Builder</div>
+            <div className="min-w-0">
+              <div className="truncate font-semibold leading-none tracking-tight text-white">BestStrat</div>
+              <div className="mt-0.5 truncate text-xs leading-none text-[#848E9C]">CMC-powered strategy research</div>
             </div>
           </Link>
 
-          {/* Badge + Desktop Nav */}
-          <div className="flex items-center gap-4">
-            <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#F0B90B]/10 text-[#F0B90B] border border-[#F0B90B]/30">
-              CMC Strategy Skill
-            </span>
-            <nav className="hidden md:flex items-center gap-1">
+          <div className="flex items-center gap-3">
+            <nav className="hidden items-center gap-1 md:flex">
               {navLinks.map((link) => (
                 <button
                   key={link.label}
                   onClick={() => handleAnchor(link.href)}
-                  className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
+                  className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
                     (isBuilder && link.href === "/builder") || (isScanner && link.href === "/scanner")
                       ? "bg-[#F0B90B]/10 text-[#F0B90B]"
-                      : "text-[#848E9C] hover:text-white hover:bg-[#1E2329]"
+                      : "text-[#848E9C] hover:bg-[#1E2329] hover:text-white"
                   }`}
                 >
                   {link.label}
                 </button>
               ))}
             </nav>
-            {/* Mobile menu toggle */}
+
+            <button
+              onClick={() => handleAnchor("/builder")}
+              className="hidden rounded-lg bg-[#F0B90B] px-4 py-2 text-sm font-semibold text-[#0B0E11] transition-colors hover:bg-[#F0B90B]/90 lg:inline-flex"
+            >
+              Start Builder
+            </button>
+
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden p-1.5 rounded-lg text-[#848E9C] hover:text-white hover:bg-[#1E2329] transition-colors"
+              className="rounded-lg p-1.5 text-[#848E9C] transition-colors hover:bg-[#1E2329] hover:text-white md:hidden"
+              aria-label="Toggle navigation menu"
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Nav Dropdown */}
         {menuOpen && (
-          <div className="md:hidden border-t border-[#2B3139] py-3 flex flex-col gap-1">
+          <div className="flex flex-col gap-1 border-t border-[#2B3139] py-3 md:hidden">
             {navLinks.map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleAnchor(link.href)}
-                className="text-left px-3 py-2 rounded-lg text-sm text-[#848E9C] hover:text-white hover:bg-[#1E2329] transition-colors"
+                className="rounded-lg px-3 py-2 text-left text-sm text-[#848E9C] transition-colors hover:bg-[#1E2329] hover:text-white"
               >
                 {link.label}
               </button>
             ))}
+            <button
+              onClick={() => handleAnchor("/builder")}
+              className="mt-2 rounded-lg bg-[#F0B90B] px-3 py-2 text-left text-sm font-semibold text-[#0B0E11]"
+            >
+              Start Builder
+            </button>
           </div>
         )}
       </div>
