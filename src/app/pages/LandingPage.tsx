@@ -68,8 +68,7 @@ function HeroProductPreview() {
 
   return (
     <div className="relative mx-auto w-full max-w-[560px]">
-      <div className="absolute -inset-5 rounded-[2rem] bg-[#F0B90B]/10 blur-3xl" />
-      <div className="relative overflow-hidden rounded-[1.75rem] border border-[#2B3139] bg-[#12161C] shadow-2xl">
+      <div className="relative overflow-hidden rounded-[1.75rem] border border-[#2B3139] bg-[#12161C] shadow-xl">
         <div className="flex items-center justify-between border-b border-[#2B3139] bg-[#0B0E11] px-5 py-4">
           <div>
             <div className="text-sm font-semibold text-white">BestStrat Strategy Preview</div>
@@ -123,7 +122,7 @@ function HeroProductPreview() {
                       <span className="font-semibold text-[#F0B90B]">{score}</span>
                     </div>
                     <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#2B3139]">
-                      <div className="h-full rounded-full bg-gradient-to-r from-[#F0B90B] to-[#0ECB81]" style={{ width }} />
+                      <div className="h-full rounded-full bg-[#F0B90B]" style={{ width }} />
                     </div>
                   </div>
                 </div>
@@ -146,18 +145,11 @@ function HeroProductPreview() {
 
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden border-b border-[#2B3139]">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 48% at 50% -10%, rgba(240,185,11,0.14) 0%, transparent 70%), radial-gradient(ellipse 55% 40% at 95% 20%, rgba(14,203,129,0.08) 0%, transparent 65%)",
-        }}
-      />
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-24">
+    <section className="border-b border-[#2B3139] bg-[#0B0E11]">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-24">
         <div>
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#2B3139] bg-[#1E2329] px-3 py-1.5">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#0ECB81]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#0ECB81]" />
             <span className="text-xs font-medium text-[#A1A8B3]">CMC-powered strategy research</span>
           </div>
 
@@ -495,7 +487,7 @@ function Footer() {
 
 export function LandingPage() {
   return (
-    <main className="overflow-hidden">
+    <main className="overflow-hidden bg-[#0B0E11]">
       <HeroSection />
       <HowItWorksSection />
       <BuilderScannerSection />

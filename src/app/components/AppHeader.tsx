@@ -35,7 +35,7 @@ export function AppHeader({ isBuilder, isScanner }: AppHeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#2B3139] bg-[#0B0E11]/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-[#2B3139] bg-[#0B0E11]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           <Link to="/" className="flex min-w-0 items-center gap-3 transition-opacity hover:opacity-90">
